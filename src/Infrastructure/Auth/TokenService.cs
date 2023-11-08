@@ -1,10 +1,9 @@
-using System.Globalization;
 using System.Security.Claims;
+using Core.Entities;
 using FastEndpoints.Security;
 using Microsoft.Extensions.Options;
-using Server.Domain.Entities;
 
-namespace Server.Infrastructure.Auth;
+namespace Infrastructure.Auth;
 
 public class TokenService
 {

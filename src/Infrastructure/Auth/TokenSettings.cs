@@ -1,4 +1,4 @@
-namespace Server;
+namespace Infrastructure.Auth;
 
 public class TokenSettings
 {

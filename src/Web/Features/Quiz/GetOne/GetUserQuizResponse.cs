@@ -1,6 +1,4 @@
-using FastEndpoints;
-using Server.Application.Services.Quiz.Create;
-using Server.Application.Services.Quiz.GetAll;
+namespace Web.Features.Quiz.GetOne;
 
 public class GetUserQuizResponse
 {

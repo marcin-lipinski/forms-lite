@@ -1,6 +1,6 @@
 using FastEndpoints.Security;
-using Server;
-using Server.Infrastructure.Persistence;
+using Infrastructure.Auth;
+using Infrastructure.Persistence;
 
 namespace Infrastructure;
 
@@ -11,6 +11,8 @@ public static class Extensions
         services.Configure<TokenSettings>(config.GetSection("Token"));
         services.Configure<MongoDbSettings>(config.GetSection("MongoDatabase"));
         
+        services.AddSingleton(typeof(IMongoService<>), typeof(MongoDbService<>));
+        //services.AddSingleton<IMongoService<Quiz>, MongoDbService<Quiz>>();
         services.AddJWTBearerAuth(config.GetSection("Token").Get<TokenSettings>().Key);
     }
 }

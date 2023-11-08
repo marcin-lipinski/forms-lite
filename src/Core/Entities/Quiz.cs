@@ -1,9 +1,9 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Server.Domain.Entities;
+namespace Core.Entities;
 
-public class Quiz
+public class Quiz : IMongoEntity
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]

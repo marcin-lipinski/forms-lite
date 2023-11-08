@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Features": {
+    "Web": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

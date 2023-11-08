@@ -1,16 +1,16 @@
 using FastEndpoints;
 
-namespace Server.Application.Services.Quiz.Create;
+namespace Web.Features.Quiz.Create;
 
-public class CreateQuizMapper : Mapper<CreateQuizRequest, CreateQuizResponse, Domain.Entities.Quiz>
+public class CreateQuizMapper : Mapper<CreateQuizRequest, CreateQuizResponse, Core.Entities.Quiz>
 {
-    public override Domain.Entities.Quiz ToEntity(CreateQuizRequest r)
+    public override Core.Entities.Quiz ToEntity(CreateQuizRequest r)
     {
-        return base.ToEntity(r);
+        return new Core.Entities.Quiz{AuthorId = r.Info};
     }
 
-    public override CreateQuizResponse FromEntity(Domain.Entities.Quiz e)
+    public override CreateQuizResponse FromEntity(Core.Entities.Quiz e)
     {
-        return base.FromEntity(e);
+        return new CreateQuizResponse();
     }
 }

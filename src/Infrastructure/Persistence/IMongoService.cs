@@ -1,6 +1,6 @@
-namespace Server.Application.Services;
+namespace Infrastructure.Persistence;
 
-public interface IService<T>
+public interface IMongoService<T>
 {
     Task<List<T>> GetAllAsync();
 

@@ -4,16 +4,15 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <OutputType>Module</OutputType>
+        <OutputType>Library</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="Properties\launchSettings.json" />
+      <PackageReference Include="MongoDB.Driver" Version="2.22.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MongoDB.Driver" Version="2.22.0" />
+      <Folder Include="Repositories\" />
     </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
-using Server.Domain.Entities;
+using Core.Entities;
 
-namespace Server.Infrastructure.Persistence;
+namespace Infrastructure.Persistence;
 
 public class MongoDbSettings
 {
@@ -18,7 +18,7 @@ public class MongoDbSettings
         };
 }
 
-public abstract class MongoCollections
+public class MongoCollections
 {
     public string User { get; set; } = null!;
     public string Quiz { get; set; } = null!;

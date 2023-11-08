@@ -1,4 +1,4 @@
-namespace Server.Domain.Entities;
+namespace Core.Entities;
 
 public class QuestionClosed : Question
 {

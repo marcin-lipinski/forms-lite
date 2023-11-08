@@ -1,4 +1,4 @@
-namespace Server.Application.Services.Quiz.GetAll;
+namespace Web.Features.Quiz.GetAll;
 
 public class GetUserQuizzesResponse
 {

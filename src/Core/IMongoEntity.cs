@@ -1,4 +1,4 @@
-namespace Server.Domain;
+namespace Core;
 
 public interface IMongoEntity
 {

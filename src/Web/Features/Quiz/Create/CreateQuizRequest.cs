@@ -1,4 +1,4 @@
-namespace Server.Application.Services.Quiz.Create;
+namespace Web.Features.Quiz.Create;
 
 public class CreateQuizRequest
 {

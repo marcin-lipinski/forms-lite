@@ -1,11 +1,10 @@
+using Core;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using Server.Application.Services;
-using Server.Domain;
 
-namespace Server.Infrastructure.Persistence;
+namespace Infrastructure.Persistence;
 
-public class MongoDbService<T> : IService<T> where T : IMongoEntity
+public class MongoDbService<T> : IMongoService<T> where T : IMongoEntity
 {
     private readonly IMongoCollection<T> _collection;
 
@@ -13,7 +12,7 @@ public class MongoDbService<T> : IService<T> where T : IMongoEntity
     {
         var mongoClient = new MongoClient(dbSettings.Value.ConnectionString);
         var mongoDb = mongoClient.GetDatabase(dbSettings.Value.DatabaseName);
-        _collection = mongoDb.GetCollection<T>(dbSettings.Value.CollectionName[nameof(T)]);
+        _collection = mongoDb.GetCollection<T>(dbSettings.Value.CollectionName[typeof(T).Name]);
     }
 
     public async Task<List<T>> GetAllAsync() =>
