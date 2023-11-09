@@ -2,10 +2,11 @@ using System.Security.Claims;
 using Core.Entities;
 using FastEndpoints.Security;
 using Microsoft.Extensions.Options;
+using Services.Security;
 
 namespace Infrastructure.Auth;
 
-public class TokenService
+public class TokenService : ITokenService
 {
     private readonly IOptions<TokenSettings> _tokenSettings;
 

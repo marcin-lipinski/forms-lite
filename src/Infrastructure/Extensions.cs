@@ -17,6 +17,7 @@ public static class Extensions
         services.AddSingleton(typeof(IRepository<>), typeof(MongoRepository<>));
         //services.AddSingleton<IMongoService<Quiz>, MongoDbService<Quiz>>();
         services.AddJWTBearerAuth(config.GetSection("TokenSettings").Get<TokenSettings>().Key);
+        services.AddSecurity();
     }
 
     public static void UseInfrastructure(this WebApplication app, IConfiguration config)

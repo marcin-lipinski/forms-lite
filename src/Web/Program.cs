@@ -1,6 +1,7 @@
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Infrastructure;
+using Web.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,13 +15,13 @@ builder.Services.AddFastEndpoints().SwaggerDocument();;
 
 builder.Services.AddAuthorization();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddExceptionHandler();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    //app.UseSwaggerGen();
     app.UseSwaggerUI();
 }
 
@@ -33,5 +34,6 @@ app.UseAuthorization();
 app.UseInfrastructure(app.Configuration);
 
 app.MapControllers();
+app.UseExceptionHandler();
 
 app.Run();

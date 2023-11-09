@@ -1,8 +1,8 @@
 namespace Core.Entities;
 
-public class QuestionOpen
+public class QuestionOpen : Question
 {
-    public QuestionType QuestionType = QuestionType.Open;
-    public List<string> Answers { get; set; } = new List<string>();
+    public override QuestionType QuestionType => QuestionType.Open;
+    public List<string>? Answers { get; set; } = new List<string>();
     public int CorrectAnswer { get; set; }
 }

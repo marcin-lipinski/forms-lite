@@ -7,7 +7,7 @@ public class UserLoginValidator : Validator<UserLoginRequest>
 {
     public UserLoginValidator()
     {
-        RuleFor(request => request.Login)
+        RuleFor(request => request.Username)
             .NotEmpty().WithMessage("Login cannot be empty")
             .NotNull().WithMessage("Login cannot be empty");
         

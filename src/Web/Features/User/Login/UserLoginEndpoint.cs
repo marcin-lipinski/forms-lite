@@ -5,7 +5,7 @@ using Services.Security;
 
 namespace Web.Features.User.Login;
 
-public class UserLoginEndpoint : Endpoint<UserLoginRequest, UserLoginResponse, UserLoginMapper>
+public class UserLoginEndpoint : Endpoint<UserLoginRequest, UserLoginResponse>
 {
     public IRepository<Core.Entities.User> UserRepository { get; set; } = null!;
     public IPasswordManager PasswordManager { get; set; } = null!;
@@ -20,14 +20,14 @@ public class UserLoginEndpoint : Endpoint<UserLoginRequest, UserLoginResponse, U
     public override async Task HandleAsync(UserLoginRequest request, CancellationToken cancellationToken)
     {
         var users = await UserRepository.GetAllAsync();
-        var user = users.SingleOrDefault(u => u.Username.Equals(request.Login));
+        var user = users.SingleOrDefault(u => u.Username.Equals(request.Username));
 
         if (user is null) throw new UnauthorizedException("Failed to log in. Check the entered data.");
         if (!PasswordManager.VerifyPassword(user, user.PasswordHashed, request.Password)) throw new UnauthorizedException("Failed to log in. Check the entered data.");
 
         await SendAsync(new UserLoginResponse
         {
-            Login = request.Login,
+            Username = user.Username,
             Token = TokenService.CreateToken(user)
         }, cancellation: cancellationToken);
     }

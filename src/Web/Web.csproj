@@ -28,7 +28,6 @@
     <ItemGroup>
       <Folder Include="Features\Session\Create\" />
       <Folder Include="Features\User\Current\" />
-      <Folder Include="Features\User\Register\" />
     </ItemGroup>
 
 </Project>
