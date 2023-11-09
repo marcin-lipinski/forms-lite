@@ -26,10 +26,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseFastEndpoints().UseSwaggerGen();;
+app.UseFastEndpoints().UseSwaggerGen();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseInfrastructure(app.Configuration);
 
 app.MapControllers();
 

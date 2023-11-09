@@ -1,6 +1,6 @@
-namespace Infrastructure.Persistence;
+namespace Core.DataAccess;
 
-public interface IMongoService<T>
+public interface IRepository<T>
 {
     Task<List<T>> GetAllAsync();
 

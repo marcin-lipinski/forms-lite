@@ -1,14 +1,15 @@
 using Core;
+using Core.DataAccess;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace Infrastructure.Persistence;
 
-public class MongoDbService<T> : IMongoService<T> where T : IMongoEntity
+public class MongoRepository<T> : IRepository<T> where T : IMongoEntity
 {
     private readonly IMongoCollection<T> _collection;
 
-    public MongoDbService(IOptions<MongoDbSettings> dbSettings)
+    public MongoRepository(IOptions<MongoSettings> dbSettings)
     {
         var mongoClient = new MongoClient(dbSettings.Value.ConnectionString);
         var mongoDb = mongoClient.GetDatabase(dbSettings.Value.DatabaseName);
