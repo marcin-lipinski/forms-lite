@@ -10,6 +10,7 @@ public class GetUserQuizzesResponse
 public class QuizDto
 {
     public string Id { get; init; } = null!;
+    public string Title { get; set; } = null!;
     public List<QuestionDto> Questions { get; set; } = new List<QuestionDto>();
 }
 

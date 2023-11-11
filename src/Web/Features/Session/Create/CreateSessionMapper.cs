@@ -4,7 +4,7 @@ using Services.Security;
 
 namespace Web.Features.Quiz.Create;
 
-public class CreateQuizMapper : Mapper<CreateQuizRequest, CreateQuizResponse, Core.Entities.Quiz>
+public class CreateSessionMapper : Mapper<CreateQuizRequest, CreateQuizResponse, Core.Entities.Quiz>
 {
     public override Core.Entities.Quiz ToEntity(CreateQuizRequest request)
     {
@@ -15,7 +15,7 @@ public class CreateQuizMapper : Mapper<CreateQuizRequest, CreateQuizResponse, Co
             Title = request.Quiz.Title,
             Version = 0,
             Questions = request.Quiz.Questions.Select(question => question.QuestionType == QuestionType.Closed 
-                ? new QuestionClosed
+                ? (Question)new QuestionClosed
                 {
                     ContentText = question.ContentText,
                     QuestionNumber = question.QuestionNumber,

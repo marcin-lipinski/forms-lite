@@ -27,6 +27,10 @@
 
     <ItemGroup>
       <Folder Include="Features\Session\Create\" />
+      <Folder Include="Features\Session\Finish\" />
+      <Folder Include="Features\Session\GetAll\" />
+      <Folder Include="Features\Session\Partake\" />
+      <Folder Include="Features\Session\PartakeResult\" />
       <Folder Include="Features\User\Current\" />
     </ItemGroup>
 

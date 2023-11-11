@@ -14,6 +14,7 @@ public class GetUserQuizzesMapper : ResponseMapper<GetUserQuizzesResponse, List<
             Quizzes = entities.Select(entity => new QuizDto
                 {
                     Id = entity.Id,
+                    Title = entity.Title,
                     Questions = entity.Questions.Select(question => new QuestionDto
                     {
                         ContentText = question.ContentText,

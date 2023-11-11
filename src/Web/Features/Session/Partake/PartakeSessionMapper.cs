@@ -3,16 +3,16 @@ using Core.Entities;
 using FastEndpoints;
 using Web.Features.Quiz.GetAll;
 
-namespace Web.Features.Quiz.GetOne;
+namespace Web.Features.Session.Partake;
 
-public class GetUserQuizMapper : ResponseMapper<GetUserQuizResponse, Core.Entities.Quiz>
+public class PartakeSessionMapper : Mapper<PartakeSessionRequest, PartakeSessionResponse, Core.Entities.Quiz>
 {
-    public override GetUserQuizResponse FromEntity(Core.Entities.Quiz entity)
+    public override PartakeSessionResponse FromEntity(Core.Entities.Quiz entity)
     {
         var filesService = Resolve<IFilesService>();
-        return new GetUserQuizResponse
+        return new PartakeSessionResponse
         {
-            Quiz = new QuizDto 
+            Quiz = new QuizDto
             {
                 Id = entity.Id,
                 Title = entity.Title,
