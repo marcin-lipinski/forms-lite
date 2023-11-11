@@ -1,8 +1,8 @@
-using Core.DataAccess;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Infrastructure;
 using Infrastructure.Persistence.Files;
+using Services.Interfaces;
 using Web.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);

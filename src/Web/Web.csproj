@@ -22,16 +22,16 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-      <ProjectReference Include="..\Services\Services.csproj" />
+      <ProjectReference Include="..\Application\Application.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Session\Create\" />
-      <Folder Include="Features\Session\Finish\" />
-      <Folder Include="Features\Session\GetAll\" />
-      <Folder Include="Features\Session\Partake\" />
-      <Folder Include="Features\Session\PartakeResult\" />
-      <Folder Include="Features\User\Current\" />
+      <Folder Include="Handlers\SessionHandlers\Create\" />
+      <Folder Include="Handlers\SessionHandlers\Finish\" />
+      <Folder Include="Handlers\SessionHandlers\GetAll\" />
+      <Folder Include="Handlers\SessionHandlers\Partake\" />
+      <Folder Include="Handlers\SessionHandlers\PartakeResult\" />
+      <Folder Include="Handlers\UserHandlers\Current\" />
     </ItemGroup>
 
 </Project>

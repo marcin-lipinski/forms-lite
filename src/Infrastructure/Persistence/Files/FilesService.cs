@@ -1,6 +1,8 @@
-using Core.DataAccess;
 using Core.Entities;
+using Core.Entities.Image;
+using Infrastructure.Settings;
 using Microsoft.Extensions.Options;
+using Services.Interfaces;
 
 namespace Infrastructure.Persistence.Files;
 
@@ -15,13 +17,13 @@ public class FilesService : IFilesService
         _filesOptions = filesOptions;
     }
     
-    public async Task<Image> SaveImage(string quizTitle, int questionNr, IFormFile file)
+    public async Task<ImageMetadata> SaveImage(string quizTitle, int questionNr, IFormFile file)
     {
         var imageName = CreateImageName(quizTitle + questionNr, file);
         var dirPath = Path.Combine(_filesOptions.Value.ImagesRoute(), quizTitle);
         if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
         
-        var image = new Image
+        var image = new ImageMetadata
         {
             FullPath = Path.Combine(dirPath, imageName),
             RelativePath = Path.Combine("/", _filesOptions.Value.ImagesDirectory, quizTitle, imageName)
@@ -42,9 +44,9 @@ public class FilesService : IFilesService
     private static string CreateImageName(string toBeHashed, IFormFile file) 
         => (toBeHashed + DateTime.Now).GetHashCode() + "." + file.ContentType.Split("/")[1];
 
-    private async Task SaveImageOnHost(Image image, IFormFile file)
+    private async Task SaveImageOnHost(ImageMetadata imageMetadata, IFormFile file)
     {
-        await using var fileStream = new FileStream(image.FullPath, FileMode.Create);
+        await using var fileStream = new FileStream(imageMetadata.FullPath, FileMode.Create);
         await file.CopyToAsync(fileStream);
     }
 }
