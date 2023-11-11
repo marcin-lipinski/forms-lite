@@ -15,16 +15,16 @@ public class FilesService : IFilesService
         _filesOptions = filesOptions;
     }
     
-    public async Task<Image> SaveImage(string quizId, string questionId, IFormFile file)
+    public async Task<Image> SaveImage(string quizTitle, int questionNr, IFormFile file)
     {
-        var imageName = CreateImageName(questionId, file);
-        var dirPath = Path.Combine(_filesOptions.Value.ImagesRoute(), quizId);
+        var imageName = CreateImageName(quizTitle + questionNr, file);
+        var dirPath = Path.Combine(_filesOptions.Value.ImagesRoute(), quizTitle);
         if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
         
         var image = new Image
         {
             FullPath = Path.Combine(dirPath, imageName),
-            RelativePath = Path.Combine("/", _filesOptions.Value.ImagesDirectory, quizId, imageName)
+            RelativePath = Path.Combine("/", _filesOptions.Value.ImagesDirectory, quizTitle, imageName)
         };
         
         await SaveImageOnHost(image, file);

@@ -3,9 +3,10 @@ using Core.Exceptions.Quiz;
 using Core.Exceptions.Security;
 using FastEndpoints;
 using Services.Security;
+using Web.Features.Quiz.Create;
 
-namespace Web.Features.Quiz.Create;
-public class CreateQuizEndpoint : Endpoint<CreateQuizRequest, CreateQuizResponse, CreateQuizMapper>
+namespace Web.Features.Quiz.Update;
+public class UpdateQuizEndpoint : Endpoint<UpdateQuizRequest, UpdateQuizResponse, UpdateQuizMapper>
 {
     public IRepository<Core.Entities.Quiz> QuizRepository { get; set; } = null!;
     public IFilesService FilesService { get; set; } = null!;
@@ -13,14 +14,14 @@ public class CreateQuizEndpoint : Endpoint<CreateQuizRequest, CreateQuizResponse
 
     public override void Configure()
     {
-        Post("/api/quiz/create");
+        Post("/api/quiz/update/{QuizId}");
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(CreateQuizRequest request, CancellationToken cancellationToken)
+    public override async Task HandleAsync(UpdateQuizRequest request, CancellationToken cancellationToken)
     {
-        //var userId = UserAccessor.GetUserId();
-        //if (string.IsNullOrEmpty(userId)) throw new UnauthorizedException();
+        var userId = UserAccessor.GetUserId();
+        if (string.IsNullOrEmpty(userId)) throw new UnauthorizedException();
         //if (await IsQuizTitleTaken(request.Quiz.Title, userId)) throw new QuizTitleTakenException();
         
         var quiz = Map.ToEntity(request);
@@ -32,11 +33,14 @@ public class CreateQuizEndpoint : Endpoint<CreateQuizRequest, CreateQuizResponse
                 question.Image = await FilesService.SaveImage(quiz.Title, question.QuestionNumber, outImage);
             }
         }
+
+        if (request.ReplacePreviousVersion)
+        {
+            await QuizRepository.UpdateAsync(quiz);
+            await SendAsync(new UpdateQuizResponse{QuizId = request.QuizId}, cancellation: cancellationToken);
+        }
         
         var quizId = await QuizRepository.CreateAsync(quiz);
-        await SendAsync(new CreateQuizResponse{QuizId = quizId}, cancellation: cancellationToken);
+        await SendAsync(new UpdateQuizResponse{QuizId = quizId}, cancellation: cancellationToken);
     }
-
-    private async Task<bool> IsQuizTitleTaken(string quizTitle, string userId) =>
-        (await QuizRepository.GetAllAsync()).Any(quiz => quiz.Title.Equals(quizTitle) && quiz.AuthorId.Equals(userId));
 }

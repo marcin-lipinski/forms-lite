@@ -11,6 +11,7 @@ public static class Extensions
         services
             .AddSingleton<IPasswordManager, PasswordManager>()
             .AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>()
-            .AddSingleton<ITokenService, TokenService>();
+            .AddSingleton<ITokenService, TokenService>()
+            .AddSingleton<IUserAccessor, UserAccessor>();
     }
 }

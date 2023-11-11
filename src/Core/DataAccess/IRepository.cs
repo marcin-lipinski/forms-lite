@@ -6,7 +6,7 @@ public interface IRepository<T>
 
     Task<T> GetOneAsync(string id);
 
-    Task CreateAsync(T user);
+    Task<string> CreateAsync(T user);
 
     Task UpdateAsync(T user);
 

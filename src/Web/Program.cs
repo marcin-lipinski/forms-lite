@@ -1,6 +1,8 @@
+using Core.DataAccess;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Infrastructure;
+using Infrastructure.Persistence.Files;
 using Web.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,8 @@ builder.Services.AddFastEndpoints().SwaggerDocument();;
 builder.Services.AddAuthorization();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddExceptionHandler();
+
+builder.Services.AddScoped<IFilesService, FilesService>();
 
 var app = builder.Build();
 

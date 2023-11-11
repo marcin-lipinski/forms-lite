@@ -3,6 +3,7 @@ using FastEndpoints.Security;
 using Infrastructure.Auth;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Files;
+using Infrastructure.Persistence.MongoDb;
 
 namespace Infrastructure;
 

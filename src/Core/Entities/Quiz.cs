@@ -10,5 +10,7 @@ public class Quiz : IMongoEntity
     public string Id { get; set; } = null!;
 
     public string AuthorId { get; set; } = null!;
+    public string Title { get; set; } = null!;
+    public int Version { get; set; }
     public List<Question> Questions { get; set; } = new List<Question>();
 }

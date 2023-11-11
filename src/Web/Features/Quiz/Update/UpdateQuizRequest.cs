@@ -1,9 +1,11 @@
 using Core.Entities;
 
-namespace Web.Features.Quiz.Create;
+namespace Web.Features.Quiz.Update;
 
-public class CreateQuizRequest
+public class UpdateQuizRequest
 {
+    public string QuizId { get; set; } = null!;
+    public bool ReplacePreviousVersion { get; set; } = false;
     public QuizDto Quiz { get; set; } = null!;
 }
 

@@ -5,5 +5,5 @@ namespace Core.DataAccess;
 public interface IFilesService
 {
     string CreateImageUrl(string imageRelativePath);
-    Task<Image> SaveImage(string quizId, string questionId, IFormFile image);
+    Task<Image> SaveImage(string quizTitle, int questionNr, IFormFile image);
 }

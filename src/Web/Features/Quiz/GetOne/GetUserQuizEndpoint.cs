@@ -9,6 +9,7 @@ public class GetUserQuizEndpoint  : Endpoint<GetUserQuizRequest, GetUserQuizResp
     public IRepository<Core.Entities.Quiz> QuizRepository { get; set; } = null!;
     public IUserAccessor UserAccessor { get; set; } = null!;
 
+    [EndpointName("GetQuiz")]
     public override void Configure()
     {
         Get("/api/quiz/get/{QuizId}");

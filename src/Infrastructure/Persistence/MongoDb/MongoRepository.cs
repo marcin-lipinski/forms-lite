@@ -1,9 +1,10 @@
 using Core;
 using Core.DataAccess;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace Infrastructure.Persistence;
+namespace Infrastructure.Persistence.MongoDb;
 
 public class MongoRepository<T> : IRepository<T> where T : IMongoEntity
 {
@@ -22,8 +23,12 @@ public class MongoRepository<T> : IRepository<T> where T : IMongoEntity
     public async Task<T> GetOneAsync(string id) =>
         await _collection.Find(u => u.Id.Equals(id)).SingleOrDefaultAsync();
 
-    public async Task CreateAsync(T entity) =>
+    public async Task<string> CreateAsync(T entity)
+    {
+        entity.Id = ObjectId.GenerateNewId().ToString();
         await _collection.InsertOneAsync(entity);
+        return entity.Id;
+    }
 
     public async Task UpdateAsync(T entity) =>
         await _collection.ReplaceOneAsync(u => u.Id.Equals(entity.Id), entity);
