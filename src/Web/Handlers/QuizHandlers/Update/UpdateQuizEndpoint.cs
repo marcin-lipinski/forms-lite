@@ -21,7 +21,7 @@ public class UpdateQuizEndpoint : Endpoint<UpdateQuizRequest, UpdateQuizResponse
     public override async Task HandleAsync(UpdateQuizRequest request, CancellationToken cancellationToken)
     {
         var userId = UserAccessor.GetUserId();
-        if (string.IsNullOrEmpty(userId)) throw new UnauthorizedException();
+        //if (string.IsNullOrEmpty(userId)) throw new UnauthorizedException();
         //if (await IsQuizTitleTaken(request.Quiz.Title, userId)) throw new QuizTitleTakenException();
 
         var originalQuiz = await DbContext.Collection<Quiz>()
@@ -47,9 +47,11 @@ public class UpdateQuizEndpoint : Endpoint<UpdateQuizRequest, UpdateQuizResponse
             await DbContext.Collection<Quiz>().ReplaceOneAsync(q => q.Id == quiz.Id, quiz, cancellationToken: cancellationToken);
             await SendAsync(new UpdateQuizResponse{QuizId = request.QuizId}, cancellation: cancellationToken);
         }
-
-        quiz.Id = ObjectId.GenerateNewId().ToString();
-        await DbContext.Collection<Quiz>().InsertOneAsync(quiz, cancellationToken: cancellationToken);
-        await SendAsync(new UpdateQuizResponse{QuizId = quiz.Id}, cancellation: cancellationToken);
+        else
+        {
+            quiz.Id = ObjectId.GenerateNewId().ToString();
+            await DbContext.Collection<Quiz>().InsertOneAsync(quiz, cancellationToken: cancellationToken);
+            await SendAsync(new UpdateQuizResponse{QuizId = quiz.Id}, cancellation: cancellationToken);
+        }
     }
 }

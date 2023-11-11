@@ -13,7 +13,7 @@ public class CreateQuizEndpoint : Endpoint<CreateQuizRequest, CreateQuizResponse
 
     public override void Configure()
     {
-        Post("/api/quiz/create");
+        Put("/api/quiz/create");
         AllowAnonymous();
     }
 

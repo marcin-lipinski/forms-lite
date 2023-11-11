@@ -15,7 +15,7 @@ public class UserRegisterEndpoint : Endpoint<UserRegisterRequest, UserRegisterRe
 
     public override void Configure()
     {
-        Post("/api/user/register");
+        Put("/api/user/register");
         AllowAnonymous();
     }
     

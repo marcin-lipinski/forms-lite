@@ -1,4 +1,3 @@
-using Core.Entities.Quiz;
 using Core.Entities.Session;
 using Core.Exceptions.Quiz;
 using Core.Exceptions.Session;
@@ -24,7 +23,7 @@ public class PartakeSessionResultEndpoint : Endpoint<PartakeSessionResultRequest
         var session = await DbContext.Collection<Session>().AsQueryable()
             .SingleOrDefaultAsync(s => s.Id.Equals(request.SessionId), cancellationToken: cancellationToken);
         if (session is null) throw new NotFoundException("Session");
-        if (!session.IsActive) throw new SessionNotActiveException();
+        if (!session.IsActive()) throw new SessionNotActiveException();
 
         var answers = Map.ToEntity(request);
         session.SessionAnswers.Add(answers);

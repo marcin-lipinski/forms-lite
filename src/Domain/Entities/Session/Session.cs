@@ -13,6 +13,6 @@ public class Session : IMongoEntity
     public DateTime FinishTime { get; set; }
     public bool IsFinishedByAuthor { get; set; }
     public string PartakeUrl { get; set; } = null!;
-    public bool IsActive => !IsFinishedByAuthor && (DateTime.Now > StartTime && DateTime.Now < FinishTime);
-    public readonly List<SessionPartake> SessionAnswers = new ();
+    public bool IsActive() => !IsFinishedByAuthor && DateTime.Now > StartTime && DateTime.Now < FinishTime;
+    public List<SessionPartake> SessionAnswers = new ();
 }

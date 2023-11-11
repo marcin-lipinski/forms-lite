@@ -15,7 +15,7 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
 
     public override void Configure()
     {
-        Post("/api/session/create/{QuizId}");
+        Put("/api/session/create/{QuizId}");
         AllowAnonymous();
     }
 
@@ -42,7 +42,8 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
             StartTime = request.StartTime,
             FinishTime = request.FinishTime,
             QuizId = request.QuizId,
-            PartakeUrl = string.Concat(scheme, "://", host, pathBase, "/api/session/partake/", sessionId)
+            PartakeUrl = string.Concat(scheme, "://", host, pathBase, "/api/session/partake/", sessionId),
+            SessionAnswers = new List<SessionPartake>()
         };
         await DbContext.Collection<Session>().InsertOneAsync(session, cancellationToken: cancellationToken);
 

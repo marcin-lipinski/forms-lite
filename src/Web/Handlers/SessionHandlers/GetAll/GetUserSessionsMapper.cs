@@ -1,4 +1,3 @@
-using Core.Entities.Quiz;
 using Core.Entities.Session;
 using FastEndpoints;
 using Services.Interfaces;
@@ -18,7 +17,7 @@ public class GetUserSessionsMapper : ResponseMapper<GetUserSessionsResponse, Lis
                 FinishTime = session.FinishTime,
                 StartTime = session.StartTime,
                 Id = session.Id,
-                IsActive = session.IsActive
+                IsActive = !session.IsFinishedByAuthor && DateTime.Now > session.StartTime && DateTime.Now < session.FinishTime
             }).ToList()
         };
     }

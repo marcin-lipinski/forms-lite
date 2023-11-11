@@ -2,7 +2,7 @@ namespace Web.Handlers.SessionHandlers.GetAll;
 
 public class GetUserSessionsResponse
 {
-    public List<SessionDto> Sessions { get; set; } = null!;
+    public List<SessionDto>? Sessions { get; set; } = null!;
 }
 
 public class SessionDto
@@ -13,4 +13,5 @@ public class SessionDto
     public DateTime FinishTime { get; set; }
     public bool IsActive { get; set; }
     public int AnswersAmount { get; set; }
+    public string QuizId { get; set; } = null!;
 }
