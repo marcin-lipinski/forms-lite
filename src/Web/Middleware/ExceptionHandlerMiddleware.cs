@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Core.Exceptions;
+using FluentValidation;
 
 namespace Web.Middleware;
 
@@ -18,16 +19,30 @@ public class ExceptionHandlerMiddleware : IMiddleware
         {
             await next(context);
         }
+        catch (CustomException exception)
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)exception.Code;
+            
+            var options = new JsonSerializerOptions{PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
+            var errors = new { error = new string[]{ exception.Message } };
+            var message = exception.GetType().Name;
+
+            var json = _env.IsDevelopment()
+                ? JsonSerializer.Serialize(new { Errors = errors, Message = message, StatusCode = exception.Code, StackTrace = exception.StackTrace }, options)
+                : JsonSerializer.Serialize(new { ErrorCode = errors, Message = message, StatusCode = exception.Code, }, options);
+            
+            await context.Response.WriteAsync(json);
+        }
         catch (Exception exception)
         {
             if(_env.IsDevelopment()) Console.WriteLine(exception);
-            var isCustomException = exception.GetType().IsSubclassOf(typeof(CustomException));
-        
+            
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = isCustomException ? (int)((CustomException)exception).Code : 500;
+            context.Response.StatusCode = 500;
             
             var options = new JsonSerializerOptions{PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
-            var message = isCustomException || _env.IsDevelopment() ? exception.Message : "Internal Server Error";
+            var message = _env.IsDevelopment() ? exception.Message : "Internal Server Error";
             var errorCode = exception.GetType().Name;
 
             var json = _env.IsDevelopment()

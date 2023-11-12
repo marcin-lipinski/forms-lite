@@ -22,8 +22,8 @@ public class UserRegisterValidator : Validator<UserRegisterRequest>
             .Must(s => s.Count(char.IsNumber) > 3).WithMessage("The password must contain at least 4 numbers.");;
         
         RuleFor(u => u.PasswordRepeat)
-            .NotEmpty().WithMessage("PasswordRepeat cannot be empty")
-            .NotNull().WithMessage("PasswordRepeat cannot be empty")
+            .NotEmpty().WithMessage("Password repeat cannot be empty")
+            .NotNull().WithMessage("Password repeat cannot be empty")
             .Equal(u => u.Password).WithMessage("Passwords are not the same.");
     }
 }

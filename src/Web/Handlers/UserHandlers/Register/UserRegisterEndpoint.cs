@@ -1,6 +1,8 @@
 using Core.Entities.User;
+using Core.Exceptions;
 using Core.Exceptions.User;
 using FastEndpoints;
+using FluentValidation;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Services.Interfaces;
