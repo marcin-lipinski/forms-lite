@@ -1,0 +1,82 @@
+.dialog {
+    position: relative;
+    height: 250px;
+    width: 25%;
+    left: 100%;
+    bottom: 260px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 136, 0);
+    transition: all 0.3s ease-in;
+}
+
+.dialog.visible {
+    left: calc(75% - 10px);
+}
+
+.dialog header {
+    background-color: rgb(182, 100, 6);
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px 5px 10px;
+    height: 10%;
+}
+
+.dialog header button {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dialog div {
+    padding: 0 10px 5px 10px;
+    height: 75%;
+    overflow-y: auto;
+    scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+    scrollbar-width: thin;
+    -ms-overflow-style: none;
+}
+
+.dialog div::-webkit-scrollbar {
+    width: 10px;
+}
+
+.dialog div::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
+
+.dialog div::-ms-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5); 
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .dialog {
+        width: 90%;
+        left: 100%;
+    }
+
+    .dialog.visible {
+        left: calc(75% - 10px);
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+    .dialog {
+        width: 40%;
+        left: 100%;
+    }
+
+    .dialog.visible {
+        left: calc(75% - 10px);
+    }
+}
