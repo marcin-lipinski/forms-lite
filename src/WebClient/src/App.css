@@ -17,3 +17,7 @@ body {
 * {    
     font-family: 'Kdam Thmor Pro', sans-serif;
 }
+
+.column {
+    height: 100%;
+}

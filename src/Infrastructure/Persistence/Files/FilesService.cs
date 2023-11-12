@@ -33,7 +33,7 @@ public class FilesService : IFilesService
         return image;
     }
 
-    public string CreateImageUrl(string imageRelativePath)
+    public string? CreateImageUrl(string imageRelativePath)
     {
         var scheme = _httpContextAccessor.HttpContext!.Request.Scheme;
         var host = _httpContextAccessor.HttpContext.Request.Host;

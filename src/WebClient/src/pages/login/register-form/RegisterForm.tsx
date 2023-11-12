@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useStore } from "../../../stores/store";
 import { useNavigate } from "react-router-dom";
-import { UserRegisterRequest } from "../../../models/user/user";
+import { UserRegisterRequest } from "../../../models/user";
 
 
 

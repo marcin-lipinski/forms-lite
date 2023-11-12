@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { store } from "./store";
 import agents from "../api/agent";
-import { User, UserLoginRequest, UserRegisterRequest } from "../models/user/user";
+import { User, UserRegisterRequest, UserLoginRequest } from "../models/user";
 
 export default class UserStore {
     user: User | null = null;
@@ -44,10 +44,10 @@ export default class UserStore {
         }
     };
 
-    // logout = async () => {
-    //     store.commonStore.setToken(null);
-    //     this.user = null;
-    // };
+    logout = async () => {
+        store.commonStore.setToken(null);
+        this.user = null;
+    };
 
     // current = async () => {
     //     try {

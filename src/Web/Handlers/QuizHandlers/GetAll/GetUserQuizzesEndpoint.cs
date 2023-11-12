@@ -18,9 +18,9 @@ public class GetUserQuizzesEndpoint : EndpointWithoutRequest<GetUserQuizzesRespo
 
     public override async Task HandleAsync(CancellationToken cancellationToken)
     {
-        var userId = UserAccessor.GetUserId();
-        var quizzes = await DbContext.Collection<Quiz>()
-            .Find(q => q.AuthorId == userId)
+        //var userId = UserAccessor.GetUserId();
+        var quizzes = await DbContext.Collection<Quiz>().AsQueryable()
+            //.Find(q => q.AuthorId == userId)
             .ToListAsync(cancellationToken: cancellationToken);
 
         var response = Map.FromEntity(quizzes);

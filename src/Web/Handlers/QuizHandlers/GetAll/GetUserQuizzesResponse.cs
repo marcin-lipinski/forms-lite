@@ -16,7 +16,7 @@ public class QuizDto
 
 public class QuestionDto
 {
-    public string ContentImageUrl { get; set; } = null!;
+    public string? ContentImageUrl { get; set; } = null!;
     public string ContentText { get; set; } = null!;
     public QuestionType QuestionType { get; set; }
     public int QuestionNumber { get; set; }

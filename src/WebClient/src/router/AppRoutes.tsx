@@ -3,6 +3,7 @@ import {AnimatePresence} from 'framer-motion';
 import { useStore } from '../stores/store';
 import { useEffect } from 'react';
 import LoginPage from '../pages/login/LoginPage';
+import HomePage from '../pages/home/HomePage';
 
 export default function AppRoutes(){
     const {userStore, commonStore} = useStore();
@@ -35,8 +36,8 @@ export default function AppRoutes(){
         <AnimatePresence mode='wait'>
             <Routes location={location} key={location.pathname}>
                 <Route path='/' element={<LoginPage/>}/>
-                {/* <Route path='/home' element={<HomePage/>}/>
-                <Route path='/create' element={<NewQuizPage/>}/>
+                <Route path='/home' element={<HomePage/>}/>
+                {/* <Route path='/create' element={<NewQuizPage/>}/>
                 <Route path='/session/new' element={<NewSessionPage/>}/>
                 <Route path='*' element={<NotFoundPage/>}/> */}
             </Routes>

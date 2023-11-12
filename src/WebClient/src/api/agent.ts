@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { store } from "../stores/store";
 import { useNavigate } from "react-router-dom";
-import { User, UserLoginRequest, UserRegisterRequest } from "../models/user/user";
+import { User, UserLoginRequest, UserRegisterRequest } from "../models/user";
+import { GetUserQuizzesResponse } from "../models/quiz";
 
 axios.defaults.baseURL = 'https://localhost:7015/';//process.env.REACT_APP_API_URL;
 
@@ -65,7 +66,7 @@ const Account = {
 };
 
 const Quiz = {
-    // getAll: () => requests.get<IPagedResult<IQuizOverview>>("api/quiz/get"),
+    getAll: () => requests.get<GetUserQuizzesResponse>("api/quiz/get"),
     // createQuiz: (quiz: FormData) => axios.put("quiz/create", quiz, {headers: {'Content-Type': 'multipart/form-data'}}),
     // updateQuiz: (quiz: FormData) => axios.post("quiz/create", quiz, {headers: {'Content-Type': 'multipart/form-data'}}),
     // deleteQuiz: (id: string) => requests.del(`api/quiz/delete/${id}`),
