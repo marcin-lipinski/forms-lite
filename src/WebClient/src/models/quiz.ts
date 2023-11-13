@@ -2,19 +2,41 @@ export interface GetUserQuizzesResponse {
     quizzes: Quiz[];
 }
 
+export interface GetUserQuizResponse {
+    quiz: Quiz;
+}
+
+export interface CreateQuizResponse {
+    quizId: string;
+}
+
+export interface CreateQuizRequest {
+    quiz: Quiz;
+}
+
+export interface UpdateQuizResponse {
+    quizId: string;
+}
+
+export interface UpdateQuizRequest {
+    replacePrevoiusVersion: boolean;
+    quiz: Quiz;
+}
+
 export interface Quiz {
-    id: string,
+    id?: string,
     title: string,
     questions: Question[]
 }
 
 export interface Question {
-    contentImageUrl: string;
+    contentImageUrl?: string;
+    image?: Blob;
     contentText: string;
     QuestionType: QuestionType;
     questionNumber: number;
-    answers: string[];
-    correctAnswer: number;
+    answers?: string[];
+    correctAnswer?: number;
 }
 
 export enum QuestionType {
