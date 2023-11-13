@@ -5,7 +5,7 @@ using Services.Interfaces;
 
 namespace Web.Handlers.SessionHandlers.Finish;
 
-public class FinishSessionEndpoint : Endpoint<FinishSessionRequest, FinishSessionResponse>
+public class FinishSessionEndpoint : Endpoint<FinishSessionRequest, EmptyResponse>
 {
     public IDbContext DbContext { get; set; } = null!;
     public IUserAccessor UserAccessor { get; set; } = null!;
