@@ -67,19 +67,19 @@ const Account = {
 
 const Quiz = {
     getAll: () => requests.get<GetUserQuizzesResponse>("api/quiz/get"),
-    // createQuiz: (quiz: FormData) => axios.put("quiz/create", quiz, {headers: {'Content-Type': 'multipart/form-data'}}),
-    // updateQuiz: (quiz: FormData) => axios.post("quiz/create", quiz, {headers: {'Content-Type': 'multipart/form-data'}}),
-    // deleteQuiz: (id: string) => requests.del(`api/quiz/delete/${id}`),
-    // getOne: (id: string) => requests.get<IPagedResult<IQuizOverview>>(`api/quiz/get/${id}`),
+    createQuiz: (quiz: CreateQuizRequest) => axios.put("api/quiz/create", quiz, {headers: {'Content-Type': 'multipart/form-data'}}),
+    updateQuiz: (quiz: UpdateQuizRequest) => axios.post("api/quiz/update", quiz, {headers: {'Content-Type': 'multipart/form-data'}}),
+    deleteQuiz: (id: string) => requests.del(`api/quiz/delete/${id}`),
+    getOne: (id: string) => requests.get<IPagedResult<IQuizOverview>>(`api/quiz/get/${id}`),
 };
 
 const Session = {
-    // getAll: (params: ISearchParams) => requests.get<IPagedResult<IQuizOverview>>("api/session/get"),
-    // getOne: (id: string) => requests.get<IPagedResult<IQuizOverview>>(`api/session/get/${id}`),
-    // createSession: (id: string, settings: INewSessionsSettings) => requests.post<string>(`api/session/start/${id}`, settings),
-    // finishSession: (id: string, settings: INewSessionsSettings) => requests.post<string>(`api/session/finish/${id}`, settings),
-    // partakeSession: (id: string) => requests.post<string>(`api/session/finish/${id}`, settings),
-    // partakeSessionFinish: (id: string, answers: any) => requests.post<string>(`api/session/finish/${id}`, answers)
+    getAll: (params: ISearchParams) => requests.get<IPagedResult<IQuizOverview>>("api/session/get"),
+    getOne: (id: string) => requests.get<IPagedResult<IQuizOverview>>(`api/session/get/${id}`),
+    createSession: (id: string, settings: INewSessionsSettings) => requests.post<string>(`api/session/start/${id}`, settings),
+    finishSession: (id: string, settings: INewSessionsSettings) => requests.post<string>(`api/session/finish/${id}`, settings),
+    partakeSession: (id: string) => requests.post<string>(`api/session/finish/${id}`, settings),
+    partakeSessionFinish: (id: string, answers: any) => requests.post<string>(`api/session/finish/${id}`, answers)
 
 }
 
