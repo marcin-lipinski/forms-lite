@@ -8,7 +8,7 @@ using Services.Interfaces;
 
 namespace Web.Handlers.SessionHandlers.PartakeResult;
 
-public class PartakeSessionResultEndpoint : Endpoint<PartakeSessionResultRequest, EmptyResponse, PartakeSessionResultMapper>
+public class PartakeSessionFinishEndpoint : Endpoint<PartakeSessionResultRequest, EmptyResponse, PartakeSessionResultMapper>
 {
     public IDbContext DbContext { get; set; } = null!;
 

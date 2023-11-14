@@ -9,7 +9,7 @@ public class PartakeSessionResultMapper : Mapper<PartakeSessionResultRequest, Em
     {
         return new SessionPartake
         {
-            ParticipantName = request.Participan,
+            ParticipantName = request.Participant,
             Answers = request.Answers
         };
     }

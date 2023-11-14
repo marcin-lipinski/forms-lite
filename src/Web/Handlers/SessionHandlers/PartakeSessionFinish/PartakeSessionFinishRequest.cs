@@ -2,7 +2,7 @@ using Core.Entities.Session;
 
 namespace Web.Handlers.SessionHandlers.PartakeResult;
 
-public class PartakeSessionResultRequest
+public class PartakeSessionFinishRequest
 {
     public string SessionId { get; set; } = null!;
     public string Participant { get; set; } = null!;
