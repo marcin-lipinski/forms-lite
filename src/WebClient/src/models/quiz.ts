@@ -31,12 +31,13 @@ export interface Quiz {
 
 export interface Question {
     contentImageUrl?: string;
-    image?: Blob;
+    image?: Blob | null;
+    imagePreview?: any;
     contentText: string;
     QuestionType: QuestionType;
     questionNumber: number;
     answers?: string[];
-    correctAnswer?: number;
+    correctAnswer?: string;
 }
 
 export enum QuestionType {

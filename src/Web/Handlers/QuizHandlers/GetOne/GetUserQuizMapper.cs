@@ -19,14 +19,14 @@ public class GetUserQuizMapper : ResponseMapper<GetUserQuizResponse, Core.Entiti
                 Questions = entity.Questions.Select(question => new QuestionDto
                 {
                     ContentText = question.ContentText,
-                    ContentImageUrl = filesService.CreateImageUrl(question.Image.RelativePath),
+                    ContentImageUrl = question.Image is not null ? filesService.CreateImageUrl(question.Image.RelativePath) : null,
                     QuestionNumber = question.QuestionNumber,
                     QuestionType = question.QuestionType,
                     Answers = question.QuestionType == QuestionType.Open
-                        ? ((QuestionOpen)question).Answers
+                        ? question.Answers
                         : null,
                     CorrectAnswer = question.QuestionType == QuestionType.Open
-                        ? ((QuestionOpen)question).CorrectAnswer
+                        ? question.CorrectAnswer
                         : null
                 }).ToList()
             }

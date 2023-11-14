@@ -21,7 +21,7 @@ export const store: Store = {
     userStore: new UserStore(),
     dialogStore: new DialogStore(),
     quizStore: new QuizStore(),
-    sessionStore: new QuizStore()
+    sessionStore: new SessionStore()
 };
 
 export const StoreContext = createContext(store);

@@ -16,8 +16,8 @@ public class QuizDto
 public class QuestionDto
 {
     public string ContentText { get; set; } = null!;
-    public IFormFile Image { get; set; } = null!;
-    public virtual QuestionType QuestionType { get; set; }
+    public IFormFile? Image { get; set; } = null!;
+    public QuestionType QuestionType { get; set; }
     public int QuestionNumber { get; set; }
     public List<string>? Answers { get; set; } = new List<string>();
     public int CorrectAnswer { get; set; }

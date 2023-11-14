@@ -1,0 +1,72 @@
+.add-quiz-button {
+    background-color: rgba(255, 255, 255, 0.4);
+    width: 92% !important;
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 20px;
+    transition: all 0.2s ease-in-out;
+}
+
+.add-quiz-button button {
+    border-radius: 100px;
+    background-color: rgba(255, 255, 255, 0.7);
+    outline: none;
+    border: none;
+    color: white;
+    font-size: 5rem;
+    height: 75%;
+    width: fit-content;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.add-quiz-button button span{
+    font-size: 1.2rem;
+}
+
+.add-quiz-button button:hover{
+    background-color: #FF785A;
+    transform: scale(1.05);
+}
+
+.add-quiz-button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    transform: scale(1.01);
+}
+
+textarea, input {
+    width: 100%;
+    height: fit-content;
+    color: black;
+    font-size: 1.2rem;
+    outline: none;
+    border: none;
+    text-align: center;
+    background-color: rgb(253, 134, 91);
+    border-radius: 15px;
+    overflow: hidden;
+    resize: none;
+}
+
+.editable {
+    background-color: white !important;
+    border-radius: 20px;
+    outline: none;
+    transition: all 0.1s ease-in-out;
+    padding: 5px 10px 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editable:focus {
+    background-color: rgb(240, 93, 40) !important;
+    border-radius: 20px;
+    transform: scale(1.03);
+}

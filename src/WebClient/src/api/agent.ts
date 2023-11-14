@@ -33,6 +33,7 @@ axios.interceptors.response.use(
                     }
                     store.dialogStore.showError(modalStateErrors.flat())
                 }
+                break;
             case 401:
                 //
                 break;

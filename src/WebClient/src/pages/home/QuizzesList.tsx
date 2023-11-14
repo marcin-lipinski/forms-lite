@@ -1,14 +1,24 @@
 import { useEffect } from "react"
 import { useStore } from "../../stores/store";
 import { observer } from "mobx-react-lite";
+import QuizModal from "./QuizModal";
 import './QuizzesList.css';
+import QuizModalCreate from "./QuizModalCreate";
 
 export default observer(function QuizzesList() {
-    const {quizStore} = useStore();
+    const {quizStore, modalStore} = useStore();
 
     useEffect(() => {
         quizStore.getAll()
     }, []);
+
+    const handleQuizSeeButton = (id: string) => {
+        modalStore.openModal(<QuizModal quizId={id}/>)
+    }
+
+    const hadleNewElementClick = () => {
+        modalStore.openModal(<QuizModalCreate/>)
+    }
 
     return (
         <>
@@ -29,11 +39,30 @@ export default observer(function QuizzesList() {
                         </tr>
                     </table>
                     <div className="button-group">
-                        <button>See</button>
+                        <button onClick={() => handleQuizSeeButton(quiz.id!)}>See</button>
                         <button>Delete</button>
                     </div>
                 </div>
             )}
+            <div className="cover add" onClick={hadleNewElementClick}>
+                <div id="create"><button>+</button></div>
+                <table>
+                    <tr>
+                        <td>s</td>
+                        <td>s</td>
+                    </tr>
+                    <tr>
+                        <td>s </td>
+                        <td>s</td>
+                    </tr>
+                    <tr>
+                        <td>s</td>
+                        <td>s</td>
+                    </tr>
+                </table>
+                <div className="button-group">
+                </div>
+            </div>
         </>
     )
 })

@@ -15,7 +15,7 @@ public class GetUserSessionsEndpoint : EndpointWithoutRequest<GetUserSessionsRes
 
     public override void Configure()
     {
-        Post("/api/session/get");
+        Get("/api/session/get");
         AllowAnonymous();
     }
 

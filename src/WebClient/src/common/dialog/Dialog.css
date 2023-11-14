@@ -36,6 +36,10 @@
     cursor: pointer;
 }
 
+.dialog header button:hover{
+    text-shadow: 0px 0px 15px white;
+}
+
 .dialog div {
     padding: 0 10px 5px 10px;
     height: 75%;
