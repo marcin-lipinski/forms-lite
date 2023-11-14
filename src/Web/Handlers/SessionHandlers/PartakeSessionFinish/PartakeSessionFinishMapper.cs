@@ -1,11 +1,11 @@
 using Core.Entities.Session;
 using FastEndpoints;
 
-namespace Web.Handlers.SessionHandlers.PartakeResult;
+namespace Web.Handlers.SessionHandlers.PartakeSessionFinish;
 
-public class PartakeSessionResultMapper : Mapper<PartakeSessionResultRequest, EmptyResponse, SessionPartake>
+public class PartakeSessionFinishMapper : Mapper<PartakeSessionFinishRequest, EmptyResponse, SessionPartake>
 {
-    public override SessionPartake ToEntity(PartakeSessionResultRequest request)
+    public override SessionPartake ToEntity(PartakeSessionFinishRequest request)
     {
         return new SessionPartake
         {

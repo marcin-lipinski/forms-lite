@@ -1,16 +1,21 @@
+import { Quiz } from "./quiz";
+
 export interface CreateSessionRequest {
     quizId: string;
     startTime: Date;
     finishTime: Date;
 }
 
-export interface CreateSessionRequest {
+export interface CreateSessionResponse {
     sessionPartakeUrl: string;
 }
 
-export interface GetUserSessionsResponse
-{
-    dessions: Session[];
+export interface GetUserSessionsResponse {
+    sessions: Session[];
+}
+
+export interface GetUserSessionResponse {
+    session: Session;
 }
 
 export interface Session {
@@ -27,7 +32,7 @@ export interface PartakeSessionResponse {
     quizDto: Quiz;
 }
 
-export interface PartakeSessionResultRequest {
+export interface PartakeSessionFinishRequest {
     participant: string;
     answers: SessionPartakeAnswer[];
 }

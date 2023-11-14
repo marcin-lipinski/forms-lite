@@ -1,3 +1,10 @@
+using Core.Entities.Quiz;
+using Core.Exceptions.Quiz;
+using FastEndpoints;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using Services.Interfaces;
+
 namespace Web.Handlers.QuizHandlers.Delete;
 
 public class DeleteQuizEndpoint : Endpoint<DeleteQuizRequest, EmptyResponse> 
@@ -19,16 +26,13 @@ public class DeleteQuizEndpoint : Endpoint<DeleteQuizRequest, EmptyResponse>
         var quiz = await DbContext.Collection<Quiz>().AsQueryable().SingleOrDefaultAsync(q => q.Id.Equals(request.QuizId));
         if(quiz is null) throw new NotFoundException("Quiz");
 
-        foreach(var question in quiz.Questions)
+        foreach (var question in quiz.Questions.Where(question => question.Image != null))
         {
-            if(question.ImageMetadata is not null)
-            {
-                Directory.Delete(question.ImageMetadata.FullPath, true);
-            }
+            Directory.Delete(question.Image.FullPath, true);
         }
 
-        await DbContext.Collection<Quiz>().DeleteOneAsync(q => q.Id.Equals(request.QuizId));
+        await DbContext.Collection<Quiz>().DeleteOneAsync(q => q.Id.Equals(request.QuizId), cancellationToken: cancellationToken);
 
-        await SendAsync(cancellation: cancellationToken);
+        await SendOkAsync(cancellation: cancellationToken);
     }
 }

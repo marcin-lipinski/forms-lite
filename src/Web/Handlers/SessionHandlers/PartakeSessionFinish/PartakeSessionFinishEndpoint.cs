@@ -6,9 +6,9 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Services.Interfaces;
 
-namespace Web.Handlers.SessionHandlers.PartakeResult;
+namespace Web.Handlers.SessionHandlers.PartakeSessionFinish;
 
-public class PartakeSessionFinishEndpoint : Endpoint<PartakeSessionResultRequest, EmptyResponse, PartakeSessionResultMapper>
+public class PartakeSessionFinishEndpoint : Endpoint<PartakeSessionFinishRequest, EmptyResponse, PartakeSessionFinishMapper>
 {
     public IDbContext DbContext { get; set; } = null!;
 
@@ -18,7 +18,7 @@ public class PartakeSessionFinishEndpoint : Endpoint<PartakeSessionResultRequest
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(PartakeSessionResultRequest request, CancellationToken cancellationToken)
+    public override async Task HandleAsync(PartakeSessionFinishRequest request, CancellationToken cancellationToken)
     {
         var session = await DbContext.Collection<Session>().AsQueryable()
             .SingleOrDefaultAsync(s => s.Id.Equals(request.SessionId), cancellationToken: cancellationToken);

@@ -27,6 +27,6 @@ public class FinishSessionEndpoint : Endpoint<FinishSessionRequest, EmptyRespons
             .Find(s => s.Id == request.SessionId).SingleOrDefaultAsync(cancellationToken: cancellationToken);
         session.IsFinishedByAuthor = true;
         await DbContext.Collection<Session>().ReplaceOneAsync(s => s.Id == session.Id, session, cancellationToken: cancellationToken);
-        await SendAsync(new FinishSessionResponse{Success = true}, cancellation: cancellationToken);
+        await SendOkAsync(cancellationToken);
     }
 }

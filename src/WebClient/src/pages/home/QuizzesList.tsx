@@ -12,7 +12,7 @@ export default observer(function QuizzesList() {
 
     return (
         <>
-            {quizStore.allQuizes.map(quiz => 
+            {quizStore.allQuizzes.map(quiz => 
                 <div className="cover">
                     <table>
                         <tr>
