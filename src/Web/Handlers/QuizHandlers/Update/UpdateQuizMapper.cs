@@ -15,11 +15,11 @@ public class UpdateQuizMapper : Mapper<UpdateQuizRequest, UpdateQuizResponse, Qu
             Id = request.QuizId,
             AuthorId = userAccessor.GetUserId(),
             Questions = request.Quiz.Questions.Select(question => question.QuestionType == QuestionType.Closed 
-                ? new QuestionClosed
+                ? new Question
                 {
                     QuestionType = QuestionType.Closed
                 }
-                : (Question)new QuestionOpen
+                : (Question)new Question
                 {
                     QuestionType = QuestionType.Open,
                     Answers = question.Answers,

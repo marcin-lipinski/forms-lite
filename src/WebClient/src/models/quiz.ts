@@ -34,7 +34,7 @@ export interface Question {
     image?: Blob | null;
     imagePreview?: any;
     contentText: string;
-    QuestionType: QuestionType;
+    questionType: QuestionType;
     questionNumber: number;
     answers?: string[];
     correctAnswer?: string;

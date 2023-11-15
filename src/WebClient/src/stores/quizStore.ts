@@ -47,7 +47,7 @@ export default class QuizStore {
         }
     };
 
-    createQuiz = async (quiz: CreateQuizRequest) => {
+    createQuiz = async (quiz: FormData) => {
         try {
             runInAction(() => this.loading = true);
             await agents.Quiz.createQuiz(quiz);

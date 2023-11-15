@@ -70,7 +70,7 @@ const Quiz = {
     getAll:     ()                        => requests.get<GetUserQuizzesResponse>("api/quiz/get"),    
     getOne:     (id: string)              => requests.get<GetUserQuizResponse>(`api/quiz/get/${id}`),
     deleteQuiz: (id: string)              => requests.del(`api/quiz/delete/${id}`),
-    createQuiz: (quiz: CreateQuizRequest) => axios.put<CreateQuizResponse>("api/quiz/create", quiz, {headers: {'Content-Type': 'multipart/form-data'}}),
+    createQuiz: (quiz: FormData) => axios.post<CreateQuizResponse>("api/quiz/create", quiz, {headers: {'Content-Type': 'multipart/form-data'}}),
     updateQuiz: (quiz: UpdateQuizRequest) => axios.post<UpdateQuizResponse>("api/quiz/update", quiz, {headers: {'Content-Type': 'multipart/form-data'}})
 };
 

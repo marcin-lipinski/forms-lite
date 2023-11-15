@@ -59,7 +59,7 @@ export default observer(function QuizModal({quizId}: Props) {
 
     if(quizStore.loading) return <></>;
 
-    selectedQuiz?.questions.forEach(q => {if(q.QuestionType === QuestionType.Closed) q.answers = ['a', 'b', 'c', 'd'];});
+    selectedQuiz?.questions.forEach(q => {if(q.questionType === QuestionType.Closed) q.answers = ['a', 'b', 'c', 'd'];});
 
     return (
         <div className="modal-window">
@@ -79,8 +79,8 @@ export default observer(function QuizModal({quizId}: Props) {
                                     : <></>
                                 }
                             </div>
-                            <div className={question.QuestionType === QuestionType.Open ? "question-answers" : "question-answers closed"}>
-                                {question.QuestionType === QuestionType.Open
+                            <div className={question.questionType === QuestionType.Open ? "question-answers" : "question-answers closed"}>
+                                {question.questionType === QuestionType.Open
                                     ? <div id="open-answer" contentEditable={editState} className={editState ? "editable": ""}>otwarte</div>
                                     : <>
                                         {/* <div className={editState ? "closed-answer editable": "closed-answer"} contentEditable={editState} onKeyDown={(evnt) => handlerEditableKeyDown(evnt, index, '0')}>{question.answers![0]}</div>

@@ -1,32 +1,34 @@
+using System.Diagnostics;
+using System.Text.Json;
 using Core.Entities.Question;
+using Core.Entities.Quiz;
 using FastEndpoints;
-using Services.Interfaces;
 
 namespace Web.Handlers.QuizHandlers.Create;
 
-public class CreateQuizMapper : Mapper<CreateQuizRequest, CreateQuizResponse, Core.Entities.Quiz.Quiz>
+public class CreateQuizMapper : Mapper<CreateQuizRequest, CreateQuizResponse, Quiz>
 {
-    public override Core.Entities.Quiz.Quiz ToEntity(CreateQuizRequest request)
+    public override Quiz ToEntity(CreateQuizRequest request)
     {
-        var userAccessor = Resolve<IUserAccessor>();
-        return new Core.Entities.Quiz.Quiz
+        //var userAccessor = Resolve<IUserAccessor>();
+        return new Quiz
         {
-            AuthorId = userAccessor.GetUserId(),
+            AuthorId = "om",//userAccessor.GetUserId(),
             Title = request.Quiz.Title,
             Version = 0,
             Questions = request.Quiz.Questions.Select(question => question.QuestionType == QuestionType.Closed 
-                ? new QuestionClosed
+                ? new Question
                 {
                     ContentText = question.ContentText,
                     QuestionNumber = question.QuestionNumber,
                     QuestionType = QuestionType.Closed
                 }
-                : (Question)new QuestionOpen
+                : (Question)new Question
                 {
                     ContentText = question.ContentText,
                     QuestionNumber = question.QuestionNumber,
                     QuestionType = QuestionType.Open,
-                    Answers = question.Answers,
+                    Answers = question.Answers != null ? question.Answers.ToList() : new List<string>(),
                     CorrectAnswer = question.CorrectAnswer
                 }).ToList()
         };

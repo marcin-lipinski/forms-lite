@@ -1,32 +1,55 @@
+
+
+using System.Text.Json;
+using Core.Entities.Question;
 using Core.Entities.Quiz;
-using FastEndpoints;
+using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using MongoDB.Driver;
 using Services.Interfaces;
 
 namespace Web.Handlers.QuizHandlers.Create;
-public class CreateQuizEndpoint : Endpoint<CreateQuizRequest, CreateQuizResponse, CreateQuizMapper>
+public class CreateQuizController : Controller
 {
-    public IDbContext DbContext { get; set; } = null!;
-    public IFilesService FilesService { get; set; } = null!;
-    public IUserAccessor UserAccessor { get; set; } = null!;
+    private readonly IDbContext DbContext;
+    private readonly IFilesService FilesService;
+    private readonly IUserAccessor UserAccessor;
 
-    public override void Configure()
+    public CreateQuizController(IDbContext dbContext, IFilesService filesService, IUserAccessor userAccessor)
     {
-        Put("/api/quiz/create");
-        AllowAnonymous();
+        DbContext = dbContext;
+        FilesService = filesService;
+        UserAccessor = userAccessor;
     }
 
-    public override async Task HandleAsync(CreateQuizRequest request, CancellationToken cancellationToken)
+    [HttpPost("/api/quiz/create")]
+    public async Task<IActionResult> CreateQuiz([FromForm] CreateQuizRequest formData)
     {
-        //var userId = UserAccessor.GetUserId();
-        //if (string.IsNullOrEmpty(userId)) throw new UnauthorizedException();
-        //if (await IsQuizTitleTaken(request.Quiz.Title, userId)) throw new QuizTitleTakenException();
+        Console.WriteLine(JsonSerializer.Serialize(formData));
         
-        var quiz = Map.ToEntity(request);
+        var quiz = new Quiz
+        {
+            AuthorId = "om",//userAccessor.GetUserId(),
+            Title = formData.Quiz.Title,
+            Version = 0,
+            Questions = formData.Quiz.Questions.Select(question => question.QuestionType == QuestionType.Closed 
+                ? new Question
+                {
+                    ContentText = question.ContentText,
+                    QuestionNumber = question.QuestionNumber,
+                    QuestionType = QuestionType.Closed
+                }
+                : new Question
+                {
+                    ContentText = question.ContentText,
+                    QuestionNumber = question.QuestionNumber,
+                    QuestionType = QuestionType.Open,
+                    Answers = question.Answers != null ? question.Answers.ToList() : new System.Collections.Generic.List<string>(),
+                    CorrectAnswer = question.CorrectAnswer
+                }).ToList()
+        };
         foreach (var question in quiz.Questions)
         {
-            var outImage = request.Quiz.Questions.SingleOrDefault(q => q.QuestionNumber == question.QuestionNumber)?.Image;
+            var outImage = formData.Quiz.Questions.SingleOrDefault(q => q.QuestionNumber == question.QuestionNumber)?.Image;
             if (outImage is not null)
             {
                 question.Image = await FilesService.SaveImage(quiz.Title, question.QuestionNumber, outImage);
@@ -34,10 +57,7 @@ public class CreateQuizEndpoint : Endpoint<CreateQuizRequest, CreateQuizResponse
         }
 
         quiz.Id = ObjectId.GenerateNewId().ToString();
-        await DbContext.Collection<Quiz>().InsertOneAsync(quiz, cancellationToken: cancellationToken);
-        await SendAsync(new CreateQuizResponse{QuizId = quiz.Id}, cancellation: cancellationToken);
+        await DbContext.Collection<Quiz>().InsertOneAsync(quiz);
+        return Ok(new CreateQuizResponse{QuizId = quiz.Id});
     }
-
-    private async Task<bool> IsQuizTitleTaken(string quizTitle, string userId) =>
-        await DbContext.Collection<Quiz>().Find(q => q.Title == quizTitle && q.AuthorId == userId).CountDocumentsAsync() > 0;
 }

@@ -23,10 +23,10 @@ public class PartakeSessionMapper : Mapper<PartakeSessionRequest, PartakeSession
                     QuestionNumber = question.QuestionNumber,
                     QuestionType = question.QuestionType,
                     Answers = question.QuestionType == QuestionType.Open
-                        ? ((QuestionOpen)question).Answers
+                        ? question.Answers
                         : null,
                     CorrectAnswer = question.QuestionType == QuestionType.Open
-                        ? ((QuestionOpen)question).CorrectAnswer
+                        ? question.CorrectAnswer
                         : null
                 }).ToList()
             }

@@ -13,16 +13,28 @@ export default observer(function QuizModal() {
     const handleCloseButtonClick = () => modalStore.closeModal();
 
     const handleSaveButtonClick = () => {
-        const request: CreateQuizRequest = {
-            quiz: newQuiz!
-        };
-        quizStore.createQuiz(request);
+        let form = new FormData();
+        form.append('quiz.title', newQuiz.title);
+        newQuiz.questions.forEach((q, indexq) => {
+            form.append('quiz.questions[' + indexq + '].questionType', q.questionType.toString());
+            form.append('quiz.questions[' + indexq + '].questionNumber', q.questionNumber.toString());
+            form.append('quiz.questions[' + indexq + '].image', q.image || '');
+            if(q.answers !== null) q.answers?.forEach((a, index) => {
+                form.append('quiz.questions[' + indexq + '].answers['+ index + ']', a);
+
+            })
+            
+            form.append('quiz.questions[' + indexq + '].correctAnswer', q.correctAnswer || '');
+        });
+
+
+        quizStore.createQuiz(form);
     }
 
     const handleNewOpenButtonClick = () => {
         const question: Question = {
             contentText: "",
-            QuestionType: QuestionType.Open,
+            questionType: QuestionType.Open,
             questionNumber: newQuiz.questions.length + 1,
             image: null
         };
@@ -33,7 +45,7 @@ export default observer(function QuizModal() {
     const handleNewClosedButtonClick = () => {
         const question: Question = {
             contentText: "",
-            QuestionType: QuestionType.Closed,
+            questionType: QuestionType.Closed,
             questionNumber: newQuiz.questions.length + 1,
             image: null,
             answers: ["a", "b", "c", "d"],
@@ -102,8 +114,8 @@ export default observer(function QuizModal() {
                                     </>
                                 }
                             </div>
-                            <div className={question.QuestionType === QuestionType.Open ? "question-answers" : "question-answers closed"}>
-                                {question.QuestionType === QuestionType.Open
+                            <div className={question.questionType === QuestionType.Open ? "question-answers" : "question-answers closed"}>
+                                {question.questionType === QuestionType.Open
                                     ? <div id="open-answer">User answer</div>
                                     : <>
                                         <div className={"closed-answer editable"}>

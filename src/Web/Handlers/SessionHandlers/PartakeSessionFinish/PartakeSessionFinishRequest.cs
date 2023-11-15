@@ -1,6 +1,6 @@
 using Core.Entities.Session;
 
-namespace Web.Handlers.SessionHandlers.PartakeSessionFinish;
+namespace Web.Handlers.SessionHandlers.PartakeResult;
 
 public class PartakeSessionFinishRequest
 {

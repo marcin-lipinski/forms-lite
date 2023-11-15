@@ -21,5 +21,5 @@ public class QuestionDto
     public QuestionType QuestionType { get; set; }
     public int QuestionNumber { get; set; }
     public List<string>? Answers { get; set; }
-    public int? CorrectAnswer { get; set; }
+    public string? CorrectAnswer { get; set; }
 }

@@ -9,5 +9,5 @@ public class Question
     public virtual QuestionType QuestionType { get; set; }
     public int QuestionNumber { get; init; }
     public List<string>? Answers { get; init; } = new();
-    public int? CorrectAnswer { get; init; }
+    public string? CorrectAnswer { get; init; }
 }
