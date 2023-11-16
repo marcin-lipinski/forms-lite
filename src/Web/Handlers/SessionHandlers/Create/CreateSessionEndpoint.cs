@@ -39,8 +39,8 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
         var session = new Session
         {
             Id = sessionId,
-            StartTime = request.StartTime,
-            FinishTime = request.FinishTime,
+            StartTime = DateTime.Parse(request.StartTime),
+            FinishTime = DateTime.Parse(request.FinishTime),
             QuizId = request.QuizId,
             PartakeUrl = string.Concat(scheme, "://", host, pathBase, "/api/session/partake/", sessionId),
             SessionAnswers = new List<SessionPartake>()

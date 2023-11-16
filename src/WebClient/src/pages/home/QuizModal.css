@@ -4,6 +4,7 @@
     background-color: #0d0f1b;
     border-radius: 20px;
     border: white solid 2px;
+    max-height: 90%;
 }
 
 .modal-window header {
@@ -100,7 +101,7 @@
 }
 
 #quiz-display > *{
-    width: 90%;
+    width: 85%;
 }
 
 #open-answer {
@@ -115,13 +116,38 @@
 }
 
 .question-whole {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: fit-content;
-    
+    height: fit-content;    
     margin: 0 0 80px 0;
+}
+
+.question-delete-button {
+    position: absolute;
+    height: 40px;
+    aspect-ratio: 1/1;
+    left: -60px;
+    top: calc(50% - 20px);
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s ease-in-out;
+}
+
+.question-delete-button:hover {
+    background-color: rgb(240, 93, 40);
+    color: rgb(255, 255, 255);
+    font-weight: 400;
+    transform: scale(1.05);
 }
 
 .question-content {
@@ -162,7 +188,7 @@
     outline: none;
     border: none;
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 1.5rem;
     padding: 0;
     display: flex;
     justify-content: center;

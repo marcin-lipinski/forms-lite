@@ -19,7 +19,7 @@
 input {
     width: calc(80% - 20px) !important;
     padding-left: 20px;
-    color: white;
+    color: white !important;
 }
 
 .form button {

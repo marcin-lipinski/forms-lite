@@ -25,7 +25,7 @@ export default function LoginForm() {
             <div className='form'>
                 <input name='username' placeholder="Username" onChange={inputChangeHandler} value={loginData.username}></input>
                 <input name='password' placeholder="Password" onChange={inputChangeHandler} value={loginData.password} type="password"></input>
-                <button onClick={(submitFormHandler)}>Login</button>
+                <button type='submit' onClick={(submitFormHandler)}>Login</button>
             </div>
         </>
     )

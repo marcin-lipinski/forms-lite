@@ -1,9 +1,8 @@
 import { Quiz } from "./quiz";
 
 export interface CreateSessionRequest {
-    quizId: string;
-    startTime: Date;
-    finishTime: Date;
+    startTime: string;
+    finishTime: string;
 }
 
 export interface CreateSessionResponse {

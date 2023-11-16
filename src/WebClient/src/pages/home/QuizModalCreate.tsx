@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useStore } from "../../stores/store";
 import './QuizModalCreate.css';
 import './QuizModal.css';
-import { CreateQuizRequest, Question, QuestionType, Quiz } from "../../models/quiz";
+import { Question, QuestionType, Quiz } from "../../models/quiz";
 import PhotoWidgetDropzone from "../../common/imageUpload/PhotoWidgetDropzone";
 
 export default observer(function QuizModal() {
@@ -13,22 +13,7 @@ export default observer(function QuizModal() {
     const handleCloseButtonClick = () => modalStore.closeModal();
 
     const handleSaveButtonClick = () => {
-        let form = new FormData();
-        form.append('quiz.title', newQuiz.title);
-        newQuiz.questions.forEach((q, indexq) => {
-            form.append('quiz.questions[' + indexq + '].questionType', q.questionType.toString());
-            form.append('quiz.questions[' + indexq + '].questionNumber', q.questionNumber.toString());
-            form.append('quiz.questions[' + indexq + '].image', q.image || '');
-            if(q.answers !== null) q.answers?.forEach((a, index) => {
-                form.append('quiz.questions[' + indexq + '].answers['+ index + ']', a);
-
-            })
-            
-            form.append('quiz.questions[' + indexq + '].correctAnswer', q.correctAnswer || '');
-        });
-
-
-        quizStore.createQuiz(form);
+        quizStore.createQuiz(newQuiz).then(() => modalStore.closeModal());
     }
 
     const handleNewOpenButtonClick = () => {
@@ -39,6 +24,12 @@ export default observer(function QuizModal() {
             image: null
         };
         newQuiz.questions.push(question)
+        setNewQuiz(Object.assign({}, newQuiz));
+    }
+
+    const handleDeleteQuestionButton = (index: number) => {
+        let questions = newQuiz.questions.filter((x, ind) => ind !== index);
+        newQuiz.questions = questions;
         setNewQuiz(Object.assign({}, newQuiz));
     }
 
@@ -132,7 +123,8 @@ export default observer(function QuizModal() {
                                         </div>
                                       </>
                                 }
-                            </div>                            
+                            </div>
+                            <button className="question-delete-button" onClick={() => handleDeleteQuestionButton(index)}>🗑</button>                     
                         </div>    
                     )}
                     <div className="add-quiz-button">

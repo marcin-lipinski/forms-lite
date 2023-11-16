@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import agents from '../api/agent';
 import { CreateSessionRequest, PartakeSessionFinishRequest, Session } from '../models/session';
 import { Quiz } from '../models/quiz';
@@ -8,6 +8,7 @@ export default class SessionStore {
     oneSession: Session | null = null;
     partakeSessionUrl: string = "";
     partakeQuiz: Quiz | null = null;
+    loading: boolean = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -33,13 +34,16 @@ export default class SessionStore {
         }
     }
 
-    createSession = async (data: CreateSessionRequest) => {
+    createSession = async (id: string, data: CreateSessionRequest) => {
         try {
-            const result = await agents.Session.createSession(data);
-            console.log(result)
-            this.partakeSessionUrl = result.sessionPartakeUrl;
+            runInAction(() => this.loading = true);
+            const result = await agents.Session.createSession(id, data);   
+            console.log(result)         
+            runInAction(() => this.partakeSessionUrl = result.sessionPartakeUrl);
         } catch (error) {
             console.log(error)
+        } finally {
+            runInAction(() => this.loading = false);
         }
     }
 

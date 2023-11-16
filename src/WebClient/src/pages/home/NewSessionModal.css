@@ -1,0 +1,29 @@
+.modal-window {
+    height: fit-content !important;
+    width: 40% !important;
+}
+
+.modal-body.new-session{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.modal-body.new-session input{
+    background-color: white;
+    color: black !important;
+}
+
+.modal-body.new-session p{
+    font-size: 1.2rem;
+    margin: 10px;
+}
+
+
+.modal-body.new-session #session-url{
+    padding: 5px 10px;
+    background-color: white;
+    border-radius: 20px;
+    color: black !important;
+}
