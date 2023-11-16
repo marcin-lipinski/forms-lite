@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { CreateQuizRequest, Quiz, UpdateQuizRequest } from '../models/quiz';
+import { Quiz, UpdateQuizRequest } from '../models/quiz';
 import agents from '../api/agent';
 
 export default class QuizStore {
@@ -18,7 +18,7 @@ export default class QuizStore {
             const result = await agents.Quiz.getAll();
             runInAction(() => this.allQuizzes = result.quizzes);
         } catch (error) {
-            console.log(error)
+            throw new Error();
         } finally {
             runInAction(() => this.loading = false);
         }
@@ -30,7 +30,7 @@ export default class QuizStore {
             const result = await agents.Quiz.getOne(id);
             runInAction(() => this.oneQuiz = result.quiz);
         } catch (error) {
-            console.log(error)
+            throw new Error();
         } finally {
             runInAction(() => this.loading = false);
         }
@@ -42,7 +42,7 @@ export default class QuizStore {
             await agents.Quiz.deleteQuiz(id);
             runInAction(() => this.allQuizzes = this.allQuizzes.filter(x => x.id !== id));
         } catch (error) {
-            console.log(error)
+            throw new Error();
         } finally {
             runInAction(() => this.loading = false);
         }
@@ -52,14 +52,12 @@ export default class QuizStore {
         try {
             let form = new FormData();
             form.append('quiz.title', quiz.title);
-
             quiz.questions.forEach((q, indexq) => {
+                form.append('quiz.questions[' + indexq + '].contentText', q.contentText.toString());
                 form.append('quiz.questions[' + indexq + '].questionType', q.questionType.toString());
                 form.append('quiz.questions[' + indexq + '].questionNumber', q.questionNumber.toString());
                 form.append('quiz.questions[' + indexq + '].image', q.image || '');
-                if(q.answers !== null) q.answers?.forEach((a, index) => {
-                    form.append('quiz.questions[' + indexq + '].answers['+ index + ']', a);
-                })                
+                if(q.answers !== null) q.answers?.forEach((a, index) => form.append('quiz.questions[' + indexq + '].answers['+ index + ']', a));             
                 form.append('quiz.questions[' + indexq + '].correctAnswer', q.correctAnswer || '');
             });
 
@@ -68,7 +66,7 @@ export default class QuizStore {
             quiz.id = newId.data.quizId;
             runInAction(() => this.allQuizzes.push(quiz));
         } catch (error) {
-            console.log(error)
+            throw new Error();
         } finally {
             runInAction(() => this.loading = false);
         }
@@ -79,7 +77,7 @@ export default class QuizStore {
             runInAction(() => this.loading = true);
             await agents.Quiz.updateQuiz(quiz);
         } catch (error) {
-            console.log(error)
+            throw new Error();
         } finally {
             runInAction(() => this.loading = false);
         }

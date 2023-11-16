@@ -10,13 +10,12 @@ interface Props {
 
 export default observer(function QuizModal({quizId}: Props) {
     const {quizStore, modalStore} = useStore();
-    const {oneQuiz} = quizStore;
     const [editState, setEditState] = useState(false);
     const [selectedQuiz, setSelectedQuiz] = useState<Quiz | null>(null);
     const [replacePreviousVersion, setReplacePreviousVersion] = useState(false);
 
     useEffect(() => {
-        if(quizId !== null) quizStore.getOne(quizId!).then(() => setSelectedQuiz(Object.assign({}, quizStore.oneQuiz)));
+        if(quizId !== null) quizStore.getOne(quizId!).then(() => setSelectedQuiz(Object.assign({}, quizStore.oneQuiz))).catch(() => {});
         else {
             setEditState(true);
         }
@@ -40,7 +39,7 @@ export default observer(function QuizModal({quizId}: Props) {
             quiz: selectedQuiz!
         };
         setEditState(false);
-        quizStore.updateQuiz(request);
+        quizStore.updateQuiz(request).catch(() => {});
     }
 
     const handlerEditableKeyDown = (evnt: React.KeyboardEvent<HTMLDivElement> | React.KeyboardEvent<HTMLSpanElement>, index: number, field: string) => {

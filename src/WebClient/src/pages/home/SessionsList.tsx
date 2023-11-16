@@ -7,7 +7,7 @@ export default observer(function SessionsList() {
     const {sessionStore} = useStore();
 
     useEffect(() => {
-        sessionStore.getAll()
+        sessionStore.getAll().catch(() => {});
     }, []);
 
     return (

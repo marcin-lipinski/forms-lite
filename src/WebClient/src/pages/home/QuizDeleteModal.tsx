@@ -11,7 +11,7 @@ export default observer(function QuizDeleteModal({quizId}: Props) {
     const {modalStore, quizStore} = useStore()
 
     const handelQuizDeleteButton = () => {
-        quizStore.deleteQuiz(quizId).then(() => handleCloseButtonClick());
+        quizStore.deleteQuiz(quizId).then(() => handleCloseButtonClick()).catch(() => {});
     }
 
     const handleCloseButtonClick = () => modalStore.closeModal();

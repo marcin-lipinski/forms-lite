@@ -35,16 +35,40 @@ axios.interceptors.response.use(
                 }
                 break;
             case 401:
-                //
+                if (data.errors) {
+                    const modalStateErrors = [];
+                    for (const key in data.errors) {
+                        if (data.errors[key]) {
+                            modalStateErrors.push(data.errors[key]);
+                        }
+                    }
+                    store.dialogStore.showError(modalStateErrors.flat())
+                }
                 break;
             case 403:
-                //toast.error(`forbidden`);
+                if (data.errors) {
+                    const modalStateErrors = [];
+                    for (const key in data.errors) {
+                        if (data.errors[key]) {
+                            modalStateErrors.push(data.errors[key]);
+                        }
+                    }
+                    store.dialogStore.showError(modalStateErrors.flat())
+                }
                 break;
             case 404:
                 useNavigate()(`/notfound`);
                 break
             case 500:
-                store.dialogStore.showError(data.errors)
+                if (data.errors) {
+                    const modalStateErrors = [];
+                    for (const key in data.errors) {
+                        if (data.errors[key]) {
+                            modalStateErrors.push(data.errors[key]);
+                        }
+                    }
+                    store.dialogStore.showError(modalStateErrors.flat())
+                }
                 break;
         }
         return Promise.reject(error);
@@ -63,7 +87,7 @@ const requests = {
 const Account = {
     register: (user: UserRegisterRequest) => requests.put<User>("api/user/register", user),
     login:    (user: UserLoginRequest)    => requests.post<User>("api/user/login", user),
-    // current: () => requests.get<IUser>("user/current")
+    current:  () => requests.get<User>("api/user/current")
 };
 
 const Quiz = {

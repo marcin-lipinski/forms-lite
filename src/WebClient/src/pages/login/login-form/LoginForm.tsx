@@ -17,7 +17,7 @@ export default function LoginForm() {
     }
 
     const submitFormHandler = () => {
-        userStore.login(loginData).then(() => navigate('/home'));
+        userStore.login(loginData).then(() => navigate('/home')).catch(() => {});
     }
 
     return (

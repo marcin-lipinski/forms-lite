@@ -13,19 +13,16 @@ export default observer(function SessionPage() {
     
     useEffect(() => {
         if(id === undefined) navigate("/notfound");
-        else {
-            sessionStore.partakeSession(id!).then(() => fillResult());
-        }
+        else sessionStore.partakeSession(id!).then(() => fillResult()).catch(() => navigate("/notfound"));
     }, [])
 
     const fillResult = () => {
         sessionStore.partakeQuiz?.questions.forEach(q => result.answers.push({questionNumber: q.questionNumber, questionAnswer: ""})); 
         setResult(Object.assign({}, result));
-        console.log(result)
     }       
 
     const handleSendResult = () => {
-        sessionStore.partakeSessionFinish(id!, result)
+        sessionStore.partakeSessionFinish(id!, result).catch(() => {});
     }
 
     if(sessionStore.loading) return <>Loading</>;

@@ -6,13 +6,6 @@ namespace Web.Middleware;
 
 public class ExceptionHandlerMiddleware : IMiddleware
 {
-    private readonly IHostEnvironment _env;
-    
-    public ExceptionHandlerMiddleware(IHostEnvironment env)
-    {
-        _env = env;
-    }
-    
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         try
@@ -28,15 +21,7 @@ public class ExceptionHandlerMiddleware : IMiddleware
             var errors = exception.Errors;
             var message = exception.GetType().Name;
 
-            var json = _env.IsDevelopment()
-                ? JsonSerializer.Serialize(
-                    new
-                    {
-                        Errors = errors, Message = message, StatusCode = exception.Code,
-                        StackTrace = exception.StackTrace
-                    }, options)
-                : JsonSerializer.Serialize(new { ErrorCode = errors, Message = message, StatusCode = exception.Code, },
-                    options);
+            var json = JsonSerializer.Serialize(new { errors = errors, message = message, status = exception.Code }, options);
 
             await context.Response.WriteAsync(json);
         }
@@ -46,36 +31,25 @@ public class ExceptionHandlerMiddleware : IMiddleware
             context.Response.StatusCode = (int)exception.Code;
 
             var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-            var errors = new { error = new string[] { exception.Message } };
+            var errors = new Dictionary<string, string[]>(){{"Errors", new []{exception.Message}}};
             var message = exception.GetType().Name;
 
-            var json = _env.IsDevelopment()
-                ? JsonSerializer.Serialize(
-                    new
-                    {
-                        Errors = errors, Message = message, StatusCode = exception.Code,
-                        StackTrace = exception.StackTrace
-                    }, options)
-                : JsonSerializer.Serialize(new { ErrorCode = errors, Message = message, StatusCode = exception.Code, },
-                    options);
+            var json = JsonSerializer.Serialize(new { errors = errors, message = message, status = exception.Code}, options);
 
             await context.Response.WriteAsync(json);
         }
         catch (Exception exception)
         {
-            if (_env.IsDevelopment()) Console.WriteLine(exception);
+            Console.WriteLine(exception);
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = 500;
 
             var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-            var message = _env.IsDevelopment() ? exception.Message : "Internal Server Error";
+            var message = new Dictionary<string, string[]>(){{"Errors", new []{"Internal Server Error"}}};
             var errorCode = exception.GetType().Name;
 
-            var json = _env.IsDevelopment()
-                ? JsonSerializer.Serialize(
-                    new { ErrorCode = errorCode, Message = message, StackTrace = exception.StackTrace }, options)
-                : JsonSerializer.Serialize(new { ErrorCode = errorCode, Message = message }, options);
+            var json = JsonSerializer.Serialize(new { ErrorCode = errorCode, Message = message }, options);
 
             await context.Response.WriteAsync(json);
         }

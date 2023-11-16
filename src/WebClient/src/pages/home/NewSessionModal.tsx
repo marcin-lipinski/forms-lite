@@ -70,8 +70,7 @@ export default observer(function NewSessionModal({quizId}: Props) {
     }
 
     const handelNewSessionButton = () => {
-        console.log(sessionSettings)
-        sessionStore.createSession(quizId, sessionSettings);
+        sessionStore.createSession(quizId, sessionSettings).catch(() => {});
     }
 
     const handleCloseButtonClick = () => modalStore.closeModal();

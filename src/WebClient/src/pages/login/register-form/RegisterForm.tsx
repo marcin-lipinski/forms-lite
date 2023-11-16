@@ -3,8 +3,6 @@ import { useStore } from "../../../stores/store";
 import { useNavigate } from "react-router-dom";
 import { UserRegisterRequest } from "../../../models/user";
 
-
-
 export default function RegisterForm() {
     const {userStore} = useStore();
     const [registerData, setRegisterData] = useState<UserRegisterRequest>({username: "", password: "", passwordRepeat: ""})
@@ -18,7 +16,7 @@ export default function RegisterForm() {
     }
     
     const submitFormHandler = () => {
-        userStore.register(registerData).then(() => navigate('/home'));
+        userStore.register(registerData).then(() => navigate('/home')).catch(() => {});;
     }
 
     return (

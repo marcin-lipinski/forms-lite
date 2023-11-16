@@ -13,7 +13,7 @@ export default observer(function QuizModal() {
     const handleCloseButtonClick = () => modalStore.closeModal();
 
     const handleSaveButtonClick = () => {
-        quizStore.createQuiz(newQuiz).then(() => modalStore.closeModal());
+        quizStore.createQuiz(newQuiz).then(() => modalStore.closeModal()).catch(() => {});
     }
 
     const handleNewOpenButtonClick = () => {

@@ -17,31 +17,28 @@ export default class SessionStore {
     getAll = async () => {
         try {
             const result = await agents.Session.getAll();
-            console.log(result)
             this.allSessions = result.sessions;
         } catch (error) {
-            console.log(error)
+            throw new Error();
         }
     }
 
     getOne = async (id: string) => {
         try {
             const result = await agents.Session.getOne(id);
-            console.log(result)
             this.oneSession = result.session;
         } catch (error) {
-            console.log(error)
+            throw new Error();
         }
     }
 
     createSession = async (id: string, data: CreateSessionRequest) => {
         try {
             runInAction(() => this.loading = true);
-            const result = await agents.Session.createSession(id, data);   
-            console.log(result)         
+            const result = await agents.Session.createSession(id, data);
             runInAction(() => this.partakeSessionUrl = result.sessionPartakeUrl);
         } catch (error) {
-            console.log(error)
+            throw new Error();
         } finally {
             runInAction(() => this.loading = false);
         }
@@ -49,10 +46,9 @@ export default class SessionStore {
 
     finishSession = async (id: string) => {
         try {
-            const result = await agents.Session.finishSession(id);
-            console.log(result)
+            await agents.Session.finishSession(id);
         } catch (error) {
-            console.log(error)
+            throw new Error();
         }
     }
 
@@ -62,7 +58,7 @@ export default class SessionStore {
             const result = await agents.Session.partakeSession(id);
             runInAction(() => this.partakeQuiz = result.quiz);            
         } catch (error) {
-            console.log(error)
+            throw new Error();
         } finally {
             runInAction(() => this.loading = false);
         }
@@ -71,9 +67,8 @@ export default class SessionStore {
     partakeSessionFinish = async (id: string, data: PartakeSessionFinishRequest) => {
         try {
             const result = await agents.Session.partakeSessionFinish(id, data);
-            console.log(result)
         } catch (error) {
-            console.log(error)
+            throw new Error();
         }
     }
 }

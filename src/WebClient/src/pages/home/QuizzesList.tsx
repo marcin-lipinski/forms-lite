@@ -11,7 +11,7 @@ export default observer(function QuizzesList() {
     const {quizStore, modalStore} = useStore();
 
     useEffect(() => {
-        quizStore.getAll()
+        quizStore.getAll().catch(() => {});
     }, []);
 
     const handleQuizSeeButton = (id: string) => {
