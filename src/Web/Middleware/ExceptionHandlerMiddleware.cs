@@ -19,36 +19,64 @@ public class ExceptionHandlerMiddleware : IMiddleware
         {
             await next(context);
         }
+        catch (VException exception)
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)exception.Code;
+
+            var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+            var errors = exception.Errors;
+            var message = exception.GetType().Name;
+
+            var json = _env.IsDevelopment()
+                ? JsonSerializer.Serialize(
+                    new
+                    {
+                        Errors = errors, Message = message, StatusCode = exception.Code,
+                        StackTrace = exception.StackTrace
+                    }, options)
+                : JsonSerializer.Serialize(new { ErrorCode = errors, Message = message, StatusCode = exception.Code, },
+                    options);
+
+            await context.Response.WriteAsync(json);
+        }
         catch (CustomException exception)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)exception.Code;
-            
-            var options = new JsonSerializerOptions{PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
-            var errors = new { error = new string[]{ exception.Message } };
+
+            var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+            var errors = new { error = new string[] { exception.Message } };
             var message = exception.GetType().Name;
 
             var json = _env.IsDevelopment()
-                ? JsonSerializer.Serialize(new { Errors = errors, Message = message, StatusCode = exception.Code, StackTrace = exception.StackTrace }, options)
-                : JsonSerializer.Serialize(new { ErrorCode = errors, Message = message, StatusCode = exception.Code, }, options);
-            
+                ? JsonSerializer.Serialize(
+                    new
+                    {
+                        Errors = errors, Message = message, StatusCode = exception.Code,
+                        StackTrace = exception.StackTrace
+                    }, options)
+                : JsonSerializer.Serialize(new { ErrorCode = errors, Message = message, StatusCode = exception.Code, },
+                    options);
+
             await context.Response.WriteAsync(json);
         }
         catch (Exception exception)
         {
-            if(_env.IsDevelopment()) Console.WriteLine(exception);
-            
+            if (_env.IsDevelopment()) Console.WriteLine(exception);
+
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = 500;
-            
-            var options = new JsonSerializerOptions{PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
+
+            var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
             var message = _env.IsDevelopment() ? exception.Message : "Internal Server Error";
             var errorCode = exception.GetType().Name;
 
             var json = _env.IsDevelopment()
-                ? JsonSerializer.Serialize(new { ErrorCode = errorCode, Message = message, StackTrace = exception.StackTrace }, options)
+                ? JsonSerializer.Serialize(
+                    new { ErrorCode = errorCode, Message = message, StackTrace = exception.StackTrace }, options)
                 : JsonSerializer.Serialize(new { ErrorCode = errorCode, Message = message }, options);
-            
+
             await context.Response.WriteAsync(json);
         }
     }

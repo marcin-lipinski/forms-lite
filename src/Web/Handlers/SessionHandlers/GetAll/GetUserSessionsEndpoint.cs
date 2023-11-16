@@ -36,7 +36,7 @@ public class GetUserSessionsEndpoint : EndpointWithoutRequest<GetUserSessionsRes
                 AnswersAmount = session.SessionAnswers.Count,
                 FinishTime = session.FinishTime.ToString("dd-MM-yyyy hh:mm"),
                 StartTime = session.StartTime.ToString("dd-MM-yyyy hh:mm"),
-                Id = session.Id,
+                Id = HttpContext.Request.Headers.Origin[0] + session.PartakeUrl + session.PartakeUrl,
                 QuizId = session.QuizId,
                 IsActive = !session.IsFinishedByAuthor && DateTime.Now > session.StartTime && DateTime.Now < session.FinishTime
             })

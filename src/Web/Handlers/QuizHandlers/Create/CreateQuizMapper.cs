@@ -6,9 +6,9 @@ using FastEndpoints;
 
 namespace Web.Handlers.QuizHandlers.Create;
 
-public class CreateQuizMapper : Mapper<CreateQuizRequest, CreateQuizResponse, Quiz>
+public static class CreateQuizMapper
 {
-    public override Quiz ToEntity(CreateQuizRequest request)
+    public static Quiz Map(this CreateQuizRequest request)
     {
         return new Quiz
         {

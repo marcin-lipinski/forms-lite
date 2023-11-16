@@ -42,11 +42,12 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
             StartTime = DateTime.Parse(request.StartTime),
             FinishTime = DateTime.Parse(request.FinishTime),
             QuizId = request.QuizId,
-            PartakeUrl = string.Concat(scheme, "://", host, pathBase, "/partake/", sessionId),
+            PartakeUrl = "/partake/" + sessionId,
             SessionAnswers = new List<SessionPartake>()
         };
+        
         await DbContext.Collection<Session>().InsertOneAsync(session, cancellationToken: cancellationToken);
 
-        await SendAsync(new CreateSessionResponse{SessionPartakeUrl = session.PartakeUrl}, cancellation: cancellationToken);
+        await SendAsync(new CreateSessionResponse{SessionPartakeUrl = HttpContext.Request.Headers.Origin[0] + session.PartakeUrl}, cancellation: cancellationToken);
     }
 }
