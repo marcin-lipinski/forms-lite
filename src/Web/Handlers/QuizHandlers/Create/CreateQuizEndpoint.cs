@@ -24,11 +24,9 @@ public class CreateQuizController : Controller
     [HttpPost("/api/quiz/create")]
     public async Task<IActionResult> CreateQuiz([FromForm] CreateQuizRequest formData)
     {
-        Console.WriteLine(JsonSerializer.Serialize(formData));
-        
         var quiz = new Quiz
         {
-            AuthorId = "om",//userAccessor.GetUserId(),
+            AuthorId = UserAccessor.GetUserId(),
             Title = formData.Quiz.Title,
             Version = 0,
             Questions = formData.Quiz.Questions.Select(question => question.QuestionType == QuestionType.Closed 
@@ -47,6 +45,7 @@ public class CreateQuizController : Controller
                     CorrectAnswer = question.CorrectAnswer
                 }).ToList()
         };
+        
         foreach (var question in quiz.Questions)
         {
             var outImage = formData.Quiz.Questions.SingleOrDefault(q => q.QuestionNumber == question.QuestionNumber)?.Image;

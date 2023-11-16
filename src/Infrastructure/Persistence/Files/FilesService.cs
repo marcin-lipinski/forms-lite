@@ -20,13 +20,14 @@ public class FilesService : IFilesService
     public async Task<ImageMetadata> SaveImage(string quizTitle, int questionNr, IFormFile file)
     {
         var imageName = CreateImageName(quizTitle + questionNr, file);
-        var dirPath = Path.Combine(_filesOptions.Value.ImagesRoute(), (quizTitle + DateTime.Now).GetHashCode().ToString());
+        var quizDirectory = (quizTitle + DateTime.Now).GetHashCode().ToString();
+        var dirPath = Path.Combine(_filesOptions.Value.ImagesRoute(), quizDirectory);
         if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
         
         var image = new ImageMetadata
         {
             FullPath = Path.Combine(dirPath, imageName),
-            RelativePath = Path.Combine("/", _filesOptions.Value.ImagesDirectory, quizTitle, imageName)
+            RelativePath = Path.Combine("/", _filesOptions.Value.ImagesDirectory, quizDirectory, imageName)
         };
         
         await SaveImageOnHost(image, file);

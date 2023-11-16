@@ -1,11 +1,10 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../stores/store";
-import './QuizDeleteModal.css';
-import './QuizModal.css';
 import { useState } from "react";
 import { CreateSessionRequest } from "../../models/session";
-import DatePicker from "react-datepicker";
 import './NewSessionModal.css'
+import './QuizDeleteModal.css';
+import './QuizModal.css';
 
 interface Props {
     quizId: string
@@ -78,7 +77,7 @@ export default observer(function NewSessionModal({quizId}: Props) {
     const handleCloseButtonClick = () => modalStore.closeModal();
 
     return(
-        <div className="modal-window">
+        <div className="modal-window new-session">
             <header>
                 <p></p>
                 <button onClick={handleCloseButtonClick}>✖</button>

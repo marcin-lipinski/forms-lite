@@ -36,12 +36,13 @@ export default observer(function SessionsList() {
                             <td>{session.answersAmount}</td>
                         </tr>
                         <tr>
-                            <td>Id</td>
+                            <td>Join url</td>
                             <td>{session.id}</td>
                         </tr>
                     </table>
                     <div className="button-group">
                         <button disabled={session.isActive}>See</button>
+                        <button disabled={!session.isActive}>Finish</button>
                         <button>Delete</button>
                     </div>
                 </div>

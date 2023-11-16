@@ -1,6 +1,6 @@
 .modal-window {
-    width: 50%;
-    height: 90%;
+    width: 50% !important;
+    height: 90% !important;
     background-color: #0d0f1b;
     border-radius: 20px;
     border: white solid 2px;

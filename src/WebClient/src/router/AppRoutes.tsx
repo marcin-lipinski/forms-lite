@@ -4,6 +4,8 @@ import { useStore } from '../stores/store';
 import { useEffect } from 'react';
 import LoginPage from '../pages/login/LoginPage';
 import HomePage from '../pages/home/HomePage';
+import NotFoundPage from '../pages/not-found/NotFoundPage';
+import SessionPage from '../pages/session/SessionPage';
 
 export default function AppRoutes(){
     const {userStore, commonStore} = useStore();
@@ -37,9 +39,8 @@ export default function AppRoutes(){
             <Routes location={location} key={location.pathname}>
                 <Route path='/' element={<LoginPage/>}/>
                 <Route path='/home' element={<HomePage/>}/>
-                {/* <Route path='/create' element={<NewQuizPage/>}/>
-                <Route path='/session/new' element={<NewSessionPage/>}/>
-                <Route path='*' element={<NotFoundPage/>}/> */}
+                <Route path='/partake/:id' element={<SessionPage/>}/>
+                <Route path='*' element={<NotFoundPage/>}/>
             </Routes>
         </AnimatePresence>
     )

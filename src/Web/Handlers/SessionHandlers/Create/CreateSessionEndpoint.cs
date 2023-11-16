@@ -42,7 +42,7 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
             StartTime = DateTime.Parse(request.StartTime),
             FinishTime = DateTime.Parse(request.FinishTime),
             QuizId = request.QuizId,
-            PartakeUrl = string.Concat(scheme, "://", host, pathBase, "/api/session/partake/", sessionId),
+            PartakeUrl = string.Concat(scheme, "://", host, pathBase, "/partake/", sessionId),
             SessionAnswers = new List<SessionPartake>()
         };
         await DbContext.Collection<Session>().InsertOneAsync(session, cancellationToken: cancellationToken);

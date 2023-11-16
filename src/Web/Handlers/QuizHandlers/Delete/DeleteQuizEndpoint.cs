@@ -28,7 +28,9 @@ public class DeleteQuizEndpoint : Endpoint<DeleteQuizRequest, EmptyResponse>
 
         foreach (var question in quiz.Questions)
         {
-            if (question.Image != null) Directory.Delete(question.Image.FullPath, true);
+            if (question.Image == null) continue;
+            Directory.Delete(Path.GetDirectoryName(question.Image.FullPath), true);
+            break;
         }
 
         await DbContext.Collection<Quiz>().DeleteOneAsync(q => q.Id.Equals(request.QuizId), cancellationToken: cancellationToken);

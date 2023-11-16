@@ -1,4 +1,4 @@
-.modal-window .close{
+.modal-window.close{
     width: 30% !important;
     height: fit-content !important;
 }
@@ -6,8 +6,8 @@
 .modal-body {
     color: white;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center !important;
+    align-items: center !important;
     flex-direction: column;
 }
 

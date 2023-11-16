@@ -75,7 +75,7 @@ export default observer(function QuizModal({quizId}: Props) {
                             <div className="question-content">
                                 <span contentEditable={editState} className={editState ? "editable": ""} onKeyDown={(evnt) => handlerEditableKeyDown(evnt, index, 'content')}>{question.contentText}</span>
                                 {question.contentImageUrl !== null
-                                    ? <img src={require(question.contentImageUrl!)}/>
+                                    ? <img src={question.contentImageUrl!}/>
                                     : <></>
                                 }
                             </div>

@@ -1,4 +1,4 @@
-.modal-window {
+.modal-window.new-session {
     height: fit-content !important;
     width: 40% !important;
 }

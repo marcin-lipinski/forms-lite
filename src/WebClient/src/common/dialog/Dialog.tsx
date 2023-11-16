@@ -6,7 +6,7 @@ export default observer(function Dialog(){
     const {dialogStore} = useStore();
     const {visible, message, error, closeDialog} = {...dialogStore};
 
-    const handleCloseButtonClick = () => dialogStore.closeDialog();
+    const handleCloseButtonClick = () => closeDialog();
 
     return(
         <div className={visible ? "dialog visible ": "dialog"}>

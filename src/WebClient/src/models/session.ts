@@ -28,7 +28,7 @@ export interface Session {
 }
 
 export interface PartakeSessionResponse {
-    quizDto: Quiz;
+    quiz: Quiz;
 }
 
 export interface PartakeSessionFinishRequest {

@@ -10,10 +10,8 @@ public class CreateQuizMapper : Mapper<CreateQuizRequest, CreateQuizResponse, Qu
 {
     public override Quiz ToEntity(CreateQuizRequest request)
     {
-        //var userAccessor = Resolve<IUserAccessor>();
         return new Quiz
         {
-            AuthorId = "om",//userAccessor.GetUserId(),
             Title = request.Quiz.Title,
             Version = 0,
             Questions = request.Quiz.Questions.Select(question => question.QuestionType == QuestionType.Closed 

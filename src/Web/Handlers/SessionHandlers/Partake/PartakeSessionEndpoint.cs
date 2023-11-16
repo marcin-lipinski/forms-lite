@@ -24,7 +24,7 @@ public class PartakeSessionEndpoint : Endpoint<PartakeSessionRequest, PartakeSes
         var session = await DbContext.Collection<Session>().AsQueryable()
             .SingleOrDefaultAsync(s => s.Id.Equals(request.SessionId), cancellationToken: cancellationToken);
         if (session is null) throw new NotFoundException("Session");
-        if (!session.IsActive()) throw new SessionNotActiveException();
+        if (session.IsFinishedByAuthor && DateTime.Now > session.StartTime && DateTime.Now < session.FinishTime) throw new SessionNotActiveException();
         
         var quiz = await DbContext.Collection<Quiz>().AsQueryable().SingleOrDefaultAsync(quiz => quiz.Id.Equals(session.QuizId), cancellationToken: cancellationToken);
         var response = Map.FromEntity(quiz);

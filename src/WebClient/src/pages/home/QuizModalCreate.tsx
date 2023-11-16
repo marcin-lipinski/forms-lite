@@ -79,7 +79,7 @@ export default observer(function QuizModal() {
     if(quizStore.loading) return <></>;
 
     return (
-        <div className="modal-window">
+        <div className="modal-window quiz-create">
             <header>
                 <p></p>
                 <button onClick={handleCloseButtonClick}>✖</button>

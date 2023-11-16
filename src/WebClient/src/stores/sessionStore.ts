@@ -58,11 +58,13 @@ export default class SessionStore {
 
     partakeSession = async (id: string) => {
         try {
+            runInAction(() => this.loading = true);
             const result = await agents.Session.partakeSession(id);
-            console.log(result)
-            this.partakeQuiz = result.quizDto;
+            runInAction(() => this.partakeQuiz = result.quiz);            
         } catch (error) {
             console.log(error)
+        } finally {
+            runInAction(() => this.loading = false);
         }
     }
 
