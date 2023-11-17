@@ -29,13 +29,13 @@ export default observer(function QuizModal({quiz, mode}: Props) {
         if(modeState === 'create') handleCloseButtonClick();
         else {            
             setModeState('view');
-            setCurrentQuiz(quizStore.oneQuiz);
+            setCurrentQuiz(Object.assign({}, quiz));
         }
     }
 
     const handleEditButtonClick = () => { 
         setModeState('edit');
-        setCurrentQuiz(Object.assign({}, quizStore.oneQuiz));
+        setCurrentQuiz(Object.assign({}, currentQuiz));
     }
 
     const handleSaveButtonClick = () => {
@@ -108,11 +108,9 @@ export default observer(function QuizModal({quiz, mode}: Props) {
             currentQuiz!.questions![index].contentImageUrl = "";
             setCurrentQuiz(Object.assign({}, currentQuiz));
         };
-        console.log(currentQuiz)
     }
 
     if(quizStore.loading) return <Laoder/>;
-    console.log(modeState)
     
     return (
         <div className="modal-window quiz-view">
@@ -135,7 +133,7 @@ export default observer(function QuizModal({quiz, mode}: Props) {
                                     ? <>
                                         {(question.contentImageUrl?.length !== 0 || question.image !== null)
                                             ? <div className="question-image-contaner">
-                                                <img className="question-image" src={question.image !== null ? question.imagePreview : question.contentImageUrl}/>
+                                                <img className="question-image" src={question.contentImageUrl!.length > 0 ? question.contentImageUrl : question.imagePreview}/>
                                             </div>
                                             : <></>
                                         }
