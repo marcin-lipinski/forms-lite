@@ -25,7 +25,8 @@ builder.Services.AddControllers()
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateQuizValidator>());
 
 
-builder.Services.AddCors(opt => opt.AddPolicy("CorsPolicy", policy => policy.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
+builder.Services.AddCors(opt => 
+    opt.AddPolicy("CorsPolicy", policy => policy.WithOrigins("http://localhost:3000", "https://formslite-frontend.azurewebsites.net").AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
 
 builder.Services.AddScoped<IFilesService, FilesService>();
 
@@ -47,6 +48,7 @@ app.UseAuthorization();
 app.UseInfrastructure(app.Configuration);
 
 app.MapControllers();
+
 app.UseExceptionHandler();
 
 app.Run();

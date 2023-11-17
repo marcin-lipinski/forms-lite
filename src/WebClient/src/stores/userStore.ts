@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { store } from "./store";
 import agents from "../api/agent";
 import { User, UserRegisterRequest, UserLoginRequest } from "../models/user";
+import axios from "axios";
 
 export default class UserStore {
     user: User | null = null;
@@ -16,6 +17,7 @@ export default class UserStore {
     }
 
     register = async (data: UserRegisterRequest) => {
+        console.log(axios.defaults.baseURL)
         try {
             runInAction(() => this.loading = true);
             const user = await agents.Account.register(data);

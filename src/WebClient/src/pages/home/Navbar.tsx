@@ -24,9 +24,9 @@ export default function Navbar({setMenuState, menuState}: Props) {
     }
 
     const menuOptions = [
-        {name: 'Quizzes', id: 'quizzes', imgSrc: require('../../assets/quiz-white.png')},
-        {name: 'Sessions', id: 'sessions', imgSrc: require('../../assets/session-white.png')},
-        {name: 'Logout', id: 'logout', imgSrc: require('../../assets/logout-white.png')}
+        {name: 'Quizzes', id: 'quizzes', imgSrc: "assets/quiz-white.png"},
+        {name: 'Sessions', id: 'sessions', imgSrc: "assets/session-white.png"},
+        {name: 'Logout', id: 'logout', imgSrc: "assets/logout-white.png"}
     ]
 
     return (

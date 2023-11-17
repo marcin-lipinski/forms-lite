@@ -5,7 +5,8 @@ import { User, UserLoginRequest, UserRegisterRequest } from "../models/user";
 import { CreateQuizResponse, GetUserQuizResponse, GetUserQuizzesResponse, UpdateQuizRequest, UpdateQuizResponse } from "../models/quiz";
 import { CreateSessionRequest, CreateSessionResponse, GetUserSessionResponse, GetUserSessionsResponse, PartakeSessionFinishRequest, PartakeSessionResponse } from "../models/session";
 
-axios.defaults.baseURL = 'https://localhost:7015/';//process.env.REACT_APP_API_URL;
+axios.defaults.baseURL = //"https://formslite.azurewebsites.net/";//https://localhost:7015/
+axios.defaults.baseURL = "https://localhost:7015/";
 
 axios.interceptors.request.use((config) => {
     const token = store.commonStore.token;

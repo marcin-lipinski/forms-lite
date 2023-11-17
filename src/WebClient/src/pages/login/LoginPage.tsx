@@ -26,7 +26,7 @@ export default function LoginPage() {
             <div className="column content">
                 <div className="logo-container">
                     <header>Sznuq</header>
-                    <img src={require("../../assets/logoX.png")}/>
+                    <img src="assets/logoX.png"/>
                 </div>
                 <div className="form-container">
                     <div className='state-buttons'>
