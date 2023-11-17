@@ -15,30 +15,32 @@ export default observer(function SessionsList() {
             {sessionStore.allSessions.map(session => 
                 <div className="cover">
                     <table>
-                        <tr>
-                            <td>Quiz title</td>
-                            <td>{session.quizTitle}</td>
-                        </tr>
-                        <tr>
-                            <td>Active</td>
-                            <td>{session.isActive ? "YES" : "NO"}</td>
-                        </tr>
-                        <tr>
-                            <td>Planned start time</td>
-                            <td>{session.startTime.toString()}</td>
-                        </tr>
-                        <tr>
-                            <td>Planned finish time</td>
-                            <td>{session.finishTime.toString()}</td>
-                        </tr>
-                        <tr>
-                            <td>Answers amount</td>
-                            <td>{session.answersAmount}</td>
-                        </tr>
-                        <tr>
-                            <td>Join url</td>
-                            <td>{session.id}</td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <td>Quiz title</td>
+                                <td>{session.quizTitle}</td>
+                            </tr>
+                            <tr>
+                                <td>Active</td>
+                                <td>{session.isActive ? "YES" : "NO"}</td>
+                            </tr>
+                            <tr>
+                                <td>Planned start time</td>
+                                <td>{session.startTime.toString()}</td>
+                            </tr>
+                            <tr>
+                                <td>Planned finish time</td>
+                                <td>{session.finishTime.toString()}</td>
+                            </tr>
+                            <tr>
+                                <td>Answers amount</td>
+                                <td>{session.answersAmount}</td>
+                            </tr>
+                            <tr>
+                                <td>Join url</td>
+                                <td>{session.id}</td>
+                            </tr>
+                        </tbody>
                     </table>
                     <div className="button-group">
                         <button disabled={session.isActive}>See</button>

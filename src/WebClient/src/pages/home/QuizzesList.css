@@ -1,5 +1,5 @@
 .cover {
-    background-color: whitesmoke;
+    background-color: rgba(245, 245, 245, 0.9);
     border-radius: 20px;
     padding: 20px;
     display: flex;
@@ -28,18 +28,6 @@ table {
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     font-size: 1.2rem;
-}
-
-.button-group :last-child {
-    background-color: #FF785A;
-}
-
-.button-group :last-child:hover {
-    background-color: #fa5c39;
-}
-
-.button-group button:hover{
-    transform: scaleX(1.05);
 }
 
 .cover.add {

@@ -2,8 +2,11 @@ import { useState } from "react"
 import { useStore } from "../../../stores/store";
 import { useNavigate } from "react-router-dom";
 import { UserRegisterRequest } from "../../../models/user";
+import Laoder from "../../../common/loader/Loader";
+import { observer } from "mobx-react-lite";
+import './LoginForm.css';
 
-export default function RegisterForm() {
+export default observer(function RegisterForm() {
     const {userStore} = useStore();
     const [registerData, setRegisterData] = useState<UserRegisterRequest>({username: "", password: "", passwordRepeat: ""})
     const navigate = useNavigate();
@@ -19,6 +22,8 @@ export default function RegisterForm() {
         userStore.register(registerData).then(() => navigate('/home')).catch(() => {});;
     }
 
+    if(userStore.loading) return <Laoder/>;
+
     return (
         <>
             <div className="form">
@@ -29,4 +34,4 @@ export default function RegisterForm() {
             </div>
         </>
     )
-}
+})

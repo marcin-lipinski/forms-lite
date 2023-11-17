@@ -3,25 +3,26 @@
     width: 40% !important;
 }
 
-.modal-body.new-session{
+.modal-window.new-session .modal-body{
     display: flex;
     justify-content: center;
-    align-items: center;
-    
+    align-items: center;    
+    flex-direction: column;
+    color: white;
 }
 
-.modal-body.new-session input{
+.modal-window.new-session .modal-body input{
     background-color: white;
     color: black !important;
+    margin-bottom: 20px;
 }
 
-.modal-body.new-session p{
+.modal-window.new-session .modal-body p{
     font-size: 1.2rem;
     margin: 10px;
 }
 
-
-.modal-body.new-session #session-url{
+.modal-window.new-session .modal-body #session-url{
     padding: 5px 10px;
     background-color: white;
     border-radius: 20px;

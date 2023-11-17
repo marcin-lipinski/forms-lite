@@ -1,10 +1,8 @@
 import { observer } from "mobx-react-lite";
-import { useStore } from "../../stores/store";
+import { useStore } from "../../../stores/store";
 import { useState } from "react";
-import { CreateSessionRequest } from "../../models/session";
+import { CreateSessionRequest } from "../../../models/session";
 import './NewSessionModal.css'
-import './QuizDeleteModal.css';
-import './QuizModal.css';
 
 interface Props {
     quizId: string
@@ -93,8 +91,8 @@ export default observer(function NewSessionModal({quizId}: Props) {
                             <label htmlFor="finish-time">Finish time</label>
                             <input id="finish-time" value={sessionSettings.finishTime} onChange={handleInputChange} onBlur={makeDateFine}></input>
                             <div id="buttons">
-                                <button onClick={handleCloseButtonClick}>Cancel</button>
-                                <button onClick={handelNewSessionButton}>Confirm</button>
+                                <button onClick={handleCloseButtonClick} className="white-button">Cancel</button>
+                                <button onClick={handelNewSessionButton} className="orange-button">Confirm</button>
                             </div>
                         </>
                 }

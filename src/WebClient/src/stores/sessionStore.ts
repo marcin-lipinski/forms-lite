@@ -16,19 +16,25 @@ export default class SessionStore {
 
     getAll = async () => {
         try {
-            const result = await agents.Session.getAll();
-            this.allSessions = result.sessions;
+            runInAction(() => this.loading = true);
+            const result = await agents.Session.getAll();            
+            runInAction(() => this.allSessions = result.sessions);
         } catch (error) {
             throw new Error();
+        } finally {
+            runInAction(() => this.loading = false);
         }
     }
 
     getOne = async (id: string) => {
         try {
+            runInAction(() => this.loading = true);
             const result = await agents.Session.getOne(id);
-            this.oneSession = result.session;
+            runInAction(() => this.oneSession = result.session);            ;
         } catch (error) {
             throw new Error();
+        } finally {
+            runInAction(() => this.loading = false);
         }
     }
 
@@ -46,9 +52,12 @@ export default class SessionStore {
 
     finishSession = async (id: string) => {
         try {
+            runInAction(() => this.loading = true);
             await agents.Session.finishSession(id);
         } catch (error) {
             throw new Error();
+        } finally {
+            runInAction(() => this.loading = false);
         }
     }
 
@@ -66,9 +75,12 @@ export default class SessionStore {
 
     partakeSessionFinish = async (id: string, data: PartakeSessionFinishRequest) => {
         try {
-            const result = await agents.Session.partakeSessionFinish(id, data);
+            runInAction(() => this.loading = true);
+            await agents.Session.partakeSessionFinish(id, data);
         } catch (error) {
             throw new Error();
+        } finally {
+            runInAction(() => this.loading = false);
         }
     }
 }

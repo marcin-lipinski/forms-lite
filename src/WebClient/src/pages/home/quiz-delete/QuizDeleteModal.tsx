@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite";
-import { useStore } from "../../stores/store";
+import { useStore } from "../../../stores/store";
 import './QuizDeleteModal.css';
-import './QuizModal.css';
 
 interface Props {
     quizId: string
@@ -17,16 +16,16 @@ export default observer(function QuizDeleteModal({quizId}: Props) {
     const handleCloseButtonClick = () => modalStore.closeModal();
 
     return(
-        <div className="modal-window">
+        <div className="modal-window quiz-delete">
             <header>
                 <p></p>
                 <button onClick={handleCloseButtonClick}>✖</button>
             </header>
-            <div className="modal-body close">
+            <div className="modal-body">
                 <span>Do you want delete quiz and all related sessions?</span>
                 <div id="buttons">
-                    <button onClick={handleCloseButtonClick}>Cancel</button>
-                    <button onClick={handelQuizDeleteButton}>Confirm</button>
+                    <button onClick={handleCloseButtonClick} className="white-button">Cancel</button>
+                    <button onClick={handelQuizDeleteButton} className="orange-button">Confirm</button>
                 </div>
             </div>
         </div>

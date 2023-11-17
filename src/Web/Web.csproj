@@ -30,7 +30,6 @@
       <Folder Include="Handlers\SessionHandlers\GetAll\" />
       <Folder Include="Handlers\SessionHandlers\Partake\" />
       <Folder Include="Handlers\SessionHandlers\PartakeSessionFinish\" />
-      <Folder Include="Handlers\UserHandlers\Current\" />
     </ItemGroup>
 
 </Project>

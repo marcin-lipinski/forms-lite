@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../../stores/store';
 import { UserLoginRequest } from '../../../models/user';
+import Laoder from '../../../common/loader/Loader';
+import { observer } from 'mobx-react-lite';
 import './LoginForm.css';
 
-export default function LoginForm() {
+export default observer(function LoginForm() {
     const {userStore} = useStore();
     const [loginData, setLoginData] = useState<UserLoginRequest>({username: "", password: ""})
     const navigate = useNavigate();
@@ -20,6 +22,8 @@ export default function LoginForm() {
         userStore.login(loginData).then(() => navigate('/home')).catch(() => {});
     }
 
+    if(userStore.loading) return <Laoder/>;
+
     return (
         <>
             <div className='form'>
@@ -29,4 +33,4 @@ export default function LoginForm() {
             </div>
         </>
     )
-}
+})

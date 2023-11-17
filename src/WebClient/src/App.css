@@ -21,3 +21,19 @@ body {
 .column {
     height: 100%;
 }
+
+.white-button {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.orange-button {
+    background-color: rgba(255, 120, 90, 0.7) !important;
+}
+
+.white-button:hover {
+    background-color: rgb(216, 216, 216) !important;
+}
+
+.orange-button:hover {
+    background-color: rgba(255, 120, 90, 1) !important;
+}

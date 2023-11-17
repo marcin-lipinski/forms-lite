@@ -6,33 +6,32 @@ import LoginPage from '../pages/login/LoginPage';
 import HomePage from '../pages/home/HomePage';
 import NotFoundPage from '../pages/not-found/NotFoundPage';
 import SessionPage from '../pages/session/SessionPage';
+import Laoder from '../common/loader/Loader';
+import { observer } from 'mobx-react-lite';
 
-export default function AppRoutes(){
+export default observer(function AppRoutes(){
     const {userStore, commonStore} = useStore();
     const location = useLocation();
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     let pathname = location.pathname === '/' ? '/home' : location.pathname;
-    //     if(pathname === '/session/join') {
-    //         userStore.current()
-    //             .then(() => navigate(pathname))
-    //             .catch((error) => navigate(pathname))
-    //             .finally(() => commonStore.setAppLoaded());
-    //     }
-    //     if (commonStore.token) {
-    //         userStore.current()
-    //             .then(() => navigate(pathname))
-    //             .catch((error) => navigate('/'))
-    //             .finally(() => commonStore.setAppLoaded());
-    //     }
-    //     else {
-    //         commonStore.setAppLoaded();
-    //         navigate('/');
-    //     }
-    // }, [commonStore, useStore]);
+    useEffect(() => {
+        if(location.pathname.startsWith('/partake')) {
+            commonStore.setAppLoaded();
+            navigate(location.pathname);
+        }
+        else if(commonStore.token) {
+            userStore.current()
+                .then(() => navigate('/home'))
+                .catch(() => navigate('/'))
+                .finally(() => commonStore.setAppLoaded());
+        }
+        else {
+            commonStore.setAppLoaded();
+            navigate('/');
+        }
+    }, []);
 
-    //if(commonStore.loading) return <Dimmer active={true} style={{backgroundColor: 'rgba(0,0,0,0.4)'}}><Loader/></Dimmer>;
+    <Laoder active={commonStore.loading}/>;
     
     return(
         <AnimatePresence mode='wait'>
@@ -44,4 +43,4 @@ export default function AppRoutes(){
             </Routes>
         </AnimatePresence>
     )
-}
+})

@@ -40,23 +40,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 
-app.UseFastEndpoints(c =>
-{
-    c.Errors.ResponseBuilder = (failures, ctx, statusCode) =>
-    {
-        return new ValidationProblemDetails(
-            failures.GroupBy(f => f.PropertyName)
-                .ToDictionary(
-                    keySelector: e => e.Key,
-                    elementSelector: e => e.Select(m => m.ErrorMessage).ToArray()))
-        {
-            Title = "One or more validation errors occurred.",
-            Status = statusCode,
-            Instance = ctx.Request.Path,
-            Extensions = { { "traceId", ctx.TraceIdentifier } }
-        };
-    };
-}).UseSwaggerGen();
+app.UseFastEndpoints().UseSwaggerGen();
 
 app.UseAuthentication();
 app.UseAuthorization();

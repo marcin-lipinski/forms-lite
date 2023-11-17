@@ -1,14 +1,15 @@
-.modal-window.close{
-    width: 30% !important;
-    height: fit-content !important;
+.modal-window.quiz-delete{
+    width: 30%;
+    height: fit-content;
 }
 
-.modal-body {
+.modal-window.quiz-delete .modal-body {
     color: white;
     display: flex;
-    justify-content: center !important;
-    align-items: center !important;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
+    padding: 20px 0;
 }
 
 #buttons {
@@ -29,12 +30,4 @@
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     font-size: 1.2rem;
-}
-
-#buttons > :last-child {
-    background-color: #FF785A;
-}
-
-#buttons button:hover{
-    transform: scaleX(1.05);
 }

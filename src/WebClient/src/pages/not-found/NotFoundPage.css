@@ -1,0 +1,23 @@
+.app-page.not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+}
+
+.app-page.not-found header {
+    font-size: 3.5rem;
+}
+
+.app-page.not-found a {
+    font-size: 1.5rem;
+    color: aquamarine;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.app-page.not-found a:hover {
+    color: rgb(53, 250, 184);
+    text-decoration: underline;
+}
