@@ -19,7 +19,7 @@ public class PartakeSessionMapper : Mapper<PartakeSessionRequest, PartakeSession
                 Questions = entity.Questions.Select(question => new QuestionDto
                 {
                     ContentText = question.ContentText,
-                    ContentImageUrl = filesService.CreateImageUrl(question.Image.RelativePath),
+                    ContentImageUrl = question.Image is not null ? filesService.CreateImageUrl(question.Image.RelativePath) : null,
                     QuestionNumber = question.QuestionNumber,
                     QuestionType = question.QuestionType,
                     Answers = question.QuestionType == QuestionType.Open

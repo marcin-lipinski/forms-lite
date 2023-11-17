@@ -1,7 +1,7 @@
 using Core.Entities.Session;
 using FastEndpoints;
 
-namespace Web.Handlers.SessionHandlers.PartakeResult;
+namespace Web.Handlers.SessionHandlers.PartakeSessionFinish;
 
 public class PartakeSessionFinishMapper : Mapper<PartakeSessionFinishRequest, EmptyResponse, SessionPartake>
 {

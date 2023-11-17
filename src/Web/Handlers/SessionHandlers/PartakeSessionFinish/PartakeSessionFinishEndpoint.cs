@@ -6,7 +6,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Services.Interfaces;
 
-namespace Web.Handlers.SessionHandlers.PartakeResult;
+namespace Web.Handlers.SessionHandlers.PartakeSessionFinish;
 
 public class PartakeSessionFinishEndpoint : Endpoint<PartakeSessionFinishRequest, EmptyResponse, PartakeSessionFinishMapper>
 {

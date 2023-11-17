@@ -10,20 +10,17 @@ public class GetUserQuizEndpoint  : Endpoint<GetUserQuizRequest, GetUserQuizResp
 {
     public IDbContext DbContext { get; set; } = null!;
     public IUserAccessor UserAccessor { get; set; } = null!;
-
-    [EndpointName("GetQuiz")]
+    
     public override void Configure()
     {
         Get("/api/quiz/get/{QuizId}");
-        AllowAnonymous();
     }
 
     public override async Task HandleAsync(GetUserQuizRequest request, CancellationToken cancellationToken)
     {
         var userId = UserAccessor.GetUserId();
-        var quiz = await DbContext.Collection<Quiz>()
-            .Find(q => q.Id == request.QuizId && q.AuthorId == userId)
-            .SingleOrDefaultAsync(cancellationToken: cancellationToken);
+        var quiz = DbContext.Collection<Quiz>().AsQueryable()
+            .SingleOrDefault(q => q.Id == request.QuizId && q.AuthorId == userId);
         
         if (quiz is null) throw new NotFoundException("Quiz");
         

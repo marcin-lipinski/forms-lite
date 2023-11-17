@@ -16,17 +16,14 @@ public class GetUserSessionsEndpoint : EndpointWithoutRequest<GetUserSessionsRes
     public override void Configure()
     {
         Get("/api/session/get");
-        AllowAnonymous();
     }
 
     public override async Task HandleAsync(CancellationToken cancellationToken)
     {
         var userId = UserAccessor.GetUserId();
-        //if (string.IsNullOrEmpty(userId)) throw new UnauthorizedException();
-        //if (await IsQuizTitleTaken(request.Quiz.Title, userId)) throw new QuizTitleTakenException();
 
         var userQuizzesIds = await DbContext.Collection<Quiz>().AsQueryable()
-            //.Where(q => q.AuthorId.Equals(userId))
+            .Where(q => q.AuthorId.Equals(userId))
             .Select(quiz => new {quiz.Id, quiz.Title}).ToListAsync(cancellationToken: cancellationToken);
 
         var sessions = await DbContext.Collection<Session>().AsQueryable()

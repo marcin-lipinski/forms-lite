@@ -13,15 +13,13 @@ public class GetUserQuizzesEndpoint : EndpointWithoutRequest<GetUserQuizzesRespo
     public override void Configure()
     {
         Get("/api/quiz/get");
-        AllowAnonymous();
     }
 
     public override async Task HandleAsync(CancellationToken cancellationToken)
     {
-        //var userId = UserAccessor.GetUserId();
-        var quizzes = await DbContext.Collection<Quiz>().AsQueryable()
-            //.Find(q => q.AuthorId == userId)
-            .ToListAsync(cancellationToken: cancellationToken);
+        var userId = UserAccessor.GetUserId();
+        var quizzes = DbContext.Collection<Quiz>().AsQueryable()
+            .Where(q => q.AuthorId == userId).ToList();
 
         var response = Map.FromEntity(quizzes);
         await SendAsync(response, cancellation: cancellationToken);

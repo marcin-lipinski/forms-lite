@@ -1,8 +1,5 @@
-using System.Diagnostics;
-using System.Text.Json;
 using Core.Entities.Question;
 using Core.Entities.Quiz;
-using FastEndpoints;
 
 namespace Web.Handlers.QuizHandlers.Create;
 

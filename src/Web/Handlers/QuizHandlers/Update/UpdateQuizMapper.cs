@@ -5,21 +5,19 @@ using Services.Interfaces;
 
 namespace Web.Handlers.QuizHandlers.Update;
 
-public class UpdateQuizMapper : Mapper<UpdateQuizRequest, UpdateQuizResponse, Quiz>
+public static class UpdateQuizMapper
 {
-    public override Quiz ToEntity(UpdateQuizRequest request)
+    public static Quiz Map(this UpdateQuizRequest request)
     {
-        var userAccessor = Resolve<IUserAccessor>();
         return new Quiz
         {
             Id = request.QuizId,
-            AuthorId = userAccessor.GetUserId(),
             Questions = request.Quiz.Questions.Select(question => question.QuestionType == QuestionType.Closed 
                 ? new Question
                 {
                     QuestionType = QuestionType.Closed
                 }
-                : (Question)new Question
+                : new Question
                 {
                     QuestionType = QuestionType.Open,
                     Answers = question.Answers,

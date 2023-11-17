@@ -1,10 +1,12 @@
 using System.Text.Json;
 using Core.Entities.Quiz;
 using Core.Exceptions;
+using Core.Exceptions.Quiz;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using Services.Interfaces;
 
 namespace Web.Handlers.QuizHandlers.Create;
@@ -25,12 +27,13 @@ public class CreateQuizController : Controller
     }
 
     [HttpPost("/api/quiz/create")]
-    [AllowAnonymous]
     public async Task<IActionResult> Create([FromForm]CreateQuizRequest request, CancellationToken ct)
     {
         var validationResult = await _validator.ValidateAsync(request, ct);
-
         if (!validationResult.IsValid) throw new VException(validationResult.ToDictionary());
+
+        var userId = _userAccessor.GetUserId();
+        if (IsQuizTitleTaken(request.Quiz.Title, userId)) throw new QuizTitleTakenException();
         
         var quiz = request.Map();
         quiz.AuthorId = _userAccessor.GetUserId();
@@ -47,4 +50,7 @@ public class CreateQuizController : Controller
         await _dbContext.Collection<Quiz>().InsertOneAsync(quiz, cancellationToken: ct);
         return Ok(new CreateQuizResponse{QuizId = quiz.Id});
     }
+
+    private bool IsQuizTitleTaken(string title, string userId) => _dbContext.Collection<Quiz>()
+        .AsQueryable().FirstOrDefault(q => q.Title == title && q.AuthorId == userId) != null;
 }

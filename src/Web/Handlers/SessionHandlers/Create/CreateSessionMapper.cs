@@ -16,13 +16,13 @@ public class CreateSessionMapper : Mapper<CreateQuizRequest, CreateQuizResponse,
             Title = request.Quiz.Title,
             Version = 0,
             Questions = request.Quiz.Questions.Select(question => question.QuestionType == QuestionType.Closed 
-                ? (Question)new Question
+                ? new Question
                 {
                     ContentText = question.ContentText,
                     QuestionNumber = question.QuestionNumber,
                     QuestionType = QuestionType.Closed
                 }
-                : (Question)new Question
+                : new Question
                 {
                     ContentText = question.ContentText,
                     QuestionNumber = question.QuestionNumber,

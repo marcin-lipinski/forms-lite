@@ -11,7 +11,6 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
 {
     public IDbContext DbContext { get; set; } = null!;
     public IUserAccessor UserAccessor { get; set; } = null!;
-    public IHttpContextAccessor HttpContextAccessor { get; set; } = null!;
 
     public override void Configure()
     {
@@ -21,19 +20,13 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
 
     public override async Task HandleAsync(CreateSessionRequest request, CancellationToken cancellationToken)
     {
-        //var userId = UserAccessor.GetUserId();
-        //if (string.IsNullOrEmpty(userId)) throw new UnauthorizedException();
+        var userId = UserAccessor.GetUserId();
         
-        //does quiz exists
         var quiz = await DbContext.Collection<Quiz>()
-            .Find(q => q.Id == request.QuizId)
+            .Find(q => q.Id == request.QuizId && q.AuthorId == userId)
             .SingleOrDefaultAsync(cancellationToken: cancellationToken);
         
         if (quiz is null) throw new NotFoundException("Quiz");
-
-        var scheme = HttpContextAccessor.HttpContext!.Request.Scheme;
-        var host = HttpContextAccessor.HttpContext.Request.Host;
-        var pathBase = HttpContextAccessor.HttpContext.Request.PathBase;
 
         var sessionId = ObjectId.GenerateNewId().ToString();
         var session = new Session
@@ -47,7 +40,6 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
         };
         
         await DbContext.Collection<Session>().InsertOneAsync(session, cancellationToken: cancellationToken);
-
         await SendAsync(new CreateSessionResponse{SessionPartakeUrl = HttpContext.Request.Headers.Origin[0] + session.PartakeUrl}, cancellation: cancellationToken);
     }
 }
