@@ -104,6 +104,7 @@ const Session = {
     getOne:               (id: string)    => requests.get<GetUserSessionResponse>(`api/session/get/${id}`),
     createSession:        (id: string, data: CreateSessionRequest)    => requests.put<CreateSessionResponse>(`api/session/create/${id}`, data),
     finishSession:        (id: string)    => requests.post(`api/session/finish/${id}`, {}),
+    deleteSession:        (id: string)    => requests.del(`api/session/delete/${id}`),
     partakeSession:       (id: string)    => requests.post<PartakeSessionResponse>(`api/session/partake/start/${id}`, {}),
     partakeSessionFinish: (id: string, answers: PartakeSessionFinishRequest) => requests.post(`api/session/partake/finish/${id}`, answers)
 }

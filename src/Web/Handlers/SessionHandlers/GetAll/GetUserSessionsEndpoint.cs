@@ -1,3 +1,4 @@
+using System.Globalization;
 using Core.Entities.Quiz;
 using Core.Entities.Session;
 using FastEndpoints;
@@ -26,20 +27,20 @@ public class GetUserSessionsEndpoint : EndpointWithoutRequest<GetUserSessionsRes
             .Select(quiz => new {quiz.Id, quiz.Title}).ToListAsync(cancellationToken: cancellationToken);
 
         var sessions = await DbContext.Collection<Session>().AsQueryable()
-            .Where(session => userQuizzesIds.Any(q => q.Id.Equals(session.QuizId)))
-            .Select(session => new SessionDto
-            {
-                AnswersAmount = session.SessionAnswers.Count,
-                FinishTime = session.FinishTime.ToString("dd-MM-yyyy hh:mm"),
-                StartTime = session.StartTime.ToString("dd-MM-yyyy hh:mm"),
-                Id = HttpContext.Request.Headers.Origin[0] + session.PartakeUrl,
-                QuizId = session.QuizId,
-                IsActive = !session.IsFinishedByAuthor && DateTime.Now > session.StartTime && DateTime.Now < session.FinishTime
-            })
-            .ToListAsync(cancellationToken: cancellationToken);
+            .Where(session => userQuizzesIds.Any(q => q.Id.Equals(session.QuizId))).ToListAsync(cancellationToken: cancellationToken);
 
-        sessions?.ForEach(session => session.QuizTitle = userQuizzesIds.SingleOrDefault(q => q.Id.Equals(session.QuizId))!.Title);
+        var result = sessions.Select(session => new SessionDto
+        {
+            Id = session.Id,
+            AnswersAmount = session.SessionAnswers.Count,
+            FinishTime = session.FinishTime.ToLocalTime().ToString("dd-MM-yyyy HH:mm"),
+            StartTime = session.StartTime.ToLocalTime().ToString("dd-MM-yyyy HH:mm"),
+            JoinUrl = HttpContext.Request.Headers.Origin[0] + session.PartakeUrl,
+            QuizId = session.QuizId,
+            IsActive = !session.IsFinishedByAuthor && DateTime.Now > session.StartTime.ToLocalTime() && DateTime.Now < session.FinishTime.ToLocalTime(),
+            QuizTitle = userQuizzesIds.SingleOrDefault(q => q.Id.Equals(session.QuizId))!.Title
+        }).ToList();
 
-        await SendAsync(new GetUserSessionsResponse{Sessions = sessions}, cancellation: cancellationToken);
+        await SendAsync(new GetUserSessionsResponse{Sessions = result}, cancellation: cancellationToken);
     }
 }

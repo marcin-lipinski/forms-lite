@@ -24,10 +24,12 @@ body {
 
 .white-button {
     background-color: rgba(255, 255, 255, 0.7) !important;
+    cursor: pointer;
 }
 
 .orange-button {
-    background-color: rgba(255, 120, 90, 0.7) !important;
+    background-color: rgb(216, 100, 74) !important;
+    cursor: pointer;
 }
 
 .white-button:hover {

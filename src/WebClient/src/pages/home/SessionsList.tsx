@@ -2,50 +2,52 @@ import { useEffect } from "react";
 import { useStore } from "../../stores/store";
 import { observer } from "mobx-react-lite";
 import './QuizzesList.css';
+import { Session } from "../../models/session";
+import SessionFinishModal from "./session-finish/SessionFinishModal";
+import SessionDeleteModal from "./session-delete/SessionDeleteModal";
 
 export default observer(function SessionsList() {
-    const {sessionStore} = useStore();
+    const {sessionStore, modalStore} = useStore();
+    const tableData = (session: Session) => [
+        {title: "Quiz title", value: session.quizTitle},
+        {title: "Active", value: session.isActive ? "YES" : "NO"},
+        {title: "Planned start time", value: session.startTime.toString()},
+        {title: "Planned finish time", value: session.finishTime.toString()},
+        {title: "Answers amount", value: session.answersAmount},
+        {title: "Join url", value: session.joinUrl},
+    ]
 
     useEffect(() => {
         sessionStore.getAll().catch(() => {});
     }, []);
 
+    const handleSeeButtonClick = (id: string) => {
+
+    }
+
+    const handleFinishButtonClick = (id: string) => {
+        modalStore.openModal(<SessionFinishModal sessionId={id}/>)
+    }
+    const handleDeleteButtonClick = (id: string) => {
+        modalStore.openModal(<SessionDeleteModal sessionId={id}/>)
+    }
+
     return (
         <>
             {sessionStore.allSessions.map(session => 
-                <div className="cover">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Quiz title</td>
-                                <td>{session.quizTitle}</td>
-                            </tr>
-                            <tr>
-                                <td>Active</td>
-                                <td>{session.isActive ? "YES" : "NO"}</td>
-                            </tr>
-                            <tr>
-                                <td>Planned start time</td>
-                                <td>{session.startTime.toString()}</td>
-                            </tr>
-                            <tr>
-                                <td>Planned finish time</td>
-                                <td>{session.finishTime.toString()}</td>
-                            </tr>
-                            <tr>
-                                <td>Answers amount</td>
-                                <td>{session.answersAmount}</td>
-                            </tr>
-                            <tr>
-                                <td>Join url</td>
-                                <td>{session.id}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div className="cover" key={session.id}>
+                    <div className="table">
+                        {tableData(session).map(res => 
+                            <div className="table-row">
+                                <p>{res.title}</p>
+                                <p>{res.value}</p>
+                            </div>
+                        )}                        
+                    </div>
                     <div className="button-group">
-                        <button disabled={session.isActive}>See</button>
-                        <button disabled={!session.isActive}>Finish</button>
-                        <button>Delete</button>
+                        <button className="white-button" style={{cursor: !session.isActive ? "pointer" : "auto"}} disabled={session.isActive} onClick={() => handleSeeButtonClick(session.id)}>See</button>
+                        <button className="white-button" style={{cursor: session.isActive ? "pointer" : "auto"}} disabled={!session.isActive} onClick={() => handleFinishButtonClick(session.id)}>Finish</button>
+                        <button className="orange-button" onClick={() => handleDeleteButtonClick(session.id)}>Delete</button>
                     </div>
                 </div>
             )}

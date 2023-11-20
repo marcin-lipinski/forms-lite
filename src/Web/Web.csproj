@@ -29,7 +29,6 @@
       <Folder Include="Handlers\SessionHandlers\Finish\" />
       <Folder Include="Handlers\SessionHandlers\GetAll\" />
       <Folder Include="Handlers\SessionHandlers\Partake\" />
-      <Folder Include="Handlers\SessionHandlers\PartakeSessionFinish\" />
     </ItemGroup>
 
 </Project>

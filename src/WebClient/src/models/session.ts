@@ -19,6 +19,7 @@ export interface GetUserSessionResponse {
 
 export interface Session {
     id: string;
+    joinUrl: string;
     quizTitle: string;
     startTime: Date;
     finishTime: Date;

@@ -39,7 +39,7 @@ public class CreateQuizQuestionValidator : AbstractValidator<QuestionDto>
             .NotEmpty().WithMessage("Quiz content text cannot be empty")
             .NotNull().WithMessage("Quiz content text cannot be empty")
             .MinimumLength(10).WithMessage("Quiz content text is too short. Minimum size is 10.")
-            .MaximumLength(50).WithMessage("Quiz content text is too long. Maximum size is 40");
+            .MaximumLength(40).WithMessage("Quiz content text is too long. Maximum size is 40");
 
         RuleFor(question => question)
             .NotEmpty().WithMessage("Answers cannot be empty")

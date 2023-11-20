@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite";
 import QuizModal from "./quiz-view/QuizModal";
 import QuizDeleteModal from "./quiz-delete/QuizDeleteModal";
 import NewSessionModal from "./session-new/NewSessionModal";
+import { Quiz } from "../../models/quiz";
 
 export default observer(function QuizzesList() {
     const {quizStore, modalStore} = useStore();
@@ -28,26 +29,24 @@ export default observer(function QuizzesList() {
         modalStore.openModal(<QuizModal mode="create"/>)
     }
 
+    const tableData = (quiz: Quiz) => [
+        {title: "Title", value: quiz.title},
+        {title: "Questions amount", value: quiz.questions.length},
+        {title: "Id", value: quiz.id}
+    ]
+
     return (
         <>
             {quizStore.allQuizzes.map((quiz, index) => 
                 <div className="cover" key={quiz.id}>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Title</td>
-                                <td>{quiz.title}</td>
-                            </tr>
-                            <tr>
-                                <td>Questions amount</td>
-                                <td>{quiz.questions.length}</td>
-                            </tr>
-                            <tr>
-                                <td>Id</td>
-                                <td>{quiz.id}</td>
-                            </tr>
-                        </tbody>                        
-                    </table>
+                    <div className="table">
+                        {tableData(quiz).map(res => 
+                            <div className="table-row">
+                                <p>{res.title}</p>
+                                <p>{res.value}</p>
+                            </div>
+                        )}                        
+                    </div>
                     <div className="button-group">
                         <button onClick={() => handleQuizSeeButton(index)} className="white-button">See</button>
                         <button onClick={() => handleNewSessionButton(quiz.id!)} className="white-button">Session</button>

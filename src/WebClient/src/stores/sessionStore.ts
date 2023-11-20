@@ -54,6 +54,19 @@ export default class SessionStore {
         try {
             runInAction(() => this.loading = true);
             await agents.Session.finishSession(id);
+            runInAction(() => this.allSessions.find(s => s.id === id)!.isActive = false);
+        } catch (error) {
+            throw new Error();
+        } finally {
+            runInAction(() => this.loading = false);
+        }
+    }
+
+    deleteSession = async (id: string) => {
+        try {
+            runInAction(() => this.loading = true);
+            await agents.Session.deleteSession(id);
+            runInAction(() => this.allSessions = this.allSessions.filter(s => s.id !== id));
         } catch (error) {
             throw new Error();
         } finally {
@@ -76,6 +89,7 @@ export default class SessionStore {
     partakeSessionFinish = async (id: string, data: PartakeSessionFinishRequest) => {
         try {
             runInAction(() => this.loading = true);
+            console.log(data)
             await agents.Session.partakeSessionFinish(id, data);
         } catch (error) {
             throw new Error();

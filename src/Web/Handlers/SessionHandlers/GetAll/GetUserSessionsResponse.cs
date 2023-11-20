@@ -8,6 +8,7 @@ public class GetUserSessionsResponse
 public class SessionDto
 {
     public string Id { get; set; } = null!;
+    public string JoinUrl { get; set; } = null!;
     public string QuizTitle { get; set; } = null!;
     public string StartTime { get; set; } = null!;
     public string FinishTime { get; set; } = null!;
