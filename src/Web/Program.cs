@@ -1,10 +1,7 @@
 using FastEndpoints;
 using FastEndpoints.Swagger;
-using FluentValidation.AspNetCore;
+using FluentValidation;
 using Infrastructure;
-using Infrastructure.Persistence.Files;
-using Microsoft.AspNetCore.Mvc;
-using Services.Interfaces;
 using Web.Handlers.QuizHandlers.Create;
 using Web.Middleware;
 
@@ -16,19 +13,19 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddFastEndpoints().SwaggerDocument();;
+builder.Services.AddFastEndpoints().SwaggerDocument();
 
 builder.Services.AddAuthorization();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddExceptionHandler();
-builder.Services.AddControllers()
-    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateQuizValidator>());
+builder.Services.AddControllers();
+builder.Services.AddValidatorsFromAssembly(typeof(CreateQuizValidator).Assembly);
 
 
 builder.Services.AddCors(opt => 
     opt.AddPolicy("CorsPolicy", policy => policy.WithOrigins("http://localhost:3000", "https://formslite-frontend.azurewebsites.net").AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
 
-builder.Services.AddScoped<IFilesService, FilesService>();
+
 
 var app = builder.Build();
 

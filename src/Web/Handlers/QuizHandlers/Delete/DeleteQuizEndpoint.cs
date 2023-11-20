@@ -1,6 +1,5 @@
 using Core.Entities.Quiz;
 using Core.Exceptions.Quiz;
-using Core.Exceptions.Security;
 using FastEndpoints;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -28,7 +27,10 @@ public class DeleteQuizEndpoint : Endpoint<DeleteQuizRequest, EmptyResponse>
         foreach (var question in quiz.Questions)
         {
             if (question.Image == null) continue;
-            Directory.Delete(Path.GetDirectoryName(question.Image.FullPath), true);
+            if (Directory.Exists(Path.GetDirectoryName(question.Image.FullPath)))
+            {
+                Directory.Delete(Path.GetDirectoryName(question.Image.FullPath)!, true);
+            }
             break;
         }
 

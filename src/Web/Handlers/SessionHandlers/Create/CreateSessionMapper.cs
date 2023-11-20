@@ -18,14 +18,14 @@ public class CreateSessionMapper : Mapper<CreateQuizRequest, CreateQuizResponse,
             Questions = request.Quiz.Questions.Select(question => question.QuestionType == QuestionType.Closed 
                 ? new Question
                 {
+                    Id = question.Id,
                     ContentText = question.ContentText,
-                    QuestionNumber = question.QuestionNumber,
                     QuestionType = QuestionType.Closed
                 }
                 : new Question
                 {
+                    Id = question.Id,
                     ContentText = question.ContentText,
-                    QuestionNumber = question.QuestionNumber,
                     QuestionType = QuestionType.Open,
                     Answers = question.Answers != null ? question.Answers.ToList() : new List<string>(),
                     CorrectAnswer = question.CorrectAnswer

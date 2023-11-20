@@ -1,5 +1,4 @@
 using Core.Entities.Question;
-using FastEndpoints;
 using FluentValidation;
 
 namespace Web.Handlers.QuizHandlers.Create;
@@ -32,8 +31,9 @@ public class CreateQuizQuestionValidator : AbstractValidator<QuestionDto>
 {
     public CreateQuizQuestionValidator()
     {
-        RuleFor(question => question.QuestionNumber)
-            .Must(number => number >= 1).WithMessage("Error while quiz creating occured. Try again");
+        RuleFor(question => question.Id)
+            .NotEmpty().WithMessage("Quiz id text cannot be empty")
+            .NotNull().WithMessage("Quiz id text cannot be empty");
         
         RuleFor(question => question.ContentText)
             .NotEmpty().WithMessage("Quiz content text cannot be empty")
@@ -54,10 +54,6 @@ public class CreateQuizQuestionValidator : AbstractValidator<QuestionDto>
                 else if (questionDto.Answers.Distinct().Count() != questionDto.Answers.Length)
                 {
                     context.AddFailure("Answers", "Answers should contain unique elements.");
-                }
-                else if (!questionDto.Answers.Contains(questionDto.CorrectAnswer))
-                {
-                    context.AddFailure("CorrectAnswer", "Correct answer should be present in answers.");
                 }
             });
     }

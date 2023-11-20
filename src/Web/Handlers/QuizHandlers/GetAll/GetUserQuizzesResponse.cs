@@ -11,15 +11,15 @@ public class QuizDto
 {
     public string Id { get; init; } = null!;
     public string Title { get; set; } = null!;
-    public List<QuestionDto> Questions { get; set; } = new List<QuestionDto>();
+    public List<QuestionDto> Questions { get; set; }
 }
 
 public class QuestionDto
 {
-    public string? ContentImageUrl { get; set; } = null!;
+    public string Id { get; set; }
+    public string? ContentImageUrl { get; set; }
     public string ContentText { get; set; } = null!;
     public QuestionType QuestionType { get; set; }
-    public int QuestionNumber { get; set; }
     public List<string>? Answers { get; set; }
-    public string? CorrectAnswer { get; set; }
+    public int? CorrectAnswer { get; set; }
 }

@@ -4,21 +4,22 @@ namespace Web.Handlers.QuizHandlers.Create;
 
 public class CreateQuizRequest
 {
-    public QuizDto Quiz { get; set; } = new QuizDto();
+    public QuizDto Quiz { get; set; } = new ();
 }
 
 public class QuizDto
 {
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
     public QuestionDto[] Questions { get; set; } = Array.Empty<QuestionDto>();
 }
 
 public class QuestionDto
 {
-    public string ContentText { get; set; }
-    public IFormFile? Image { get; set; }
+    public string Id { get; set; } = null!;
+    public string ContentText { get; set; } = null!;
+    public IFormFile? Image { get; set; }  = null!;
     public QuestionType QuestionType { get; set; }
-    public int QuestionNumber { get; set; }
+    
     public string[]? Answers { get; set; } = Array.Empty<string>();
-    public string CorrectAnswer { get; set; }
+    public int? CorrectAnswer { get; set; }
 }

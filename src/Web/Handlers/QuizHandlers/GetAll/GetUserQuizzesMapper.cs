@@ -17,9 +17,9 @@ public class GetUserQuizzesMapper : ResponseMapper<GetUserQuizzesResponse, List<
                     Title = entity.Title,
                     Questions = entity.Questions.Select(question => new QuestionDto
                     {
+                        Id = question.Id,
                         ContentText = question.ContentText,
                         ContentImageUrl = question.Image is not null ? filesService.CreateImageUrl(question.Image.RelativePath) : null,
-                        QuestionNumber = question.QuestionNumber,
                         QuestionType = question.QuestionType,
                         Answers = question.QuestionType == QuestionType.Closed 
                             ? question.Answers 

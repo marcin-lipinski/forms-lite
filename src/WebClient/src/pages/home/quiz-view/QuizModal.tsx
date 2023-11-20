@@ -6,6 +6,8 @@ import Laoder from "../../../common/loader/Loader";
 import PhotoWidgetDropzone from "../../../common/imageUpload/PhotoWidgetDropzone";
 import './QuizModal.css';
 import './QuizModalCreate.css';
+import QuestionAnswers from "../QuestionAnswers";
+import { Guid } from "js-guid";
 
 interface Props {
     quiz?: Quiz;
@@ -18,8 +20,9 @@ export default observer(function QuizModal({quiz, mode}: Props) {
     const [currentQuiz, setCurrentQuiz] = useState<Quiz | null>({title: "", questions: []});
     const [replacePreviousVersion, setReplacePreviousVersion] = useState(false);
 
+
     useEffect(() => {
-        if(modeState === 'view' && quiz !== null) setCurrentQuiz(quiz!);
+        if(modeState === 'view' && quiz !== null) setCurrentQuiz(Object.assign({}, quiz!));
         if(modeState === 'create') setCurrentQuiz({title: "", questions: []});
     }, []);
 
@@ -44,7 +47,7 @@ export default observer(function QuizModal({quiz, mode}: Props) {
         }
         else if(modeState === 'edit') {
             const request: UpdateQuizRequest = {replacePrevoiusVersion: replacePreviousVersion, quiz: currentQuiz!};
-            quizStore.updateQuiz(request).then(() => setModeState('view')).catch(() => {});
+            quizStore.updateQuiz(quiz!.id!, request).then(() => modalStore.closeModal()).catch(() => {});
         }
     }
 
@@ -68,12 +71,11 @@ export default observer(function QuizModal({quiz, mode}: Props) {
     }
     const handleNewOpenButtonClick = () => {
         const question: Question = {
+            id: Guid.newGuid().toString(),
             contentText: "",
             questionType: QuestionType.Open,
-            questionNumber: currentQuiz!.questions.length + 1,
             image: null,
-            contentImageUrl: "",
-            imagePreview: ""
+            contentImageUrl: ""
         };
         currentQuiz!.questions.push(question)
         setCurrentQuiz(Object.assign({}, currentQuiz));
@@ -81,14 +83,13 @@ export default observer(function QuizModal({quiz, mode}: Props) {
 
     const handleNewClosedButtonClick = () => {
         const question: Question = {
+            id: Guid.newGuid().toString(),
             contentText: "",
             questionType: QuestionType.Closed,
-            questionNumber: currentQuiz!.questions.length + 1,
             image: null,
             contentImageUrl: "",
-            imagePreview: "",
             answers: ["a", "b", "c", "d"],
-            correctAnswer: "a"
+            correctAnswer: 0
         };
         currentQuiz!.questions.push(question)
         setCurrentQuiz(Object.assign({}, currentQuiz));
@@ -98,13 +99,12 @@ export default observer(function QuizModal({quiz, mode}: Props) {
         if(file !== null) {
             if (file.type.startsWith('image/')) {
                 currentQuiz!.questions[index].image = file;
-                currentQuiz!.questions[index].imagePreview = URL.createObjectURL(file);
+                currentQuiz!.questions[index].contentImageUrl = URL.createObjectURL(file);
                 setCurrentQuiz(Object.assign({}, currentQuiz));
             }           
         }
         else {
             currentQuiz!.questions![index].image = null;
-            currentQuiz!.questions![index].imagePreview = null;
             currentQuiz!.questions![index].contentImageUrl = "";
             setCurrentQuiz(Object.assign({}, currentQuiz));
         };
@@ -121,19 +121,19 @@ export default observer(function QuizModal({quiz, mode}: Props) {
             <div className="modal-body">
                 <div id="quiz-display">                    
                     <p className={modeState !== 'view' ? "editable" : ""}>
-                        <input disabled={modeState === 'view'} placeholder="Title" onChange={(evnt) => handlerEditableKeyDown(evnt, 0, 'title')} value={currentQuiz!.title ?? ""}></input>
+                        <input max={40} disabled={modeState === 'view'} placeholder="Title" onChange={(evnt) => handlerEditableKeyDown(evnt, 0, 'title')} value={currentQuiz!.title ?? ""}></input>
                     </p>
                     {currentQuiz!.questions.map((question, index) => 
                         <div className="question-whole">
                             <div className={"question-content"} style={question.image !== null || question.contentImageUrl?.length !== 0 ? {height: "360px"} : {}}>
                                 <div className={modeState !== 'view' ? "editable" : ""}>
-                                    <textarea disabled={modeState === 'view'} placeholder="Question" onChange={(evnt) => handlerEditableKeyDown(evnt, index, 'content')} value={question.contentText}/>
+                                    <textarea maxLength={40} disabled={modeState === 'view'} placeholder="Question" onChange={(evnt) => handlerEditableKeyDown(evnt, index, 'content')} value={question.contentText}/>
                                 </div>
                                 {modeState === 'view'
                                     ? <>
                                         {(question.contentImageUrl?.length !== 0 || question.image !== null)
                                             ? <div className="question-image-contaner">
-                                                <img className="question-image" src={question.contentImageUrl!.length > 0 ? question.contentImageUrl : question.imagePreview}/>
+                                                <img className="question-image" src={question.contentImageUrl}/>
                                             </div>
                                             : <></>
                                         }
@@ -141,7 +141,7 @@ export default observer(function QuizModal({quiz, mode}: Props) {
                                     : <>
                                         {(question.contentImageUrl?.length !== 0 || question.image !== null)
                                             ? <div className="question-image-contaner">
-                                                <img className="question-image" src={question.image !== null ? question.imagePreview : question.contentImageUrl}/>
+                                                <img className="question-image" src={question.contentImageUrl}/>
                                                 <button onClick={() => setQuestionImage(null, index)}>🗑</button>
                                               </div>
                                             : <PhotoWidgetDropzone setFiles={setQuestionImage} index={index}/>                                            
@@ -149,25 +149,12 @@ export default observer(function QuizModal({quiz, mode}: Props) {
                                       </>
                                 }
                             </div>
-                            <div className={question.questionType === QuestionType.Open ? "question-answers" : "question-answers closed"}>
-                                {question.questionType === QuestionType.Open
-                                    ? <div id="open-answer">User answer</div>
-                                    : <>
-                                        <div className={`closed-answer ${modeState !== 'view' ? "editable" : ""}`}>
-                                            <textarea disabled={modeState === 'view'} onChange={(evnt) => handlerEditableKeyDown(evnt, index, '0')} value={question.answers![0]}/>
-                                        </div>
-                                        <div className={`closed-answer ${modeState !== 'view' ? "editable" : ""}`} >
-                                            <textarea disabled={modeState === 'view'} onChange={(evnt) => handlerEditableKeyDown(evnt, index, '1')} value={question.answers![1]}/>
-                                        </div>
-                                        <div className={`closed-answer ${modeState !== 'view' ? "editable" : ""}`}>
-                                            <textarea disabled={modeState === 'view'} onChange={(evnt) => handlerEditableKeyDown(evnt, index, '2')} value={question.answers![2]}/>
-                                        </div>
-                                        <div className={`closed-answer ${modeState !== 'view' ? "editable" : ""}`}>
-                                            <textarea disabled={modeState === 'view'} onChange={(evnt) => handlerEditableKeyDown(evnt, index, '3')} value={question.answers![3]}/>
-                                        </div>
-                                      </>
-                                }
-                            </div>
+                            <QuestionAnswers
+                                question={question}
+                                index={index}
+                                modeState={modeState}
+                                keyDownOnEditableHandler={handlerEditableKeyDown}
+                            />
                             {modeState !== 'view'
                                 ? <button className="question-delete-button" onClick={() => handleDeleteQuestionButton(index)}>🗑</button>
                                 : <></>

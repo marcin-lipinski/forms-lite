@@ -1,9 +1,7 @@
-using System.Text.Json;
 using Core.Entities.Quiz;
 using Core.Exceptions;
 using Core.Exceptions.Quiz;
 using FluentValidation;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -16,8 +14,7 @@ public class CreateQuizController : Controller
     private readonly IFilesService _filesService;
     private readonly IUserAccessor _userAccessor;
     private readonly IValidator<CreateQuizRequest> _validator;
-
-
+    
     public CreateQuizController(IDbContext dbContext, IFilesService filesService, IUserAccessor userAccessor, IValidator<CreateQuizRequest> validator)
     {
         _dbContext = dbContext;
@@ -39,10 +36,10 @@ public class CreateQuizController : Controller
         quiz.AuthorId = _userAccessor.GetUserId();
         foreach (var question in quiz.Questions)
         {
-            var outImage = request.Quiz.Questions.SingleOrDefault(q => q.QuestionNumber == question.QuestionNumber)?.Image;
+            var outImage = request.Quiz.Questions.SingleOrDefault(q => q.Id == question.Id)?.Image;
             if (outImage is not null)
             {
-                question.Image = await _filesService.SaveImage(quiz.Title, question.QuestionNumber, outImage);
+                question.Image = await _filesService.SaveImage(quiz.Title, question.Id, outImage);
             }
         }
         

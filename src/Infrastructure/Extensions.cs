@@ -15,6 +15,7 @@ public static class Extensions
         services.Configure<TokenSettings>(config.GetSection("TokenSettings"));
         services.Configure<MongoSettings>(config.GetSection("MongoDbSettings"));
         services.Configure<FilesSettings>(config.GetSection("FilesSettings"));
+        services.AddScoped<IFilesService, FilesService>();
         
         services.AddSingleton(typeof(IDbContext), typeof(MongoContext));
         //services.AddSingleton<IMongoService<Quiz>, MongoDbService<Quiz>>();

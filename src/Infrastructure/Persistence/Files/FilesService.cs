@@ -1,4 +1,3 @@
-using Core.Entities;
 using Core.Entities.Image;
 using Infrastructure.Settings;
 using Microsoft.Extensions.Options;
@@ -17,9 +16,9 @@ public class FilesService : IFilesService
         _filesOptions = filesOptions;
     }
     
-    public async Task<ImageMetadata> SaveImage(string quizTitle, int questionNr, IFormFile file)
+    public async Task<ImageMetadata> SaveImage(string quizTitle, string questionId, IFormFile file)
     {
-        var imageName = CreateImageName(quizTitle + questionNr, file);
+        var imageName = CreateImageName(quizTitle + questionId, file);
         var quizDirectory = (quizTitle + DateTime.Now).GetHashCode().ToString();
         var dirPath = Path.Combine(_filesOptions.Value.ImagesRoute(), quizDirectory);
         if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
@@ -34,7 +33,7 @@ public class FilesService : IFilesService
         return image;
     }
 
-    public string? CreateImageUrl(string imageRelativePath)
+    public string CreateImageUrl(string imageRelativePath)
     {
         var scheme = _httpContextAccessor.HttpContext!.Request.Scheme;
         var host = _httpContextAccessor.HttpContext.Request.Host;

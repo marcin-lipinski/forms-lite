@@ -17,7 +17,7 @@ export default observer(function SessionPage() {
     }, [])
 
     const fillResult = () => {
-        sessionStore.partakeQuiz?.questions.forEach(q => result.answers.push({questionNumber: q.questionNumber, questionAnswer: ""})); 
+        sessionStore.partakeQuiz?.questions.forEach(q => result.answers.push({id: q.id, questionAnswer: ""})); 
         setResult(Object.assign({}, result));
     }       
 

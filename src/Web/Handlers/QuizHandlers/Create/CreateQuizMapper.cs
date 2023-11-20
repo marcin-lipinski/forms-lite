@@ -10,19 +10,18 @@ public static class CreateQuizMapper
         return new Quiz
         {
             Title = request.Quiz.Title,
-            Version = 0,
-            Questions = request.Quiz.Questions.Select(question => question.QuestionType == QuestionType.Closed 
+            Questions = request.Quiz.Questions.Select(question => question.QuestionType == QuestionType.Open 
                 ? new Question
                 {
+                    Id = question.Id,
                     ContentText = question.ContentText,
-                    QuestionNumber = question.QuestionNumber,
-                    QuestionType = QuestionType.Closed
+                    QuestionType = QuestionType.Open
                 }
-                : (Question)new Question
+                : new Question
                 {
+                    Id = question.Id,
                     ContentText = question.ContentText,
-                    QuestionNumber = question.QuestionNumber,
-                    QuestionType = QuestionType.Open,
+                    QuestionType = QuestionType.Closed,
                     Answers = question.Answers != null ? question.Answers.ToList() : new List<string>(),
                     CorrectAnswer = question.CorrectAnswer
                 }).ToList()

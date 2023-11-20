@@ -1,6 +1,7 @@
 using Infrastructure.Settings;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
+using Services.Interfaces;
 
 namespace Infrastructure.Persistence.Files;
 
@@ -14,13 +15,8 @@ public static class Extensions
         if (!Directory.Exists(filesOptions.ImagesRoute())) 
             Directory.CreateDirectory(filesOptions.ImagesRoute());
 
-        app.UseDefaultFiles();
+       // app.UseDefaultFiles();
         app.UseStaticFiles(new StaticFileOptions
-        {
-            FileProvider = new PhysicalFileProvider(filesOptions.FilesRoute()),
-            RequestPath = filesOptions.RequestPath(),
-        });
-        app.UseDirectoryBrowser(new DirectoryBrowserOptions
         {
             FileProvider = new PhysicalFileProvider(filesOptions.FilesRoute()),
             RequestPath = filesOptions.RequestPath(),

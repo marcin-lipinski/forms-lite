@@ -31,9 +31,6 @@ public class UpdateQuizQuestionValidator : AbstractValidator<QuestionDto>
 {
     public UpdateQuizQuestionValidator()
     {
-        RuleFor(question => question.QuestionNumber)
-            .Must(number => number >= 1).WithMessage("Error while quiz creating occured. Try again");
-        
         RuleFor(question => question.ContentText)
             .NotEmpty().WithMessage("Quiz content text cannot be empty")
             .NotNull().WithMessage("Quiz content text cannot be empty")
@@ -50,13 +47,13 @@ public class UpdateQuizQuestionValidator : AbstractValidator<QuestionDto>
                 {
                     context.AddFailure("Answers", "For closed question type, answers should contain 4 elements.");
                 }
+                else if (questionDto.Answers.Any(string.IsNullOrWhiteSpace))
+                {
+                    context.AddFailure("Answers", "At least one of answers is empty.");
+                }
                 else if (questionDto.Answers.Distinct().Count() != questionDto.Answers.Count)
                 {
                     context.AddFailure("Answers", "Answers should contain unique elements.");
-                }
-                else if (!questionDto.Answers.Contains(questionDto.CorrectAnswer))
-                {
-                    context.AddFailure("CorrectAnswer", "Correct answer should be present in answers.");
                 }
             });
     }

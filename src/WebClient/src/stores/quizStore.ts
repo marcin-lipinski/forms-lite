@@ -50,21 +50,20 @@ export default class QuizStore {
 
     createQuiz = async (quiz: Quiz) => {
         try {
+            runInAction(() => this.loading = true);
             let form = new FormData();
             form.append('quiz.title', quiz.title);
             quiz.questions.forEach((q, indexq) => {
                 form.append('quiz.questions[' + indexq + '].contentText', q.contentText.toString());
                 form.append('quiz.questions[' + indexq + '].questionType', q.questionType.toString());
-                form.append('quiz.questions[' + indexq + '].questionNumber', q.questionNumber.toString());
+                form.append('quiz.questions[' + indexq + '].id', q.id);
                 form.append('quiz.questions[' + indexq + '].image', q.image || '');
                 if(q.answers !== null) q.answers?.forEach((a, index) => form.append('quiz.questions[' + indexq + '].answers['+ index + ']', a));             
-                form.append('quiz.questions[' + indexq + '].correctAnswer', q.correctAnswer || '');
+                form.append('quiz.questions[' + indexq + '].correctAnswer', q.correctAnswer?.toString() || '');
             });
 
-            runInAction(() => this.loading = true);
-            let newId = await agents.Quiz.createQuiz(form);
-            quiz.id = newId.data.quizId;
-            runInAction(() => this.allQuizzes.push(quiz));
+            await agents.Quiz.createQuiz(form);
+            await this.getAll();
         } catch (error) {
             throw new Error();
         } finally {
@@ -72,10 +71,24 @@ export default class QuizStore {
         }
     };
 
-    updateQuiz = async (quiz: UpdateQuizRequest) => {
+    updateQuiz = async (id: string, data: UpdateQuizRequest) => {
         try {
             runInAction(() => this.loading = true);
-            await agents.Quiz.updateQuiz(quiz);
+            let form = new FormData();
+            form.append('replacePreviousVersion', data.replacePrevoiusVersion ? "true" : "false");
+            form.append('quiz.title', data.quiz.title);
+            data.quiz.questions.forEach((q, indexq) => {
+                form.append('quiz.questions[' + indexq + '].contentText', q.contentText.toString());
+                form.append('quiz.questions[' + indexq + '].questionType', q.questionType.toString());
+                form.append('quiz.questions[' + indexq + '].id', q.id);
+                form.append('quiz.questions[' + indexq + '].image', q.image || '');
+                form.append('quiz.questions[' + indexq + '].contentImageUrl', q.contentImageUrl || '');
+                if(q.answers !== null) q.answers?.forEach((a, index) => form.append('quiz.questions[' + indexq + '].answers['+ index + ']', a));             
+                form.append('quiz.questions[' + indexq + '].correctAnswer', q.correctAnswer?.toString() || '');
+            });
+
+            await agents.Quiz.updateQuiz(id, form);
+            await this.getAll();
         } catch (error) {
             throw new Error();
         } finally {

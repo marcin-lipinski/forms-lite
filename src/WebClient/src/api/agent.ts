@@ -96,7 +96,7 @@ const Quiz = {
     getOne:     (id: string)              => requests.get<GetUserQuizResponse>(`api/quiz/get/${id}`),
     deleteQuiz: (id: string)              => requests.del(`api/quiz/delete/${id}`),
     createQuiz: (quiz: FormData) => axios.post<CreateQuizResponse>("api/quiz/create", quiz, {headers: {'Content-Type': 'multipart/form-data'}}),
-    updateQuiz: (quiz: UpdateQuizRequest) => axios.post<UpdateQuizResponse>("api/quiz/update", quiz, {headers: {'Content-Type': 'multipart/form-data'}})
+    updateQuiz: (id:string, quiz: FormData) => axios.post<UpdateQuizResponse>(`api/quiz/update/${id}`, quiz, {headers: {'Content-Type': 'multipart/form-data'}})
 };
 
 const Session = {

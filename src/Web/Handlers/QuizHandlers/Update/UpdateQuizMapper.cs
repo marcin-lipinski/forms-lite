@@ -1,7 +1,5 @@
 using Core.Entities.Question;
 using Core.Entities.Quiz;
-using FastEndpoints;
-using Services.Interfaces;
 
 namespace Web.Handlers.QuizHandlers.Update;
 
@@ -11,16 +9,19 @@ public static class UpdateQuizMapper
     {
         return new Quiz
         {
-            Id = request.QuizId,
-            Questions = request.Quiz.Questions.Select(question => question.QuestionType == QuestionType.Closed 
+            Questions = request.Quiz.Questions.Select(question => question.QuestionType == QuestionType.Open 
                 ? new Question
                 {
-                    QuestionType = QuestionType.Closed
+                    Id = question.Id,
+                    ContentText = question.ContentText,
+                    QuestionType = QuestionType.Open
                 }
                 : new Question
                 {
-                    QuestionType = QuestionType.Open,
-                    Answers = question.Answers,
+                    Id = question.Id,
+                    ContentText = question.ContentText,
+                    QuestionType = QuestionType.Closed,
+                    Answers = question.Answers != null ? question.Answers.ToList() : new List<string>(),
                     CorrectAnswer = question.CorrectAnswer
                 }).ToList()
         };

@@ -37,6 +37,6 @@ export interface PartakeSessionFinishRequest {
 }
 
 export interface SessionPartakeAnswer {
-    questionNumber: number;
+    id: string;
     questionAnswer: string;
 }
