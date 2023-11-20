@@ -55,9 +55,10 @@ nav {
     .menu-elem {
         width: calc(100%/3);
         font-size: 1.3rem;
-        aspect-ratio: 1/0.5;    
-        padding: 2px 0 2px;   
+        aspect-ratio: 1/0.5;
+        padding: 0;
         border-radius: 15px 15px 0 0 ; 
+        height: 100px;
     }
 }
 

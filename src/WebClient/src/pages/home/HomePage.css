@@ -25,6 +25,15 @@ main .cover {
     }
     main {
         width: 100%;
+        height: calc(100% - 115px);
+        padding: 10px 0 0 10px;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        overflow-y: scroll;
+    }
+    main .cover {
+        margin: 10px 0;
+        width: calc(100% - 60px);
     }
 }
 

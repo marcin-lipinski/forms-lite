@@ -39,3 +39,7 @@ body {
 .orange-button:hover {
     background-color: rgba(255, 120, 90, 1) !important;
 }
+
+* {
+    box-sizing: border-box;
+}

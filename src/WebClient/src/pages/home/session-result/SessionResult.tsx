@@ -1,6 +1,11 @@
+import { Session } from "../../../models/session";
 import { useStore } from "../../../stores/store";
 
-export default function SessionResult() {
+interface Props {
+    session: Session
+}
+
+export default function SessionResult({session}: Props) {
     const {modalStore} = useStore();
     const handleCloseButtonClick = () => modalStore.closeModal();
 

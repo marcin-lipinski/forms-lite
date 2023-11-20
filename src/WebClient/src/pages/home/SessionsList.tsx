@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useStore } from "../../stores/store";
 import { observer } from "mobx-react-lite";
-import './QuizzesList.css';
 import { Session } from "../../models/session";
 import SessionFinishModal from "./session-finish/SessionFinishModal";
 import SessionDeleteModal from "./session-delete/SessionDeleteModal";
+import SessionResult from "./session-result/SessionResult";
+import './QuizzesList.css';
 
 export default observer(function SessionsList() {
     const {sessionStore, modalStore} = useStore();
@@ -21,8 +22,8 @@ export default observer(function SessionsList() {
         sessionStore.getAll().catch(() => {});
     }, []);
 
-    const handleSeeButtonClick = (id: string) => {
-
+    const handleSeeButtonClick = (session: Session) => {
+        modalStore.openModal(<SessionResult session={session}/>)
     }
 
     const handleFinishButtonClick = (id: string) => {
@@ -45,7 +46,7 @@ export default observer(function SessionsList() {
                         )}                        
                     </div>
                     <div className="button-group">
-                        <button className="white-button" style={{cursor: !session.isActive ? "pointer" : "auto"}} disabled={session.isActive} onClick={() => handleSeeButtonClick(session.id)}>See</button>
+                        <button className="white-button" style={{cursor: !session.isActive ? "pointer" : "auto"}} disabled={session.isActive} onClick={() => handleSeeButtonClick(session)}>See</button>
                         <button className="white-button" style={{cursor: session.isActive ? "pointer" : "auto"}} disabled={!session.isActive} onClick={() => handleFinishButtonClick(session.id)}>Finish</button>
                         <button className="orange-button" onClick={() => handleDeleteButtonClick(session.id)}>Delete</button>
                     </div>
