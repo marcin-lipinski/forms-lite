@@ -32,8 +32,8 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
         var session = new Session
         {
             Id = sessionId,
-            StartTime = DateTime.Parse(request.StartTime),
-            FinishTime = DateTime.Parse(request.FinishTime),
+            StartTime = DateTime.ParseExact(request.StartTime, "dd-MM-yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture),
+            FinishTime = DateTime.ParseExact(request.FinishTime, "dd-MM-yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture),
             QuizId = request.QuizId,
             PartakeUrl = "/partake/" + sessionId,
             SessionAnswers = new List<SessionPartake>()

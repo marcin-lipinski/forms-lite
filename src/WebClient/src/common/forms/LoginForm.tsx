@@ -27,8 +27,8 @@ export default observer(function LoginForm() {
     return (
         <>
             <div className='form'>
-                <input name='username' placeholder="Username" onChange={inputChangeHandler} value={loginData.username}></input>
-                <input name='password' placeholder="Password" onChange={inputChangeHandler} value={loginData.password} type="password"></input>
+                <input name='username' placeholder="Username" onChange={inputChangeHandler} value={loginData.username}/>
+                <input name='password' placeholder="Password" onChange={inputChangeHandler} value={loginData.password} type="password"/>
                 <button type='submit' onClick={(submitFormHandler)}>Login</button>
             </div>
         </>
