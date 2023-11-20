@@ -30,11 +30,12 @@
 }
 
 #session-url {
-    width: 100%;
+    width: 90%;
     height: fit-content;
     word-wrap: break-word;
     text-align: center;
     font-size: 1.2rem;
+    margin: 10px;
 }
 
 @media only screen and (max-width: 600px) {

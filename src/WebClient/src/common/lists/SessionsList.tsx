@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useStore } from "../../stores/store";
 import { observer } from "mobx-react-lite";
 import { Session } from "../../models/session";
-import SessionFinishModal from "./session-finish/SessionFinishModal";
-import SessionDeleteModal from "./session-delete/SessionDeleteModal";
-import SessionResult from "./session-result/SessionResult";
+import SessionFinishModal from "../../pages/modals/session-finish-modal/SessionFinishModal";
+import SessionDeleteModal from "../../pages/modals/session-delete-modal/SessionDeleteModal";
+import SessionResult from "../../pages/modals/session-result-modal/SessionResult";
 import './QuizzesList.css';
 
 export default observer(function SessionsList() {

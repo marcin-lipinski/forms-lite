@@ -18,7 +18,6 @@
 
 .question-answers.closed > * {
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
 }
 
 .question-answers.closed .selected {
@@ -57,15 +56,6 @@
     font-size: 1.3rem;
 }
 
-.question-answers{
-    width: 100%;
-}
-
-.question-answers textarea {
-    width: calc(100% - 20px);
-    padding: 10px;
-}
-
 .session-result {
     font-size: 3rem;
     display: flex;
@@ -93,4 +83,14 @@
 .session-result a:hover {
     color: rgb(53, 250, 184);
     text-decoration: underline;
+}
+
+@media only screen and (max-width: 600px) {
+    #session-quiz {
+        width: 95%;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+
 }

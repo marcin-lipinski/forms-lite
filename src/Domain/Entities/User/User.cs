@@ -11,5 +11,4 @@ public class User : IMongoEntity
 
     public string Username { get; set; } = null!;
     public string PasswordHashed { get; set; } = null!;
-    public string Email { get; set; } = null!;
 }

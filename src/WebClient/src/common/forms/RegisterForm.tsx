@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { useStore } from "../../../stores/store";
+import { useStore } from "../../stores/store";
 import { useNavigate } from "react-router-dom";
-import { UserRegisterRequest } from "../../../models/user";
-import Laoder from "../../../common/loader/Loader";
+import { UserRegisterRequest } from "../../models/user";
+import Laoder from "../loader/Loader";
 import { observer } from "mobx-react-lite";
 import './LoginForm.css';
 

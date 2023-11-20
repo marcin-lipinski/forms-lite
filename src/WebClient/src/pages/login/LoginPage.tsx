@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import LoginForm from './forms/LoginForm';
-import RegisterForm from './forms/RegisterForm';
+import LoginForm from '../../common/forms/LoginForm';
+import RegisterForm from '../../common/forms/RegisterForm';
 import './LoginPage.css';
 
 export default function LoginPage() {

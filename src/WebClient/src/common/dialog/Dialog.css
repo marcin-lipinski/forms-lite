@@ -27,13 +27,10 @@
 
 .dialog header button {
     background-color: transparent;
-    outline: none;
-    border: none;
     color: white;
     font-size: 1.2rem;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
 }
 
 .dialog header button:hover{

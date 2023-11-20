@@ -55,6 +55,7 @@
 
 .cover.add {
     background-color: rgba(255, 255, 255, 0.5);
+    height: 150px;
     color: transparent;
     position: relative;
     transition: all 0.2s ease-in-out;

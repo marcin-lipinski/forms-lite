@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Navbar from "./Navbar";
 import { useStore } from "../../stores/store";
 import { useNavigate } from "react-router-dom";
-import QuizzesList from "./QuizzesList";
-import SessionsList from "./SessionsList";
+import QuizzesList from "../../common/lists/QuizzesList";
+import SessionsList from "../../common/lists/SessionsList";
+import Navbar from "../../common/navbar/Navbar";
 import './HomePage.css';
 
 export default function HomePage() {

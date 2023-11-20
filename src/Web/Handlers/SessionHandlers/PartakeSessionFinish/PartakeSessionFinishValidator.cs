@@ -7,7 +7,7 @@ public class PartakeSessionFinishValidator : Validator<PartakeSessionFinishReque
 {
     public PartakeSessionFinishValidator()
     {
-        RuleFor(request => request.Participant)
+        RuleFor(request => request.ParticipantName)
             .NotNull().WithMessage("Participant name not provided")
             .NotEmpty().WithMessage("Participant name not provided")
             .MinimumLength(6).WithMessage("Participant name is too short. Minimum size is 6.")

@@ -5,7 +5,7 @@ import { Question, QuestionType, Quiz, UpdateQuizRequest } from "../../../models
 import Laoder from "../../../common/loader/Loader";
 import PhotoWidgetDropzone from "../../../common/imageUpload/PhotoWidgetDropzone";
 import './QuizModal.css';
-import QuestionAnswers from "../QuestionAnswers";
+import QuestionAnswers from "../../../common/question-answers/QuestionAnswers";
 import { Guid } from "js-guid";
 
 interface Props {
@@ -155,7 +155,7 @@ export default observer(function QuizModal({quiz, mode}: Props) {
                                 keyDownOnEditableHandler={handlerEditableKeyDown}
                             />
                             {modeState !== 'view'
-                                ? <button className="question-delete-button" onClick={() => handleDeleteQuestionButton(index)}>🗑</button>
+                                ? <button className="question-delete-button orange-button" onClick={() => handleDeleteQuestionButton(index)}>🗑</button>
                                 : <></>
                             }                                                 
                         </div>    
@@ -170,7 +170,7 @@ export default observer(function QuizModal({quiz, mode}: Props) {
                 </div>
                 <div id="quiz-edit-buttons">
                     {modeState === 'view'
-                        ? <button onClick={handleEditButtonClick}>Edit</button>
+                        ? <button className="green-button" onClick={handleEditButtonClick}>Edit</button>
                         : <>
                             {modeState === 'edit'
                                 ? <div id="prev-version">
@@ -179,8 +179,8 @@ export default observer(function QuizModal({quiz, mode}: Props) {
                                 </div>
                                 : <></>
                             }
-                            <button onClick={handleCancelEditButtonClick}>Cancel</button>
-                            <button onClick={handleSaveButtonClick}>Save</button>
+                            <button className="white-button" onClick={handleCancelEditButtonClick}>Cancel</button>
+                            <button className="green-button" onClick={handleSaveButtonClick}>Save</button>
                           </>
                     }
                 </div>

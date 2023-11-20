@@ -58,31 +58,3 @@ table tbody tr td {
     border: 1px solid black;
     padding: 10px;
 }
-  
-/* @media screen and (max-width: 23.5em) {
-
-    table { 
-        display: block;
-    > *,tr,td,th              { display:block }
-    
-    thead                     { display:none }
-    tbody tr                  { height:auto; padding:8px 0;
-    td                      { padding-left:45%; margin-bottom:12px;
-        &:last-child          { margin-bottom:0 }
-        &:before              { 
-        position:absolute;
-        font-weight:700;
-        width:40%;
-        left:10px;
-        top:0
-        }
-        
-        &:nth-child(1):before { content:"Code";}
-        &:nth-child(2):before { content:"Stock";}
-        &:nth-child(3):before { content:"Cap";}
-        &:nth-child(4):before { content:"Inch";}
-        &:nth-child(5):before { content:"Box Type";}
-    }        
-    }
-}
-}  	 */

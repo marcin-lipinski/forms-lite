@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useStore } from '../../../stores/store';
-import { UserLoginRequest } from '../../../models/user';
-import Laoder from '../../../common/loader/Loader';
+import { useStore } from '../../stores/store';
+import { UserLoginRequest } from '../../models/user';
+import Laoder from '../loader/Loader';
 import { observer } from 'mobx-react-lite';
 import './LoginForm.css';
 

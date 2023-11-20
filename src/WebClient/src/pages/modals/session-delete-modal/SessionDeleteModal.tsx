@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../stores/store";
-import './../quiz-delete/QuizDeleteModal.css';
+import '../quiz-delete-modal/QuizDeleteModal.css';
 
 interface Props {
     sessionId: string

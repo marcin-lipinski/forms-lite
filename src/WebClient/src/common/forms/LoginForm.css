@@ -9,10 +9,8 @@
 
 .form * {
     width: 80%;
-    outline: none;
     background-color: transparent;
     border: solid white 1px;
-    border-radius: 15px;
     height: 20%;
 }
 
@@ -24,8 +22,6 @@ input {
 
 .form button {
     background-color: aliceblue;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
 }
 
 .form button:hover {

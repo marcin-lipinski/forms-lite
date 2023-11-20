@@ -1,7 +1,7 @@
 import { Session } from "../../../models/session";
 import { useStore } from "../../../stores/store";
 import "./SessionResult.css";
-import "../quiz-view/QuizModal.css";
+import "../quiz-view-modal/QuizModal.css";
 
 interface Props {
     session: Session

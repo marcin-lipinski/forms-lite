@@ -32,6 +32,11 @@ body {
     cursor: pointer;
 }
 
+.green-button {
+    background-color: rgb(22, 223, 99) !important;
+    cursor: pointer;
+}
+
 .white-button:hover {
     background-color: rgb(216, 216, 216) !important;
 }
@@ -40,6 +45,23 @@ body {
     background-color: rgba(255, 120, 90, 1) !important;
 }
 
+.green-button:hover {
+    background-color: rgb(0, 167, 0) !important;
+}
+
+button {
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+input, textarea, button {
+    outline: none;
+    border: none;
+    text-align: center;
+    height: fit-content;
+}
+
 * {
     box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
 }

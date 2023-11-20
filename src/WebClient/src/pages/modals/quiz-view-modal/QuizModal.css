@@ -1,101 +1,25 @@
-.modal-window {
-    width: 50%;
-    height: 90%;
-    background-color: #0d0f1b;
-    border-radius: 20px;
-    border: white solid 2px;
-    max-height: 90%;
-}
-
-.modal-window header {
-    background-color: #06070E;
-    border-radius: 20px 20px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px 5px 10px;
-    height: 30px;
-    color: white;
-}
-
-.modal-window header button {
-    background-color: transparent;
-    outline: none;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.1s ease-in-out;
-}
-
-.modal-window header button:hover{
-    text-shadow: 0px 0px 15px white;
-}
-
-.modal-window .modal-body{
-    padding: 5px 10px 5px 10px;
-    height: calc(100% - 50px);
-}
-
 .modal-window .modal-body #quiz-display {
-    height: calc(95% - 20px);
-    max-height: calc(95% - 20px);
-    width: 100%;
+    height: 92%;
+    width: 90%;
     overflow-y: visible;
     overflow-x: hidden;
-}
-
-.modal-window .modal-body #quiz-edit-buttons{
-    width: 100%;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: calc(5% + 10px);
-    padding: 5px 0px 5px 0px;
-}
-
-.modal-window .modal-body #quiz-edit-buttons button{
-    width: 25%;
-    height: 100%;
-    margin-right: 10px;
-    border-radius: 10px;
-    border: 1px solid black;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    font-size: 1.2rem;
-}
-
-.modal-window .modal-body #quiz-edit-buttons > :last-child{
-    background-color: rgb(22, 223, 99);
-}
-
-.modal-window .modal-body #quiz-edit-buttons :only-child{
-    background-color: rgb(228, 200, 44);
-}
-
-.modal-window .modal-body #quiz-edit-buttons button.disabled{
-    color: rgba(0, 0, 0, 0.6);
-    background-color: azure;
-    cursor: auto;
-}
-
-#quiz-display {
-    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    flex-direction: column;
+}
+
+#quiz-display > *{
+    width: 100%;
 }
 
 #quiz-display p{
+    height: fit-content;
     background-color: white;
     border-radius: 20px;
     color: black !important;
     font-size: 1.2rem;
     margin-bottom: 30px;
-    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -103,8 +27,27 @@
     padding: 10px;
 }
 
-#quiz-display > *{
-    width: 85%;
+.modal-window .modal-body #quiz-edit-buttons{
+    height: 8%;
+    width: 90%;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.modal-window .modal-body #quiz-edit-buttons button{
+    height: 100%;
+    width: 25%;
+    margin-left: 10px;
+    border: 1px solid black;
+    font-size: 1.2rem;
+}
+
+.modal-window .modal-body #quiz-edit-buttons button.disabled{
+    color: rgba(0, 0, 0, 0.6);
+    background-color: azure;
+    cursor: auto;
 }
 
 #open-answer {
@@ -134,23 +77,11 @@
     aspect-ratio: 1/1;
     left: 5px;
     top: 10px;
-    border-radius: 20px;
-    outline: none;
-    border: none;
-    cursor: pointer;
     font-size: 2rem;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.1s ease-in-out;
-}
-
-.question-delete-button:hover {
-    background-color: rgb(240, 93, 40);
-    color: rgb(255, 255, 255);
-    font-weight: 400;
-    transform: scale(1.05);
 }
 
 .question-content {
@@ -164,13 +95,6 @@
     align-items: center;
     justify-content: flex-start;
     padding: 10px;
-}
-
-.question-content div.editable {
-    overflow: hidden;
-    width: 100%;
-    min-height: 50px;
-    margin-bottom: 15px;
 }
 
 .question-image-contaner {
@@ -187,23 +111,13 @@
     top: calc(50%-20px);
     height: 40px;
     aspect-ratio: 1/1;
-    border-radius: 20px;
     position: absolute;
-    outline: none;
-    border: none;
     cursor: pointer;
     font-size: 1.5rem;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.1s ease-in-out;
-}
-
-.question-image-contaner button:hover {
-    background-color: rgb(240, 93, 40);
-    font-weight: 400;
-    transform: scale(1.05);
 }
 
 .question-image-contaner img {
@@ -212,7 +126,7 @@
 }
 
 .question-answers {
-    width: calc(100% + 20px);
+    width: 100%;
 }
 
 .question-answers.closed {
@@ -324,8 +238,13 @@
 
 @media only screen and (max-width: 600px) {
     .modal-window{
-        width: 95%;
+        width: 95% !important;
     }
+
+    .add-quiz-button button {
+        width: 45% !important;
+        font-size: 4rem !important;
+    };
 }
 
 @media only screen and (min-width: 600px) and (max-width: 992px) {
@@ -334,20 +253,16 @@
 
 .add-quiz-button {
     background-color: rgba(255, 255, 255, 0.4);
-    width: 92% !important;
     height: 100px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     border-radius: 20px;
-    transition: all 0.2s ease-in-out;
 }
 
 .add-quiz-button button {
     border-radius: 100px;
     background-color: rgba(255, 255, 255, 0.7);
-    outline: none;
-    border: none;
     color: white;
     font-size: 5rem;
     height: 75%;
@@ -356,22 +271,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease-in-out;
-    cursor: pointer;
+}
+
+.add-quiz-button button:hover {
+    background-color: rgb(235, 169, 46);
+    transform: scale(1.02);
 }
 
 .add-quiz-button button span{
     font-size: 1.2rem;
-}
-
-.add-quiz-button button:hover{
-    background-color: #FF785A;
-    transform: scale(1.05);
-}
-
-.add-quiz-button:hover {
-    background-color: rgba(255, 255, 255, 0.8);
-    transform: scale(1.01);
 }
 
 textarea, input {
@@ -379,9 +287,6 @@ textarea, input {
     height: fit-content;
     color: black !important;
     font-size: 1.2rem;
-    outline: none;
-    border: none;
-    text-align: center;
     border-radius: 15px;
     overflow: hidden;
     resize: none;
@@ -390,14 +295,9 @@ textarea, input {
 .editable {
     background-color: white !important;
     border-radius: 20px;
-    outline: none;
     transition: all 0.1s ease-in-out;
     padding: 5px 10px 5px 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.editable:focus {
-    transform: scale(1.03) !important;
 }

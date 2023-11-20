@@ -1,9 +1,9 @@
 import { useEffect } from "react"
 import { useStore } from "../../stores/store";
 import { observer } from "mobx-react-lite";
-import QuizModal from "./quiz-view/QuizModal";
-import QuizDeleteModal from "./quiz-delete/QuizDeleteModal";
-import NewSessionModal from "./session-new/NewSessionModal";
+import QuizModal from "../../pages/modals/quiz-view-modal/QuizModal";
+import QuizDeleteModal from "../../pages/modals/quiz-delete-modal/QuizDeleteModal";
+import NewSessionModal from "../../pages/modals/session-new-modal/NewSessionModal";
 import { Quiz } from "../../models/quiz";
 
 export default observer(function QuizzesList() {
@@ -56,24 +56,7 @@ export default observer(function QuizzesList() {
             )}
             <div className="cover add" onClick={hadleNewElementClick}>
                 <div id="create"><button>+</button></div>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>s </td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div className="button-group">
-                </div>
+                <div className="button-group"></div>
             </div>
         </>
     )
