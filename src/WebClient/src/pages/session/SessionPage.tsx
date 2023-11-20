@@ -10,7 +10,7 @@ import Laoder from "../../common/loader/Loader";
 export default observer(function SessionPage() {
     const {id} = useParams();
     const {sessionStore} = useStore();
-    const [result, setResult] = useState<PartakeSessionFinishRequest>({participant: "", answers: []});
+    const [result, setResult] = useState<PartakeSessionFinishRequest>({participantName: "", answers: []});
     const [send, setSend] = useState<boolean | undefined>(undefined);
     const navigate = useNavigate();
     const handleGoHomeClick = () => navigate('/');
@@ -26,7 +26,7 @@ export default observer(function SessionPage() {
     }       
 
     const handleParticipantChange = (evnt: React.ChangeEvent<HTMLInputElement>) => {
-        result.participant = evnt.currentTarget.value;
+        result.participantName = evnt.currentTarget.value;
         setResult(Object.assign({}, result));
     }
 
@@ -91,7 +91,7 @@ export default observer(function SessionPage() {
                     </div>    
                 )}
                 <div id="session-send">
-                    <input placeholder="Your name" onChange={handleParticipantChange} value={result.participant}/>
+                    <input placeholder="Your name" onChange={handleParticipantChange} value={result.participantName}/>
                     <button className="orange-button" onClick={handleSendButtonClick}>Send</button>
                 </div>
             </div>

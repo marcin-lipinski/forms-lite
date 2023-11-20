@@ -83,7 +83,7 @@ export default observer(function NewSessionModal({quizId}: Props) {
                 {sessionStore.partakeSessionUrl.length > 0
                     ?   <>
                             <p>Join session url:</p>
-                            <p id="session-url">{sessionStore.partakeSessionUrl}</p>
+                            <div id="session-url">{sessionStore.partakeSessionUrl}</div>
                         </>
                     :   <>
                             <label htmlFor="start-time">Start time</label>

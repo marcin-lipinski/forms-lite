@@ -29,9 +29,17 @@
     color: black !important;
 }
 
+#session-url {
+    width: 100%;
+    height: fit-content;
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
 @media only screen and (max-width: 600px) {
     .modal-window.new-session{
-        width: 90% !important;
+        width: 95% !important;
     }
 }
 

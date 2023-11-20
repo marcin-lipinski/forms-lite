@@ -24,7 +24,8 @@ export interface Session {
     startTime: Date;
     finishTime: Date;
     isActive: boolean;
-    answersAmount: number;
+    answers: PartakeSessionFinishRequest[];
+    questions: SessionQuestion[];
     quizId: string;
 }
 
@@ -33,8 +34,13 @@ export interface PartakeSessionResponse {
 }
 
 export interface PartakeSessionFinishRequest {
-    participant: string;
+    participantName: string;
     answers: SessionPartakeAnswer[];
+}
+
+export interface SessionQuestion {
+    contentText: string;
+    id: string;
 }
 
 export interface SessionPartakeAnswer {

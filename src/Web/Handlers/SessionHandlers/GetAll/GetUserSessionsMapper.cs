@@ -11,7 +11,7 @@ public class GetUserSessionsMapper : ResponseMapper<GetUserSessionsResponse, Lis
         {
             Sessions = sessions.Select(session => new SessionDto
             {
-                AnswersAmount = session.SessionAnswers.Count,
+                Answers = session.SessionAnswers,
                 FinishTime = session.FinishTime.ToString("dd-MM-yyyy hh:mm"),
                 StartTime = session.StartTime.ToString("dd-MM-yyyy hh:mm"),
                 IsActive = !session.IsFinishedByAuthor && DateTime.Now > session.StartTime && DateTime.Now < session.FinishTime

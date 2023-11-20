@@ -25,18 +25,31 @@ main .cover {
     }
     main {
         width: 100%;
-        height: calc(100% - 115px);
-        padding: 10px 0 0 10px;
+        height: calc(100% - 110px);
+        padding: 10px;
         flex-direction: column;
         flex-wrap: nowrap;
+        justify-content: flex-start;
         overflow-y: scroll;
     }
     main .cover {
-        margin: 10px 0;
-        width: calc(100% - 60px);
+        width: calc(100%);
+        margin: 0;
+        margin-bottom: 20px;
     }
 }
 
 @media only screen and (min-width: 600px) and (max-width: 992px) {
+    main {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-y: scroll;
+    }
+    main .cover {
+        width: calc(100%);
+        margin: 0;
+        margin-bottom: 20px;
+    }
 
 }

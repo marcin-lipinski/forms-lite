@@ -14,7 +14,7 @@ export default observer(function SessionsList() {
         {title: "Active", value: session.isActive ? "YES" : "NO"},
         {title: "Planned start time", value: session.startTime.toString()},
         {title: "Planned finish time", value: session.finishTime.toString()},
-        {title: "Answers amount", value: session.answersAmount},
+        {title: "Answers amount", value: session.answers.length},
         {title: "Join url", value: session.joinUrl},
     ]
 

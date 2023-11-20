@@ -23,7 +23,7 @@ public class PartakeSessionFinishEndpoint : Endpoint<PartakeSessionFinishRequest
         var session = await DbContext.Collection<Session>().AsQueryable()
             .SingleOrDefaultAsync(s => s.Id.Equals(request.SessionId), cancellationToken: cancellationToken);
         if (session is null) throw new NotFoundException("Session");
-        if (!session.IsActive()) throw new SessionNotActiveException();
+        if (session.IsFinishedByAuthor && DateTime.Now > session.StartTime.ToLocalTime() && DateTime.Now < session.FinishTime.ToLocalTime()) throw new SessionNotActiveException();
 
         var answers = Map.ToEntity(request);
         session.SessionAnswers.Add(answers);

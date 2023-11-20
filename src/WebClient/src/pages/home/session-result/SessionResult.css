@@ -1,0 +1,88 @@
+.modal-window.session-result {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+}
+
+.modal-window.session-result header {
+    position: relative;
+    background-color: #06070E;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px 5px 10px;
+    height: 30px;
+    width: 100%;
+    color: white;
+    top: 0;
+    left: 0;
+}
+
+.modal-window.session-result .modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.result-table { 
+    width: 90%;
+    height: fit-content;
+    border-spacing: 1; 
+    border-collapse: collapse; 
+    background:white;
+    border-radius:6px;
+    overflow:hidden;
+    max-width:800px; 
+    width:100%;
+    margin:0 auto;
+    position:relative;
+    color: black;
+    font-size: 1.2rem;
+    border-radius: 20px;
+}
+
+table thead tr th {
+    width: fit-content;
+    height: fit-content;
+    background: rgb(245, 231, 153);
+    border: 1px solid black;
+    padding: 10px;
+    font-weight: 100;
+}
+
+table tbody tr td { 
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid black;
+    padding: 10px;
+}
+  
+/* @media screen and (max-width: 23.5em) {
+
+    table { 
+        display: block;
+    > *,tr,td,th              { display:block }
+    
+    thead                     { display:none }
+    tbody tr                  { height:auto; padding:8px 0;
+    td                      { padding-left:45%; margin-bottom:12px;
+        &:last-child          { margin-bottom:0 }
+        &:before              { 
+        position:absolute;
+        font-weight:700;
+        width:40%;
+        left:10px;
+        top:0
+        }
+        
+        &:nth-child(1):before { content:"Code";}
+        &:nth-child(2):before { content:"Stock";}
+        &:nth-child(3):before { content:"Cap";}
+        &:nth-child(4):before { content:"Inch";}
+        &:nth-child(5):before { content:"Box Type";}
+    }        
+    }
+}
+}  	 */

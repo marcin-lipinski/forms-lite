@@ -5,7 +5,6 @@ import { Question, QuestionType, Quiz, UpdateQuizRequest } from "../../../models
 import Laoder from "../../../common/loader/Loader";
 import PhotoWidgetDropzone from "../../../common/imageUpload/PhotoWidgetDropzone";
 import './QuizModal.css';
-import './QuizModalCreate.css';
 import QuestionAnswers from "../QuestionAnswers";
 import { Guid } from "js-guid";
 
