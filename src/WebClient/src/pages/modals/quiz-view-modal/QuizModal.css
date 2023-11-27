@@ -231,7 +231,7 @@
     width: 100%;
 }
 
-.add-quiz-button {
+.add-question-button {
     background-color: rgba(255, 255, 255, 0.4);
     height: 100px;
     display: flex;
@@ -240,7 +240,7 @@
     border-radius: 20px;
 }
 
-.add-quiz-button button {
+.add-question-button button {
     border-radius: 100px;
     background-color: rgba(255, 255, 255, 0.7);
     color: white;
@@ -253,16 +253,16 @@
     justify-content: center;
 }
 
-.add-quiz-button button:hover {
+.add-question-button button:hover {
     background-color: rgb(235, 169, 46);
     transform: scale(1.02);
 }
 
-.add-quiz-button button span{
+.add-question-button button span{
     font-size: 3rem;
 }
 
-.add-quiz-button button :nth-child(2){
+.add-question-button button :nth-child(2){
     font-size: 1.2rem;
 }
 
@@ -291,15 +291,15 @@ textarea, input {
         width: 95% !important;
     }
 
-    .add-quiz-button button {
+    .add-question-button button {
         width: 45% !important;
     };
 
-    .add-quiz-button button span{
+    .add-question-button button span{
         font-size: 2rem;
     }
     
-    .add-quiz-button button :nth-child(2){
+    .add-question-button button :nth-child(2){
         font-size: 1.2rem;
     }
 
@@ -318,11 +318,11 @@ textarea, input {
         width: 90% !important;
     }
 
-    .add-quiz-button button span{
+    .add-question-button button span{
         font-size: 3rem;
     }
     
-    .add-quiz-button button :nth-child(2){
+    .add-question-button button :nth-child(2){
         font-size: 1.2rem;
     }
 

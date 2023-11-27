@@ -34,7 +34,7 @@ export default function Navbar({setMenuState, menuState}: Props) {
             <div id='menu'>
                 {menuOptions.map(option => 
                     <div id={option.id} className={menuState === option.id ? 'menu-elem active' : 'menu-elem'} onClick={handleMenuElemClick} key={option.id}>
-                        <img src={option.imgSrc}/>
+                        <img alt={option.name + " subpage"} src={option.imgSrc}/>
                         <span>{option.name}</span>
                     </div>
                 )}

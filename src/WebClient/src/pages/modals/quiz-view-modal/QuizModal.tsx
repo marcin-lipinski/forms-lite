@@ -149,7 +149,7 @@ export default observer(function QuizModal({quiz, mode}: Props) {
                                     ? <>
                                         {(question.contentImageUrl?.length !== 0 || question.image !== null)
                                             ? <div className="question-image-contaner">
-                                                <img className="question-image" src={question.contentImageUrl}/>
+                                                <img alt="Question" className="question-image" src={question.contentImageUrl}/>
                                             </div>
                                             : <></>
                                         }
@@ -157,7 +157,7 @@ export default observer(function QuizModal({quiz, mode}: Props) {
                                     : <>
                                         {(question.contentImageUrl?.length !== 0 || question.image !== null)
                                             ? <div className="question-image-contaner">
-                                                <img className="question-image" src={question.contentImageUrl}/>
+                                                <img alt="Question"  className="question-image" src={question.contentImageUrl}/>
                                                 <button onClick={() => setQuestionImage(null, index)}>✕</button>
                                               </div>
                                             : <PhotoWidgetDropzone setFiles={setQuestionImage} index={index}/>                                            
@@ -178,7 +178,7 @@ export default observer(function QuizModal({quiz, mode}: Props) {
                         </div>    
                     )}
                     {modeState !== 'view'
-                        ? <div className="add-quiz-button">
+                        ? <div className="add-question-button">
                             <button onClick={handleNewOpenButtonClick}><span>+</span><span>Open question</span></button>
                             <button onClick={handleNewClosedButtonClick}><span>+</span><span>Closed question</span></button>
                           </div>

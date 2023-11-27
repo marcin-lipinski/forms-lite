@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { store } from "../stores/store";
 import { useNavigate } from "react-router-dom";
 import { User, UserLoginRequest, UserRegisterRequest } from "../models/user";
-import { CreateQuizResponse, GetUserQuizResponse, GetUserQuizzesResponse, UpdateQuizRequest, UpdateQuizResponse } from "../models/quiz";
+import { CreateQuizResponse, GetUserQuizResponse, GetUserQuizzesResponse, UpdateQuizResponse } from "../models/quiz";
 import { CreateSessionRequest, CreateSessionResponse, GetUserSessionResponse, GetUserSessionsResponse, PartakeSessionFinishRequest, PartakeSessionResponse } from "../models/session";
 
 //axios.defaults.baseURL = "https://formslite.azurewebsites.net/";
