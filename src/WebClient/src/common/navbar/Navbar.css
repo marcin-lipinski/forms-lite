@@ -54,11 +54,21 @@ nav {
     }
     .menu-elem {
         width: calc(100%/3);
-        font-size: 1.3rem;
-        aspect-ratio: 1/0.5;
         padding: 0;
         border-radius: 15px 15px 0 0 ; 
         height: 100px;
+    }
+
+    .menu-elem span{
+        width: 100%;
+        font-size: 1.2rem;
+        padding: 0;
+        height: 25%;
+        text-align: center;
+    }
+
+    .menu-elem img {
+        max-height: 75%;
     }
 }
 

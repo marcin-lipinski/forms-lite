@@ -40,8 +40,8 @@ export default observer(function QuizzesList() {
             {quizStore.allQuizzes.map((quiz, index) => 
                 <div className="cover" key={quiz.id}>
                     <div className="table">
-                        {tableData(quiz).map(res => 
-                            <div className="table-row">
+                        {tableData(quiz).map((res, index) => 
+                            <div key={index} className="table-row">
                                 <p>{res.title}</p>
                                 <p>{res.value}</p>
                             </div>

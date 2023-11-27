@@ -12,6 +12,10 @@
     padding: 20px 0;
 }
 
+.modal-window.quiz-delete .modal-body span{
+    text-align: center;
+}
+
 #buttons {
     width: 100%;
     display: flex;

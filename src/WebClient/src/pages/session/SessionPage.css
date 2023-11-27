@@ -86,11 +86,17 @@
 }
 
 @media only screen and (max-width: 600px) {
+    .app-page.session {
+        width: 99% !important;
+    }
+    
     #session-quiz {
-        width: 95%;
+        width: 90% !important;
     }
 }
 
 @media only screen and (min-width: 600px) and (max-width: 992px) {
-
+    #session-quiz {
+        width: 75%;
+    }
 }

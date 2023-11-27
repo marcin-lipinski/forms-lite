@@ -46,7 +46,7 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    background-color: #0d0f1b;
+    background-color: #181c31;
 }
 
 .form-container .state-buttons {
@@ -66,17 +66,19 @@
 }
 
 .form-container .state-buttons :first-child {
-    border-top-left-radius: 20px;
+    border-radius: 0 !important;
+    border-top-left-radius: 20px !important;
 }
 
 .form-container .state-buttons :last-child {
-    border-top-right-radius: 20px;
+    border-radius: 0 !important;
+    border-top-right-radius: 20px !important;
 }
 
 .form-container .state-buttons .selected {
     border: none;
     cursor: auto;
-    background-color: #0d0f1b;
+    background-color: #181c31;
 }
 
 .form-container .state-form {

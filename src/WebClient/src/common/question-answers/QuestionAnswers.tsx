@@ -19,7 +19,7 @@ export default function QuestionAnswers({question, modeState, keyDownOnEditableH
     return(
         <div className="question-answers closed">
             {[0, 1, 2, 3].map(answer =>
-                <div className={`closed-answer ${modeState !== 'view' ? "editable" : ""}`}>
+                <div key={answer} className={`closed-answer ${modeState !== 'view' ? "editable" : ""}`}>
                     <textarea maxLength={40} disabled={modeState === 'view'} onChange={(evnt) => keyDownOnEditableHandler(evnt, index, answer.toString())} value={question.answers![answer]}/>
                 </div>
             )}

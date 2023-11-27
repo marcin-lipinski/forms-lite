@@ -16,7 +16,8 @@ export default function PhotoWidgetDropzone({setFiles, index}: Props) {
         alignItems: 'center',
         justifyContent: 'center',
         cursor: 'pointer',
-        color: '#8e8e8e'
+        color: '#8e8e8e',
+        paddingBottom: "10px"
     };
 
     const dropzoneActive = {
@@ -33,7 +34,7 @@ export default function PhotoWidgetDropzone({setFiles, index}: Props) {
         <div {...getRootProps()} style={isDragActive ? {...dropzoneStyles, ...dropzoneActive} : dropzoneStyles}>
             <input {...getInputProps()}/>
             <div>
-                <p style={{color: "black", fontSize: "1.1rem"}}>Drop here or click to add image 📁</p>
+                <p style={{color: "black", fontSize: "1rem", height: "fit-content"}}>Drop here or click to add image 📁</p>
             </div>
         </div>
     )

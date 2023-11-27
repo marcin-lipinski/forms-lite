@@ -3,7 +3,7 @@
     height: 250px;
     width: 25%;
     left: 100%;
-    bottom: 260px;
+    bottom: 250px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
@@ -12,7 +12,7 @@
 }
 
 .dialog.visible {
-    left: calc(75% - 10px);
+    left: calc(75%);
 }
 
 .dialog header {
@@ -21,7 +21,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 10px 5px 30px;
     height: 10%;
 }
 
@@ -67,17 +67,17 @@
     }
 
     .dialog.visible {
-        left: calc(75% - 10px);
+        left: 10%;
     }
 }
 
 @media only screen and (min-width: 600px) and (max-width: 992px) {
     .dialog {
-        width: 40%;
+        width: 500px;
         left: 100%;
     }
 
     .dialog.visible {
-        left: calc(75% - 10px);
+        left: calc(100% - 500px);
     }
 }

@@ -13,7 +13,7 @@
     width: 100%;
 }
 
-#quiz-display p{
+#quiz-display > :first-child {
     height: fit-content;
     background-color: white;
     border-radius: 20px;
@@ -27,7 +27,7 @@
     padding: 10px;
 }
 
-.modal-window .modal-body #quiz-edit-buttons{
+#quiz-edit-buttons{
     height: 8%;
     width: 90%;
     padding-bottom: 10px;
@@ -36,7 +36,7 @@
     align-items: center;
 }
 
-.modal-window .modal-body #quiz-edit-buttons button{
+#quiz-edit-buttons button{
     height: 100%;
     width: 25%;
     margin-left: 10px;
@@ -44,7 +44,7 @@
     font-size: 1.2rem;
 }
 
-.modal-window .modal-body #quiz-edit-buttons button.disabled{
+#quiz-edit-buttons button.disabled{
     color: rgba(0, 0, 0, 0.6);
     background-color: azure;
     cursor: auto;
@@ -71,23 +71,10 @@
     margin: 0 0 80px 0;
 }
 
-.question-delete-button {
-    position: absolute;
-    height: 40px;
-    aspect-ratio: 1/1;
-    left: 5px;
-    top: 10px;
-    font-size: 2rem;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .question-content {
     background-color: white;
     width: 100%;
-    height: 110px;
+    height: 120px;
     border-radius: 20px;
     margin-bottom: 10px;
     display: flex;
@@ -104,20 +91,28 @@
     justify-content: center;
     max-height: fit-content;
     max-width: 90%;
+    margin-bottom: 10px;
 }
 
-.question-image-contaner button {
-    left: -20px;
-    top: calc(50%-20px);
+.question-image-contaner button, .question-delete-button {
+    position: absolute;
+    background-color: white;
+    left: 0px;
+    top: calc(0px);
     height: 40px;
     aspect-ratio: 1/1;
-    position: absolute;
-    cursor: pointer;
     font-size: 1.5rem;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+}
+
+.question-delete-button {
+    border-radius: 20px 0 0 0;
+}
+
+.question-image-contaner button:hover, .question-delete-button:hover {
+    background-color: rgb(247, 67, 67);
+    font-weight: 1000;
+    color: white;
 }
 
 .question-image-contaner img {
@@ -236,21 +231,6 @@
     width: 100%;
 }
 
-@media only screen and (max-width: 600px) {
-    .modal-window{
-        width: 95% !important;
-    }
-
-    .add-quiz-button button {
-        width: 45% !important;
-        font-size: 4rem !important;
-    };
-}
-
-@media only screen and (min-width: 600px) and (max-width: 992px) {
-
-}
-
 .add-quiz-button {
     background-color: rgba(255, 255, 255, 0.4);
     height: 100px;
@@ -279,6 +259,10 @@
 }
 
 .add-quiz-button button span{
+    font-size: 3rem;
+}
+
+.add-quiz-button button :nth-child(2){
     font-size: 1.2rem;
 }
 
@@ -300,4 +284,49 @@ textarea, input {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .modal-window{
+        width: 95% !important;
+    }
+
+    .add-quiz-button button {
+        width: 45% !important;
+    };
+
+    .add-quiz-button button span{
+        font-size: 2rem;
+    }
+    
+    .add-quiz-button button :nth-child(2){
+        font-size: 1.2rem;
+    }
+
+    #quiz-edit-buttons button{
+         width: 33% !important;
+         font-size: 1rem;
+    }
+
+    #prev-version {
+        font-size: 0.8rem;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+    .modal-window{
+        width: 90% !important;
+    }
+
+    .add-quiz-button button span{
+        font-size: 3rem;
+    }
+    
+    .add-quiz-button button :nth-child(2){
+        font-size: 1.2rem;
+    }
+
+    #quiz-edit-buttons button{
+        width: 33% !important;
+   }
 }

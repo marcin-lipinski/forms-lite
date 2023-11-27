@@ -1,5 +1,6 @@
 using Core.Entities.User;
 using Core.Exceptions.Security;
+using Core.Exceptions.User;
 using FastEndpoints;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -22,7 +23,7 @@ public class CurrentUserHandler : Endpoint<EmptyRequest, CurrentUserResponse>
     public override async Task HandleAsync(EmptyRequest req, CancellationToken ct)
     {
         var userId = UserAccessor.GetUserId();
-        if (userId is null) throw new UnauthorizedException();
+        if (string.IsNullOrWhiteSpace(userId)) throw new NoCurrentUserException();
         
         var user = await DbContext
             .Collection<User>().AsQueryable()

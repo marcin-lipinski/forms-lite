@@ -25,6 +25,23 @@ export default observer(function QuizModal({quiz, mode}: Props) {
         if(modeState === 'create') setCurrentQuiz({title: "", questions: []});
     }, []);
 
+    const copyQuiz = (quiz: Quiz) => {
+        quiz.questions.forEach(q => console.log(q.answers))
+        return {
+            id: quiz.id,
+            title: quiz.title,
+            questions: [...quiz.questions.map(q => ({
+                id: q.id,
+                contentImageUrl: q.contentImageUrl,
+                image: q.image,
+                contentText: q.contentText,
+                questionType: q.questionType,
+                answers: q.answers === null ? [] : [...q.answers!],
+                correctAnswer: q.correctAnswer
+            }))]
+        }
+    }
+
     const handleCloseButtonClick = () => modalStore.closeModal();
 
     const handleCancelEditButtonClick = () => {
@@ -37,7 +54,7 @@ export default observer(function QuizModal({quiz, mode}: Props) {
 
     const handleEditButtonClick = () => { 
         setModeState('edit');
-        setCurrentQuiz(Object.assign({}, currentQuiz));
+        setCurrentQuiz(copyQuiz(quiz!));
     }
 
     const handleSaveButtonClick = () => {
@@ -110,7 +127,7 @@ export default observer(function QuizModal({quiz, mode}: Props) {
     }
 
     if(quizStore.loading) return <Laoder/>;
-    
+
     return (
         <div className="modal-window quiz-view">
             <header>
@@ -123,7 +140,7 @@ export default observer(function QuizModal({quiz, mode}: Props) {
                         <input max={40} disabled={modeState === 'view'} placeholder="Title" onChange={(evnt) => handlerEditableKeyDown(evnt, 0, 'title')} value={currentQuiz!.title ?? ""}></input>
                     </p>
                     {currentQuiz!.questions.map((question, index) => 
-                        <div className="question-whole">
+                        <div key={index} className="question-whole">
                             <div className={"question-content"} style={question.image !== null || question.contentImageUrl?.length !== 0 ? {height: "360px"} : {}}>
                                 <div className={modeState !== 'view' ? "editable" : ""}>
                                     <textarea maxLength={40} disabled={modeState === 'view'} placeholder="Question" onChange={(evnt) => handlerEditableKeyDown(evnt, index, 'content')} value={question.contentText}/>
@@ -141,7 +158,7 @@ export default observer(function QuizModal({quiz, mode}: Props) {
                                         {(question.contentImageUrl?.length !== 0 || question.image !== null)
                                             ? <div className="question-image-contaner">
                                                 <img className="question-image" src={question.contentImageUrl}/>
-                                                <button onClick={() => setQuestionImage(null, index)}>🗑</button>
+                                                <button onClick={() => setQuestionImage(null, index)}>✕</button>
                                               </div>
                                             : <PhotoWidgetDropzone setFiles={setQuestionImage} index={index}/>                                            
                                         }
@@ -155,15 +172,15 @@ export default observer(function QuizModal({quiz, mode}: Props) {
                                 keyDownOnEditableHandler={handlerEditableKeyDown}
                             />
                             {modeState !== 'view'
-                                ? <button className="question-delete-button orange-button" onClick={() => handleDeleteQuestionButton(index)}>🗑</button>
+                                ? <button className="question-delete-button" onClick={() => handleDeleteQuestionButton(index)}>✕</button>
                                 : <></>
                             }                                                 
                         </div>    
                     )}
                     {modeState !== 'view'
                         ? <div className="add-quiz-button">
-                            <button onClick={handleNewOpenButtonClick}>+<span>Open question</span></button>
-                            <button onClick={handleNewClosedButtonClick}>+<span>Closed question</span></button>
+                            <button onClick={handleNewOpenButtonClick}><span>+</span><span>Open question</span></button>
+                            <button onClick={handleNewClosedButtonClick}><span>+</span><span>Closed question</span></button>
                           </div>
                         : <></>
                     }

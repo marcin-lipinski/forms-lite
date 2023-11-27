@@ -16,8 +16,8 @@ export default observer(function Dialog(){
             </header>
             <div>
                 <ul>
-                    {message.map(m => 
-                        <li>{m}</li>
+                    {message.map((m, index) => 
+                        <li key={index}>{m}</li>
                     )}
                 </ul>
             </div>
