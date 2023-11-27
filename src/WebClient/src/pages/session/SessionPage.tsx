@@ -2,10 +2,12 @@ import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useStore } from "../../stores/store";
-import { Question, QuestionType } from "../../models/quiz";
+import { QuestionType } from "../../models/quiz";
 import { PartakeSessionFinishRequest } from "../../models/session";
 import "./SessionPage.css";
 import Laoder from "../../common/loader/Loader";
+import Chart from "../../common/chart/Chart";
+import Q from "q";
 
 export default observer(function SessionPage() {
     const {id} = useParams();
@@ -21,7 +23,10 @@ export default observer(function SessionPage() {
     }, [])
 
     const fillResult = () => {
-        sessionStore.partakeQuiz?.questions.forEach(q => result.answers.push({id: q.id, questionAnswer: ""})); 
+        sessionStore.partakeQuiz?.questions.forEach(q => {            
+            if(q.questionType === QuestionType.Closed) result.answers.push({id: q.id, questionAnswer: q.answers![0]});
+            else result.answers.push({id: q.id, questionAnswer: ""});
+        }); 
         setResult(Object.assign({}, result));
     }       
 
@@ -31,11 +36,13 @@ export default observer(function SessionPage() {
     }
 
     const handleSendButtonClick = () => {
-        sessionStore.partakeSessionFinish(id!, result).then(() => setSend(true)).catch(() => {});
+        sessionStore.partakeSessionFinish(id!, result)
+            .then(() => setSend(true))
+            .catch(() => {});
     }
 
-    const handleSelectAnswer = (id: string, answer: number) => {
-        result.answers.find(q => q.id === id)!.questionAnswer = answer.toString();
+    const handleSelectAnswer = (id: string, answer: string) => {
+        result.answers.find(q => q.id === id)!.questionAnswer = answer;
         setResult(Object.assign({}, result));
     }
 
@@ -51,6 +58,10 @@ export default observer(function SessionPage() {
             <div className="app-page session">
                 <div className={send ? "session-result success" : "session-result failed"}>
                     <header>{send ? "✓ Success" : "⚠ Failed"}</header>
+                    {send 
+                        ? <Chart result={sessionStore.partakeResult!}/>
+                        : <></>
+                    }
                     <a onClick={handleGoHomeClick}>Go Home page</a>
                 </div>
             </div>
@@ -81,9 +92,9 @@ export default observer(function SessionPage() {
                                     <textarea maxLength={250} className="open-answer" value={result.answers[index].questionAnswer} placeholder="User answer" onChange={(evnt) => handleTypeAnswer(evnt, question.id)}/>
                                   </div>
                                 : <div className="question-answers closed">
-                                    {[0, 1, 2, 3].map(answer =>
-                                    <div key={answer} className={`closed-answer view ${result.answers[index].questionAnswer === answer.toString() ? "selected" : ""}`} onClick={() => handleSelectAnswer(question.id, answer)}>
-                                        {question.answers![answer]}
+                                    {question.answers!.map(response =>
+                                    <div key={response} className={`closed-answer view ${result.answers[index].questionAnswer === response ? "selected" : ""}`} onClick={() => handleSelectAnswer(question.id, response)}>
+                                        {response}
                                     </div>
                                     )}
                                   </div>

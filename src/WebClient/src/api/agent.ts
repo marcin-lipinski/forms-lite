@@ -3,7 +3,7 @@ import { store } from "../stores/store";
 import { useNavigate } from "react-router-dom";
 import { User, UserLoginRequest, UserRegisterRequest } from "../models/user";
 import { CreateQuizResponse, GetUserQuizResponse, GetUserQuizzesResponse, UpdateQuizResponse } from "../models/quiz";
-import { CreateSessionRequest, CreateSessionResponse, GetUserSessionResponse, GetUserSessionsResponse, PartakeSessionFinishRequest, PartakeSessionResponse } from "../models/session";
+import { CreateSessionRequest, CreateSessionResponse, GetUserSessionResponse, GetUserSessionsResponse, PartakeSessionFinishRequest, PartakeSessionFinishResponse, PartakeSessionResponse } from "../models/session";
 
 //axios.defaults.baseURL = "https://formslite.azurewebsites.net/";
 axios.defaults.baseURL = "https://localhost:7015/";
@@ -106,7 +106,7 @@ const Session = {
     finishSession:        (id: string)    => requests.post(`api/session/finish/${id}`, {}),
     deleteSession:        (id: string)    => requests.del(`api/session/delete/${id}`),
     partakeSession:       (id: string)    => requests.post<PartakeSessionResponse>(`api/session/partake/start/${id}`, {}),
-    partakeSessionFinish: (id: string, answers: PartakeSessionFinishRequest) => requests.post(`api/session/partake/finish/${id}`, answers)
+    partakeSessionFinish: (id: string, answers: PartakeSessionFinishRequest) => requests.post<PartakeSessionFinishResponse>(`api/session/partake/finish/${id}`, answers)
 }
 
 const agents = {

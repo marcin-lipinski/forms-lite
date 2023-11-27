@@ -1,0 +1,92 @@
+.chart {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    color: white;
+    font-size: 2rem !important;
+}
+
+.chart-question {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    width: 70%;
+}
+
+.chart-question-circle {
+    border-radius: 50%;
+    width: calc(30% + 10px);
+    height: 0;
+    padding-top: 30%;
+    float: left;
+    padding-right: 20px;
+    margin-bottom: 15px;
+    border: 10px solid white;
+}
+ 
+.chart-question-keys {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.key {
+    width: 100%;
+    display: flex;
+}
+
+.key-value {
+    margin-right: 20px;
+    border-radius: 30px;
+    text-align: center;
+    width: 100px;
+}
+
+.key-name {
+    width: calc(100% - 100px);
+}
+
+.hex565264 {
+    background: #565264;
+}
+.hex706677 {
+    background: #706677;
+}
+.hexA6808C {
+    background: #A6808C;
+}
+.hexCCB7AE {
+    background: #CCB7AE;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .chart {
+        font-size: 1.2rem !important;
+    }
+    .key-value {
+        width: 70px !important;
+    }
+
+    .chart-question-circle {
+        border-radius: 50%;
+        width: calc(60% + 5px);
+        height: 0;
+        padding-top: 60%;
+        float: left;
+        padding-right: 20px;
+        margin-bottom: 15px;
+        border: 5px solid white;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+
+}

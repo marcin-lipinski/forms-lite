@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import agents from '../api/agent';
-import { CreateSessionRequest, PartakeSessionFinishRequest, Session } from '../models/session';
+import { CreateSessionRequest, PartakeSessionFinishRequest, PartakeSessionFinishResponse, Session } from '../models/session';
 import { Quiz } from '../models/quiz';
 
 export default class SessionStore {
@@ -8,6 +8,7 @@ export default class SessionStore {
     oneSession: Session | null = null;
     partakeSessionUrl: string = "";
     partakeQuiz: Quiz | null = null;
+    partakeResult: PartakeSessionFinishResponse | null = null;
     loading: boolean = false;
 
     constructor() {
@@ -89,8 +90,8 @@ export default class SessionStore {
     partakeSessionFinish = async (id: string, data: PartakeSessionFinishRequest) => {
         try {
             runInAction(() => this.loading = true);
-            console.log(data)
-            await agents.Session.partakeSessionFinish(id, data);
+            let result = await agents.Session.partakeSessionFinish(id, data);
+            runInAction(() => this.partakeResult = result);
         } catch (error) {
             throw new Error();
         } finally {

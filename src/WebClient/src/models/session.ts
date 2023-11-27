@@ -47,3 +47,19 @@ export interface SessionPartakeAnswer {
     id: string;
     questionAnswer: string;
 }
+
+export interface PartakeSessionFinishResponse {
+    quizTitle: string,
+    results: PartakeSessionSingleResult[]
+}
+
+export interface PartakeSessionSingleResult {
+    questionContent: string,
+    answers: PartakeSessionSingleResultSingle[]
+    participantAnswer: string 
+}
+
+export interface PartakeSessionSingleResultSingle {
+    text: string,
+    value: number,
+}
